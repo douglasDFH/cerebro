@@ -1,0 +1,16 @@
+# --- Obsidian: archivos de estado local (no aportan al contenido) ---
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache
+
+# Papelera de Obsidian
+.trash/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporales de Office (archivos ~$ que se crean al abrir Word/Excel)
+~$*
+*.tmp
