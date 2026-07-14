@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "shell": "bash",
+            "command": "cd \"$(git rev-parse --show-toplevel 2>/dev/null)\" 2>/dev/null && git add -A && if ! git diff --cached --quiet; then git commit -m \"auto-sync $(date '+%Y-%m-%d %H:%M')\" >/dev/null 2>&1 && git push >/dev/null 2>&1; fi",
+            "async": true,
+            "statusMessage": "Sincronizando cerebro con GitHub..."
+          }
+        ]
+      }
+    ]
+  }
+}
