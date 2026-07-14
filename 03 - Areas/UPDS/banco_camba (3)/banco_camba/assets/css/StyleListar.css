@@ -1,0 +1,275 @@
+/* Estilos para la tarjeta de clientes */
+.client-card {
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    background-color: #f8fcf8;
+    border: none;
+    overflow: hidden;
+}
+
+/* Encabezado de la tarjeta con estilo del Banco Mercantil */
+.card-header {
+    background-color: #0a6c0a;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid #ffd700;
+}
+
+/* Estilo para el título con línea decorativa */
+.title-with-line {
+    position: relative;
+    margin: 0;
+    font-weight: 600;
+    font-size: 1.4rem;
+    padding-bottom: 5px;
+}
+
+.title-with-line:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 60px;
+    height: 3px;
+    background-color: #ffd700;
+}
+
+/* Botón para nuevo cliente */
+.btn-new-client {
+    background-color: #ffd700;
+    color: #0a6c0a;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-new-client:hover {
+    background-color: #f8c400;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Cuerpo de la tarjeta */
+.card-body {
+    padding: 20px;
+}
+
+/* Mensaje de alerta con estilo del banco */
+.alert-mercantil {
+    background-color: #f2ffe0;
+    border-left: 4px solid #0a6c0a;
+    color: #0a6c0a;
+    padding: 15px;
+    border-radius: 4px;
+}
+
+/* Contenedor de la tabla */
+.table-container {
+    overflow-x: auto;
+    border-radius: 6px;
+    border: 1px solid #e6e6e6;
+}
+
+/* Tabla con estilo personalizado */
+.table-mercantil {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-bottom: 0;
+}
+
+.table-mercantil thead th {
+    background-color: #0a6c0a;
+    color: white;
+    padding: 12px 8px;
+    text-align: center;
+    font-weight: 600;
+    position: relative;
+    border-bottom: 2px solid #ffd700;
+}
+
+.table-mercantil thead th:not(:last-child):after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 25%;
+    height: 50%;
+    width: 1px;
+    background-color: rgba(255, 215, 0, 0.5);
+}
+
+.table-mercantil tbody tr {
+    transition: background-color 0.3s ease;
+    border-bottom: 1px solid #e6ffe6;
+}
+
+.table-mercantil tbody tr:nth-child(odd) {
+    background-color: #f6fff6;
+}
+
+.table-mercantil tbody tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+.table-mercantil tbody tr:hover {
+    background-color: #e8ffe8;
+}
+
+.table-mercantil td {
+    padding: 12px 8px;
+    vertical-align: middle;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+/* Alineación y estilo de celdas */
+.text-center {
+    text-align: center;
+}
+
+/* Celda de acciones */
+.actions-column {
+    width: 140px;
+}
+
+.actions-cell {
+    padding: 8px !important;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+/* Botones de acción */
+.btn-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.btn-view {
+    background-color: #0a6c0a;
+    color: white;
+}
+
+
+.btn-view:hover {
+    background-color: #095809;
+    transform: translateY(-2px);
+}
+
+.btn-edit {
+    background-color: #ffd700;
+    color: #085008;
+}
+
+.btn-edit:hover {
+    background-color: #f8c400;
+    transform: translateY(-2px);
+}
+
+.btn-delete {
+    background-color: #e74c3c;
+    color: white;
+}
+
+
+
+.btn-delete:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+}
+
+/* Animación para las filas */
+.animate-row {
+    opacity: 0;
+    animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Estilo para el botón de imprimir */
+.btn-info {
+    background-color: #17a2b8 !important;
+    color: white !important;
+    border-color: #17a2b8 !important;
+}
+
+.btn-info:hover {
+    background-color: #138496 !important;
+    border-color: #117a8b !important;
+}
+
+/* Asegurarse de que los botones de acción tengan el mismo tamaño */
+.action-buttons .btn-action {
+    margin: 0 2px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+}
+
+
+
+
+
+
+/* Animación retrasada para cada fila */
+.animate-row:nth-child(1) { animation-delay: 0.05s; }
+.animate-row:nth-child(2) { animation-delay: 0.1s; }
+.animate-row:nth-child(3) { animation-delay: 0.15s; }
+.animate-row:nth-child(4) { animation-delay: 0.2s; }
+.animate-row:nth-child(5) { animation-delay: 0.25s; }
+.animate-row:nth-child(6) { animation-delay: 0.3s; }
+.animate-row:nth-child(7) { animation-delay: 0.35s; }
+.animate-row:nth-child(8) { animation-delay: 0.4s; }
+.animate-row:nth-child(9) { animation-delay: 0.45s; }
+.animate-row:nth-child(10) { animation-delay: 0.5s; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

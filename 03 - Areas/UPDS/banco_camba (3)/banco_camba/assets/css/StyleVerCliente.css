@@ -1,0 +1,541 @@
+/* Estilos base para ver cliente */
+.content-wrapper {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fff;
+}
+
+/* Encabezado */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #0a6c0a;
+    padding: 15px 20px;
+    border-bottom: 3px solid #ffd700;
+}
+
+.page-title {
+    color: white;
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin: 0;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.page-title:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 60px;
+    height: 3px;
+    background-color: #ffd700;
+}
+
+/* Modo visualización con ojos */
+.mode-visualizacion {
+    display: flex;
+    align-items: center;
+    background-color: #ffd700;
+    color: #0a6c0a;
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.mode-icon {
+    margin-right: 6px;
+    font-size: 1.1rem;
+}
+
+/* Resumen de cliente */
+.client-summary {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: #f5f9f5;
+    border-bottom: 1px solid #e0e7e0;
+}
+
+.avatar-box {
+    margin-right: 20px;
+}
+
+.client-avatar {
+    width: 60px;
+    height: 60px;
+    background-color: #0a6c0a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2rem;
+    border: 3px solid #ffd700;
+}
+
+.client-info {
+    flex: 1;
+}
+
+.client-name {
+    margin: 0 0 8px 0;
+    color: #0a6c0a;
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+.client-identification {
+    margin: 0;
+    color: #555;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+/* Contenedor de detalles */
+.details-container {
+    padding: 20px;
+    background-color: #fff;
+    border-bottom: 1px solid #e0e7e0;
+}
+
+.details-row {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.details-cell {
+    flex: 1;
+    padding: 0 15px;
+}
+
+.details-cell:first-child {
+    padding-left: 0;
+}
+
+.details-cell:last-child {
+    padding-right: 0;
+}
+
+.detail-label {
+    display: block;
+    font-weight: 600;
+    color: #0a6c0a;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+}
+
+.detail-value {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-left: 4px solid #0a6c0a;
+    padding: 12px 15px;
+    border-radius: 4px;
+    color: #333;
+    font-size: 1.2rem;
+    min-height: 25px;
+}
+
+.highlight-value {
+    font-weight: 600;
+    color: #0a6c0a;
+}
+
+/* Tipo de Cliente y Estado en la misma fila */
+.option-row-container {
+    display: flex;
+    padding: 20px;
+    background-color: #fff;
+    border-bottom: 1px solid #e0e7e0;
+}
+
+.option-section {
+    flex: 1;
+    padding: 0 15px;
+}
+
+.option-section:first-child {
+    padding-left: 0;
+}
+
+.option-section:last-child {
+    padding-right: 0;
+}
+
+.option-label {
+    display: block;
+    font-weight: 600;
+    color: #0a6c0a;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.option-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.option-button {
+    flex: 1;
+    padding: 12px 15px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 1.1rem;
+    color: #555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 120px;
+}
+
+.option-button.selected {
+    background-color: rgba(10, 108, 10, 0.1);
+    border-color: #0a6c0a;
+    font-weight: 600;
+    color: #0a6c0a;
+}
+
+.status-active.selected {
+    background-color: rgba(40, 167, 69, 0.1);
+    border-color: #28a745;
+    color: #28a745;
+}
+
+.status-inactive.selected {
+    background-color: rgba(220, 53, 69, 0.1);
+    border-color: #dc3545;
+    color: #dc3545;
+}
+
+.option-button i {
+    margin-right: 8px;
+}
+
+/* Sección de cuentas */
+.accounts-section {
+    padding: 20px;
+    background-color: #fff;
+    border-bottom: 1px solid #e0e7e0;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.section-title {
+    color: #0a6c0a;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.add-button, 
+.view-all-btn {
+    display: flex;
+    align-items: center;
+    background-color: #0a6c0a;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.add-button i, 
+.view-all-btn i {
+    margin-right: 6px;
+}
+
+.add-button:hover, 
+.view-all-btn:hover {
+    background-color: #095809;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table th {
+    background-color: #f0f7f0;
+    color: #0a6c0a;
+    text-align: left;
+    padding: 12px 15px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    border-bottom: 2px solid #0a6c0a;
+}
+
+.data-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #e9ecef;
+    vertical-align: middle;
+    font-size: 1.1rem;
+}
+
+.data-table tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.data-table tr:hover {
+    background-color: #f0f7f0;
+}
+
+.account-number {
+    font-family: monospace;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.account-balance {
+    color: #0a6c0a;
+}
+
+.status-pill {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.status-pill.active {
+    background-color: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+    border: 1px solid rgba(40, 167, 69, 0.2);
+}
+
+.status-pill.inactive {
+    background-color: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+    border: 1px solid rgba(220, 53, 69, 0.2);
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    border-radius: 4px;
+    text-decoration: none;
+    color: white;
+}
+
+.action-btn.view {
+    background-color: #17a2b8;
+}
+
+.action-btn.edit {
+    background-color: #0a6c0a;
+}
+
+.action-btn.deposit {
+    background-color: #28a745;
+}
+
+.action-btn.withdraw {
+    background-color: #ffc107;
+    color: #333;
+}
+
+/* Sección sin cuentas */
+.no-accounts {
+    padding: 30px;
+    text-align: center;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px dashed #ccc;
+}
+
+.no-accounts p {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.add-account-btn {
+    display: inline-flex;
+    align-items: center;
+    background-color: #28a745;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.add-account-btn i {
+    margin-right: 8px;
+}
+
+/* Sección de transacciones */
+.transactions-section {
+    padding: 20px;
+    background-color: #fff;
+    border-bottom: 1px solid #e0e7e0;
+}
+
+.no-transactions {
+    padding: 30px;
+    text-align: center;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px dashed #ccc;
+}
+
+.no-transactions p {
+    font-size: 1.1rem;
+    color: #666;
+    margin: 0;
+}
+
+.transaction-type {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.transaction-type.withdrawal {
+    background-color: rgba(255, 193, 7, 0.1);
+    color: #fd7e14;
+    border: 1px solid rgba(255, 193, 7, 0.2);
+}
+
+.transaction-type.deposit {
+    background-color: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+    border: 1px solid rgba(40, 167, 69, 0.2);
+}
+
+.transaction-type.transfer-in {
+    background-color: rgba(23, 162, 184, 0.1);
+    color: #17a2b8;
+    border: 1px solid rgba(23, 162, 184, 0.2);
+}
+
+.transaction-type.transfer-out {
+    background-color: rgba(13, 110, 253, 0.1);
+    color: #0d6efd;
+    border: 1px solid rgba(13, 110, 253, 0.2);
+}
+
+.transaction-type.other {
+    background-color: rgba(108, 117, 125, 0.1);
+    color: #6c757d;
+    border: 1px solid rgba(108, 117, 125, 0.2);
+}
+
+.amount-cell {
+    font-weight: 600;
+}
+
+.amount-cell.positive {
+    color: #28a745;
+}
+
+.amount-cell.negative {
+    color: #dc3545;
+}
+
+/* Botones de acción */
+.actions-container {
+    display: flex;
+    gap: 15px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+}
+
+.action-main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 25px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+    min-width: 140px;
+}
+
+.action-main:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.edit-btn {
+    background-color: #0a6c0a;
+    color: white;
+}
+
+.new-account-btn {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.deactivate-btn {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.activate-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.back-btn {
+    background-color: #6c757d;
+    color: white;
+}
+
+/* Media queries para responsividad */
+@media (max-width: 768px) {
+    .details-row, 
+    .option-row-container {
+        flex-direction: column;
+    }
+    
+    .details-cell,
+    .option-section {
+        padding: 0 0 15px 0;
+    }
+    
+    .actions-container {
+        flex-direction: column;
+    }
+    
+    .action-main {
+        width: 100%;
+    }
+}

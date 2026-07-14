@@ -1,0 +1,450 @@
+<div class="ventas-container">
+  <!-- Header Section -->
+  <header class="header-section">
+    <div class="header-top">
+      <h1 class="main-title">Listado de Ventas</h1>
+      
+      <div class="header-actions">
+        <!-- View Toggle Button -->
+        <button (click)="modoTarjeta = !modoTarjeta" class="btn btn-view-toggle">
+          @if (modoTarjeta) {
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <rect x="3" y="3" width="7" height="7"/>
+              <rect x="14" y="3" width="7" height="7"/>
+              <rect x="14" y="14" width="7" height="7"/>
+              <rect x="3" y="14" width="7" height="7"/>
+            </svg>
+            Modo Tabla
+          }
+          @if (!modoTarjeta) {
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+            Modo Tarjetas
+          }
+        </button>
+        
+        <!-- New Sale Button -->
+        <button (click)="mostrarFormulario = !mostrarFormulario" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <line x1="12" y1="5" x2="12" y2="19"/>
+            <line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+          {{ idVentaEditando ? 'Editar venta' : 'Registrar nueva venta' }}
+        </button>
+      </div>
+    </div>
+    
+    <!-- Controls Section -->
+    <div class="controls-section">
+      <!-- Search Bar -->
+      <div class="search-container">
+        <input 
+          type="text" 
+          [(ngModel)]="filtro" 
+          (ngModelChange)="actualizarVista()"
+          placeholder="Buscar por cliente o trabajador..."
+          class="search-input"
+        />
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.35-4.35"></path>
+        </svg>
+      </div>
+      
+      <!-- Filters Group -->
+      <div class="filters-group">
+        <div class="filter-item">
+          <label>Mostrar:</label>
+          <select [(ngModel)]="cantidadPorPagina" (change)="actualizarCantidadPorPagina(cantidadPorPagina)" class="filter-select">
+            <option [value]="5">5</option>
+            <option [value]="10">10</option>
+            <option [value]="20">20</option>
+          </select>
+        </div>
+        
+        <div class="filter-item">
+          <label>Ordenar:</label>
+          <div class="sort-controls">
+            <select [(ngModel)]="campoOrdenamiento" (change)="actualizarVista()" class="filter-select">
+              <option value="idVenta">ID</option>
+              <option value="clienteNombre">Cliente</option>
+              <option value="trabajadorNombre">Trabajador</option>
+              <option value="fecha">Fecha</option>
+              <option value="igv">IGV</option>
+            </select>
+            <button (click)="ordenAscendente = !ordenAscendente; actualizarVista()" class="sort-direction-btn" 
+                    [title]="ordenAscendente ? 'Descendente' : 'Ascendente'">
+              @if (ordenAscendente) {
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="m3 16 4 4 4-4"/>
+                  <path d="M7 20V4"/>
+                </svg>
+              }
+              @if (!ordenAscendente) {
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="m3 8 4-4 4 4"/>
+                  <path d="M7 4v16"/>
+                </svg>
+              }
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Cards Grid -->
+  @if (ventas.length && modoTarjeta) {
+    <div class="cards-container">
+      <div class="cards-grid">
+        @for (venta of ventasFiltradasPaginadas; track venta.idVenta) {
+          <div class="sale-card">
+            <div class="card-header">
+              <div class="card-id">#{{ venta.idVenta }}</div>
+              <div class="card-actions">
+                <button (click)="venta.expanded = !venta.expanded" class="btn btn-details" 
+                        [title]="venta.expanded ? 'Ocultar detalles' : 'Ver detalles'">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M9 11H5a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-5a2 2 0 0 0-2-2Z"/>
+                    <path d="M21 11h-4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-5a2 2 0 0 0-2-2Z"/>
+                    <path d="M7 21V8a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v13"/>
+                  </svg>
+                </button>
+                <button (click)="editarVenta(venta)" class="btn btn-edit" title="Editar">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/>
+                  </svg>
+                </button>
+                <button (click)="eliminarVenta(venta.idVenta)" class="btn btn-delete" title="Eliminar">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <polyline points="3,6 5,6 21,6"/>
+                    <path d="m19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M3 3h18v18H3zM8 8h8v8H8z"/>
+                <path d="M8 2v2M16 2v2M2 8h2M20 8h2"/>
+              </svg>
+            </div>
+
+            <div class="card-content">
+              <div class="card-info-grid">
+                <div class="info-item">
+                  <span class="info-label">Cliente:</span>
+                  <span class="info-value">{{ venta.clienteNombre }}</span>
+                </div>
+                
+                <div class="info-item">
+                  <span class="info-label">Trabajador:</span>
+                  <span class="info-value">{{ venta.trabajadorNombre }}</span>
+                </div>
+                
+                <div class="info-item">
+                  <span class="info-label">Fecha:</span>
+                  <span class="info-value">{{ venta.fecha | date: 'yyyy-MM-dd' }}</span>
+                </div>
+                
+                <div class="info-item">
+                  <span class="info-label">Comprobante:</span>
+                  <span class="info-value">{{ venta.tipoComprobante }} {{ venta.serie }}-{{ venta.correlativo }}</span>
+                </div>
+                
+                <div class="info-item">
+                  <span class="info-label">IGV:</span>
+                  <span class="info-value">{{ venta.igv }}%</span>
+                </div>
+              </div>
+
+              <!-- Expanded Details -->
+              @if (venta.expanded) {
+                <div class="card-details-expanded">
+                  <h4 class="details-title">Detalles de la Venta</h4>
+                  <div class="details-list">
+                    @for (detalle of venta.detalles; track detalle.idDetalleIngreso) {
+                      <div class="detail-item">
+                        <div class="detail-product">{{ detalle.articuloNombre }}</div>
+                        <div class="detail-info">
+                          <span>Cant: {{ detalle.cantidad }}</span>
+                          <span>Precio: {{ detalle.precioVenta | currency }}</span>
+                          <span>Desc: {{ detalle.descuento }}%</span>
+                        </div>
+                      </div>
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- Table View -->
+  @if (ventas.length && !modoTarjeta) {
+    <div class="table-container">
+      <div class="table-scroll">
+        <table class="sales-table">
+          <thead>
+            <tr>
+              <th (click)="cambiarOrden('idVenta')" class="sortable">ID</th>
+              <th (click)="cambiarOrden('clienteNombre')" class="sortable">Cliente</th>
+              <th (click)="cambiarOrden('trabajadorNombre')" class="sortable">Trabajador</th>
+              <th (click)="cambiarOrden('fecha')" class="sortable">Fecha</th>
+              <th>Comprobante</th>
+              <th (click)="cambiarOrden('igv')" class="sortable">IGV</th>
+              <th>Detalles</th>
+              <th class="actions-column">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (venta of ventasFiltradasPaginadas; track venta.idVenta) {
+              <tr class="table-row">
+                <td class="id-cell">{{ venta.idVenta }}</td>
+                <td class="client-cell">{{ venta.clienteNombre }}</td>
+                <td class="worker-cell">{{ venta.trabajadorNombre }}</td>
+                <td class="date-cell">{{ venta.fecha | date: 'yyyy-MM-dd' }}</td>
+                <td class="voucher-cell">{{ venta.tipoComprobante }} {{ venta.serie }}-{{ venta.correlativo }}</td>
+                <td class="igv-cell">{{ venta.igv }}%</td>
+                <td class="details-cell">
+                  <button (click)="venta.expanded = !venta.expanded" class="btn btn-details">
+                    {{ venta.expanded ? 'Ocultar detalles' : 'Ver detalles' }}
+                  </button>
+                </td>
+                <td class="actions-cell">
+                  <button (click)="editarVenta(venta)" class="btn btn-edit">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/>
+                    </svg>
+                  </button>
+                  <button (click)="eliminarVenta(venta.idVenta)" class="btn btn-delete">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <polyline points="3,6 5,6 21,6"/>
+                      <path d="m19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2"/>
+                    </svg>
+                  </button>
+                </td>
+              </tr>
+              @if (venta.expanded) {
+                <tr class="details-expanded-row">
+                  <td colspan="8">
+                    <div class="details-table-container">
+                      <table class="details-table">
+                        <thead>
+                          <tr>
+                            <th>Artículo</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                            <th>Descuento</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @for (detalle of venta.detalles; track detalle.idDetalleIngreso) {
+                            <tr>
+                              <td>{{ detalle.articuloNombre }}</td>
+                              <td>{{ detalle.cantidad }}</td>
+                              <td>{{ detalle.precioVenta | currency }}</td>
+                              <td>{{ detalle.descuento }}%</td>
+                            </tr>
+                          }
+                        </tbody>
+                      </table>
+                    </div>
+                  </td>
+                </tr>
+              }
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  }
+
+  <!-- Empty State -->
+  @if (!ventas.length) {
+    <div class="empty-state">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="12"/>
+        <line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      <h3>No hay ventas</h3>
+      <p>Comienza registrando tu primera venta</p>
+    </div>
+  }
+
+  <!-- Pagination -->
+  @if (ventas.length) {
+    <div class="pagination-container">
+      <button 
+        (click)="cambiarPagina(paginaActual - 1)" 
+        [disabled]="paginaActual === 1"
+        class="btn btn-pagination"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <polyline points="15,18 9,12 15,6"/>
+        </svg>
+        Anterior
+      </button>
+      
+      <div class="pagination-info">
+        <span class="page-numbers">Página {{ paginaActual }}</span>
+        <span class="results-count">({{ ventasFiltradasPaginadas.length }} resultados)</span>
+      </div>
+      
+      <button 
+        (click)="cambiarPagina(paginaActual + 1)" 
+        [disabled]="ventas.length <= paginaActual * cantidadPorPagina"
+        class="btn btn-pagination"
+      >
+        Siguiente
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <polyline points="9,18 15,12 9,6"/>
+        </svg>
+      </button>
+    </div>
+  }
+
+  <!-- Modal Overlay for Form -->
+  @if (mostrarFormulario) {
+    <div class="modal-overlay" (click)="cancelarEdicion()">
+      <div class="modal-container" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h2>Formulario de Venta</h2>
+          <button (click)="cancelarEdicion()" class="btn btn-close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="modal-content">
+          <form [formGroup]="form" (ngSubmit)="submit()" class="sale-form">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="cliente">Cliente *</label>
+                <select formControlName="idCliente" id="cliente" class="form-select">
+                  <option [ngValue]="null">Seleccione Cliente</option>
+                  <option *ngFor="let c of clientes" [ngValue]="c.idCliente">
+                    {{ c.nombre }} {{ c.apellidos }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="trabajador">Trabajador *</label>
+                <select formControlName="idTrabajador" id="trabajador" class="form-select">
+                  <option [ngValue]="null">Seleccione Trabajador</option>
+                  <option *ngFor="let t of trabajadores" [ngValue]="t.idTrabajador">
+                    {{ t.nombre }} {{ t.apellidos }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="fecha">Fecha *</label>
+                <input type="date" formControlName="fecha" id="fecha" class="form-input" />
+              </div>
+
+              <div class="form-group">
+                <label for="tipo">Tipo Comprobante *</label>
+                <select formControlName="tipoComprobante" id="tipo" class="form-select">
+                  <option value="Boleta">Boleta</option>
+                  <option value="Factura">Factura</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="serie">Serie *</label>
+                <input type="text" formControlName="serie" id="serie" placeholder="Serie" class="form-input" />
+              </div>
+
+              <div class="form-group">
+                <label for="correlativo">Correlativo *</label>
+                <input type="text" formControlName="correlativo" id="correlativo" placeholder="Correlativo" class="form-input" />
+              </div>
+
+              <div class="form-group">
+                <label for="igv">IGV (%) *</label>
+                <input type="number" formControlName="igv" id="igv" placeholder="IGV" class="form-input" />
+              </div>
+            </div>
+
+            <!-- Details Section -->
+            <div class="details-section">
+              <div class="details-header">
+                <h4>Detalles</h4>
+                <button type="button" (click)="agregarDetalle()" class="btn btn-secondary btn-sm">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <line x1="12" y1="5" x2="12" y2="19"/>
+                    <line x1="5" y1="12" x2="19" y2="12"/>
+                  </svg>
+                  Agregar Detalle
+                </button>
+              </div>
+
+              <div class="details-container">
+                @for (detalle of detalles; track $index; let i = $index) {
+                  <div class="detail-form-row">
+                    <div class="detail-form-group">
+                      <label>Detalle Ingreso</label>
+                      <select [(ngModel)]="detalle.idDetalleIngreso" [name]="'detalle' + i" [ngModelOptions]="{standalone: true}" class="form-select">
+                        <option [ngValue]="undefined" disabled>Seleccione detalle ingreso</option>
+                        <option *ngFor="let di of detallesIngreso" [ngValue]="di.idDetalleIngreso">
+                          {{ di.articuloNombre }} (Stock: {{ di.stockActual }})
+                        </option>
+                      </select>
+                    </div>
+
+                    <div class="detail-form-group">
+                      <label>Cantidad</label>
+                      <input type="number" [(ngModel)]="detalle.cantidad" [name]="'cantidad' + i" [ngModelOptions]="{standalone: true}" class="form-input" />
+                    </div>
+
+                    <div class="detail-form-group">
+                      <label>Precio Venta</label>
+                      <input type="number" [(ngModel)]="detalle.precioVenta" [name]="'precioVenta' + i" [ngModelOptions]="{standalone: true}" class="form-input" />
+                    </div>
+
+                    <div class="detail-form-group">
+                      <label>Descuento</label>
+                      <input type="number" [(ngModel)]="detalle.descuento" [name]="'descuento' + i" [ngModelOptions]="{standalone: true}" class="form-input" />
+                    </div>
+
+                    <div class="detail-form-group detail-form-actions">
+                      <label>&nbsp;</label>
+                      <button type="button" (click)="eliminarDetalle(i)" class="btn btn-delete btn-sm">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <line x1="18" y1="6" x2="6" y2="18"/>
+                          <line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                }
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" (click)="cancelarEdicion()" class="btn btn-secondary">
+                Cancelar
+              </button>
+              <button type="submit" [disabled]="form.invalid || detalles.length === 0" class="btn btn-primary">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <polyline points="20,6 9,17 4,12"/>
+                </svg>
+                {{ idVentaEditando ? 'Guardar Cambios' : 'Registrar Venta' }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  }
+</div>

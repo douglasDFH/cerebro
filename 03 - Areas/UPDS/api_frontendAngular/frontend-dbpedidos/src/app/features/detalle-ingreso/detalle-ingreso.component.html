@@ -1,0 +1,405 @@
+<div class="detalles-container">
+  <!-- Header Section -->
+  <header class="header-section">
+    <div class="header-top">
+      <h1 class="main-title">Gestión de Detalles de Ingreso</h1>
+      
+      <div class="header-actions">
+        <!-- View Toggle Button -->
+        <button (click)="modoTarjeta = !modoTarjeta" class="btn btn-view-toggle">
+          @if (modoTarjeta) {
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <rect x="3" y="3" width="7" height="7"/>
+              <rect x="14" y="3" width="7" height="7"/>
+              <rect x="14" y="14" width="7" height="7"/>
+              <rect x="3" y="14" width="7" height="7"/>
+            </svg>
+            Modo Tabla
+          }
+          @if (!modoTarjeta) {
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+            Modo Tarjetas
+          }
+        </button>
+        
+        <!-- New Detail Button -->
+        <button (click)="mostrarFormulario = !mostrarFormulario" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <line x1="12" y1="5" x2="12" y2="19"/>
+            <line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+          {{ mostrarFormulario ? 'Ocultar formulario' : 'Registrar nuevo detalle' }}
+        </button>
+      </div>
+    </div>
+    
+    <!-- Controls Section -->
+    <div class="controls-section">
+      <!-- Search Bar -->
+      <div class="search-container">
+        <input 
+          type="text" 
+          [(ngModel)]="filtro" 
+          (ngModelChange)="actualizarVista()"
+          placeholder="Buscar..."
+          class="search-input"
+        />
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.35-4.35"></path>
+        </svg>
+      </div>
+      
+      <!-- Filters Group -->
+      <div class="filters-group">
+        <div class="filter-item">
+          <label>Mostrar:</label>
+          <select [(ngModel)]="cantidadPorPagina" (change)="actualizarVista()" class="filter-select">
+            <option [value]="5">5</option>
+            <option [value]="10">10</option>
+            <option [value]="20">20</option>
+          </select>
+        </div>
+        
+        <div class="filter-item">
+          <label>Ordenar:</label>
+          <div class="sort-controls">
+            <select [(ngModel)]="campoOrdenamiento" (change)="actualizarVista()" class="filter-select">
+              <option value="idDetalleIngreso">ID</option>
+              <option value="idIngreso">ID Ingreso</option>
+              <option value="articuloNombre">Artículo</option>
+              <option value="precioCompra">Precio Compra</option>
+              <option value="precioVenta">Precio Venta</option>
+              <option value="stockActual">Stock Actual</option>
+              <option value="fechaVencimiento">Vencimiento</option>
+            </select>
+            <button (click)="ascendente = !ascendente; actualizarVista()" class="sort-direction-btn" 
+                    [title]="ascendente ? 'Descendente' : 'Ascendente'">
+              @if (ascendente) {
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="m3 16 4 4 4-4"/>
+                  <path d="M7 20V4"/>
+                </svg>
+              }
+              @if (!ascendente) {
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="m3 8 4-4 4 4"/>
+                  <path d="M7 4v16"/>
+                </svg>
+              }
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Cards Grid -->
+  @if (detalles.length && modoTarjeta) {
+    <div class="cards-container">
+      <div class="cards-grid">
+        @for (detalle of detallesPaginados; track detalle.idDetalleIngreso) {
+          <div class="detail-card">
+            <div class="card-header">
+              <div class="card-id">#{{ detalle.idDetalleIngreso }}</div>
+              <div class="card-actions">
+                <button (click)="editar(detalle)" class="btn btn-edit" title="Editar">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/>
+                  </svg>
+                </button>
+                <button (click)="eliminar(detalle.idDetalleIngreso)" class="btn btn-delete" title="Eliminar">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <polyline points="3,6 5,6 21,6"/>
+                    <path d="m19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M20 7h-9"/>
+                <path d="M14 17H5"/>
+                <circle cx="17" cy="17" r="3"/>
+                <circle cx="7" cy="7" r="3"/>
+              </svg>
+            </div>
+
+            <div class="card-content">
+              <h3 class="card-title">{{ detalle.articuloNombre || 'Sin artículo' }}</h3>
+              
+              <div class="card-badges">
+                <div class="badge ingreso-badge">
+                  Ingreso: {{ detalle.idIngreso }}
+                </div>
+                <div class="badge stock-badge" [class]="detalle.stockActual > 0 ? 'stock-available' : 'stock-empty'">
+                  Stock: {{ detalle.stockActual }}
+                </div>
+              </div>
+
+              <div class="card-info-grid">
+                <div class="info-item">
+                  <span class="info-label">Precio Compra:</span>
+                  <span class="info-value price-buy">{{ detalle.precioCompra | currency }}</span>
+                </div>
+                
+                <div class="info-item">
+                  <span class="info-label">Precio Venta:</span>
+                  <span class="info-value price-sell">{{ detalle.precioVenta | currency }}</span>
+                </div>
+                
+                <div class="info-item">
+                  <span class="info-label">Stock Inicial:</span>
+                  <span class="info-value">{{ detalle.stockInicial }}</span>
+                </div>
+                
+                <div class="info-item">
+                  <span class="info-label">F. Producción:</span>
+                  <span class="info-value">{{ detalle.fechaProduccion | date: 'yyyy-MM-dd' }}</span>
+                </div>
+                
+                <div class="info-item">
+                  <span class="info-label">F. Vencimiento:</span>
+                  <span class="info-value">{{ detalle.fechaVencimiento | date: 'yyyy-MM-dd' }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- Table View -->
+  @if (detalles.length && !modoTarjeta) {
+    <div class="table-container">
+      <div class="table-scroll">
+        <table class="details-table">
+          <thead>
+            <tr>
+              <th (click)="cambiarOrden('idDetalleIngreso')" class="sortable">ID</th>
+              <th (click)="cambiarOrden('idIngreso')" class="sortable">ID Ingreso</th>
+              <th (click)="cambiarOrden('articuloNombre')" class="sortable">Artículo</th>
+              <th (click)="cambiarOrden('precioCompra')" class="sortable">Compra</th>
+              <th (click)="cambiarOrden('precioVenta')" class="sortable">Venta</th>
+              <th (click)="cambiarOrden('stockInicial')" class="sortable">Stock Inicial</th>
+              <th (click)="cambiarOrden('stockActual')" class="sortable">Stock Actual</th>
+              <th (click)="cambiarOrden('fechaProduccion')" class="sortable">Producción</th>
+              <th (click)="cambiarOrden('fechaVencimiento')" class="sortable">Vencimiento</th>
+              <th class="actions-column">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (detalle of detallesPaginados; track detalle.idDetalleIngreso) {
+              <tr class="table-row">
+                <td class="id-cell">{{ detalle.idDetalleIngreso }}</td>
+                <td class="ingreso-cell">{{ detalle.idIngreso }}</td>
+                <td class="article-cell">{{ detalle.articuloNombre || '—' }}</td>
+                <td class="price-buy-cell">{{ detalle.precioCompra | currency }}</td>
+                <td class="price-sell-cell">{{ detalle.precioVenta | currency }}</td>
+                <td class="stock-initial-cell">{{ detalle.stockInicial }}</td>
+                <td class="stock-actual-cell" [class]="detalle.stockActual > 0 ? 'stock-positive' : 'stock-zero'">
+                  {{ detalle.stockActual }}
+                </td>
+                <td class="date-cell">{{ detalle.fechaProduccion | date: 'yyyy-MM-dd' }}</td>
+                <td class="date-cell">{{ detalle.fechaVencimiento | date: 'yyyy-MM-dd' }}</td>
+                <td class="actions-cell">
+                  <button (click)="editar(detalle)" class="btn btn-edit">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/>
+                    </svg>
+                  </button>
+                  <button (click)="eliminar(detalle.idDetalleIngreso)" class="btn btn-delete">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <polyline points="3,6 5,6 21,6"/>
+                      <path d="m19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2"/>
+                    </svg>
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  }
+
+  <!-- Empty State -->
+  @if (!detalles.length) {
+    <div class="empty-state">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="12"/>
+        <line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      <h3>No hay detalles de ingreso</h3>
+      <p>Comienza registrando tu primer detalle de ingreso</p>
+    </div>
+  }
+
+  <!-- Pagination -->
+  @if (detalles.length && paginas.length > 1) {
+    <div class="pagination-container">
+      <button 
+        (click)="cambiarPagina(paginaActual - 1)" 
+        [disabled]="paginaActual === 1"
+        class="btn btn-pagination"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <polyline points="15,18 9,12 15,6"/>
+        </svg>
+        Anterior
+      </button>
+      
+      <div class="pagination-info">
+        <div class="page-numbers">
+          @for (p of paginas; track p) {
+            <button 
+              (click)="cambiarPagina(p)" 
+              class="page-btn"
+              [class.active]="p === paginaActual"
+            >
+              {{ p }}
+            </button>
+          }
+        </div>
+        <span class="results-count">({{ detallesFiltrados.length }} resultados)</span>
+      </div>
+      
+      <button 
+        (click)="cambiarPagina(paginaActual + 1)" 
+        [disabled]="paginaActual === paginas.length"
+        class="btn btn-pagination"
+      >
+        Siguiente
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <polyline points="9,18 15,12 9,6"/>
+        </svg>
+      </button>
+    </div>
+  }
+
+  <!-- Modal Overlay for Form -->
+  @if (mostrarFormulario) {
+    <div class="modal-overlay" (click)="cancelar()">
+      <div class="modal-container" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h2>{{ editandoId ? 'Editar Detalle de Ingreso' : 'Registrar Nuevo Detalle' }}</h2>
+          <button (click)="cancelar()" class="btn btn-close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="modal-content">
+          <form [formGroup]="form" (ngSubmit)="submit()" class="detail-form">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="idIngreso">ID Ingreso *</label>
+                <input 
+                  id="idIngreso"
+                  type="number"
+                  formControlName="idIngreso" 
+                  placeholder="ID del ingreso"
+                  class="form-input"
+                  required
+                />
+              </div>
+
+              <div class="form-group form-group-wide">
+                <label for="idArticulo">Artículo *</label>
+                <select formControlName="idArticulo" id="idArticulo" class="form-select">
+                  <option value="">Seleccione un artículo</option>
+                  <option *ngFor="let a of articulos" [value]="a.idArticulo">{{ a.nombre }}</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="precioCompra">Precio Compra *</label>
+                <input 
+                  id="precioCompra"
+                  type="number"
+                  formControlName="precioCompra" 
+                  placeholder="0.00"
+                  step="0.01"
+                  class="form-input"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="precioVenta">Precio Venta *</label>
+                <input 
+                  id="precioVenta"
+                  type="number"
+                  formControlName="precioVenta" 
+                  placeholder="0.00"
+                  step="0.01"
+                  class="form-input"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="stockInicial">Stock Inicial *</label>
+                <input 
+                  id="stockInicial"
+                  type="number"
+                  formControlName="stockInicial" 
+                  placeholder="0"
+                  class="form-input"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="stockActual">Stock Actual *</label>
+                <input 
+                  id="stockActual"
+                  type="number"
+                  formControlName="stockActual" 
+                  placeholder="0"
+                  class="form-input"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="fechaProduccion">F. Producción *</label>
+                <input 
+                  id="fechaProduccion"
+                  type="date"
+                  formControlName="fechaProduccion" 
+                  class="form-input"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="fechaVencimiento">F. Vencimiento *</label>
+                <input 
+                  id="fechaVencimiento"
+                  type="date"
+                  formControlName="fechaVencimiento" 
+                  class="form-input"
+                />
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" (click)="cancelar()" class="btn btn-secondary">
+                Cancelar
+              </button>
+              <button type="submit" [disabled]="form.invalid" class="btn btn-primary">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <polyline points="20,6 9,17 4,12"/>
+                </svg>
+                {{ editandoId ? 'Actualizar' : 'Registrar' }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  }
+</div>

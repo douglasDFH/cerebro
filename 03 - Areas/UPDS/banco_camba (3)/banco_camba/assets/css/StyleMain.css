@@ -1,0 +1,476 @@
+/* ---------- VARIABLES GLOBALES ---------- */
+:root {
+    --primary-color: #056f1f; /* Color primario (verde oscuro) */
+    --primary-dark: #045518; /* Color primario más oscuro */
+    --primary-light: #e8f5e9; /* Color primario claro (fondo) */
+    --secondary-color: #1976d2; /* Color secundario (azul) */
+    --text-light: #ffffff; /* Color de texto claro */
+    --text-dark: #333333; /* Color de texto oscuro */
+    --hover-color: #e8f5e9; /* Color de fondo al pasar el mouse */
+    --active-color: #c8e6c9; /* Color de fondo activo */
+    --transition-speed: 0.3s; /* Velocidad de transiciones */
+    --border-radius: 8px; /* Radio de borde para elementos */
+    --box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para elementos */
+}
+
+
+/* ---------- CABECERA ---------- */
+.header {
+    background-color: var(--primary-color, #006633);  /* Color de fondo de la cabecera */
+    color: var(--light-color, #ffffff);               /* Color del texto */
+    padding: 15px 20px;                      /* Padding interno */
+    display: flex;                           /* Flexbox para alinear elementos */
+    justify-content: space-between;          /* Espacio entre elementos */
+    align-items: center;                     /* Centrado vertical */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);  /* Sombra mejorada */
+    position: sticky;                        /* Mantiene el header visible al hacer scroll */
+    top: 0;
+    z-index: 1000;
+    border-bottom: 2px solid var(--accent-color, #ffcc00); /* Borde inferior con color de acento */
+  }
+  
+  /* Contenedor del logo y la imagen */
+  .logo-container {
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease; /* Transición suave para efectos hover */
+  }
+  
+  .logo-container:hover {
+    transform: scale(1.02); /* Efecto de escala al pasar el mouse */
+  }
+
+  .language-selector {
+    display: flex;
+    align-items: center;
+    margin-right: 20px; /* Ajusta el margen según sea necesario */
+}
+
+.language-selector label {
+    font-size: 18px; /* Ajusta el tamaño de la fuente según sea necesario */
+    font-weight: bold; /* Asegúrate de que coincida con el estilo de "Bienvenido Administrador" */
+    margin-right: 10px; /* Espacio entre el texto y el ícono */
+}
+
+.language-selector i {
+    font-size: 24px; /* Ajusta el tamaño del ícono según sea necesario */
+}
+  
+  /* Imagen del logo */
+  .logo-image {
+    height: 45px;                            /* Altura ajustada */
+    margin-right: 12px;                      /* Espaciado entre la imagen y el texto */
+    filter: drop-shadow(0 0 2px rgba(255,255,255,0.5)); /* Sombra para resaltar la imagen */
+    transition: all 0.3s ease; /* Transición suave para efectos hover */
+  }
+  
+  .logo-image:hover {
+    filter: drop-shadow(0 0 4px rgba(255,255,255,0.8)); /* Efecto de sombra al pasar el mouse */
+  }
+  
+  /* Estilos para el logo */
+  .logo {
+    font-size: 24px;                        /* Tamaño de fuente */
+    font-weight: bold;                      /* Texto en negrita */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2); /* Sombra para el texto */
+    letter-spacing: 0.5px; /* Espaciado entre letras */
+  }
+  
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+}
+
+.language-selector {
+    margin-right: 20px; /* Ajusta este valor para mover el selector de idioma más cerca del usuario */
+}
+  
+
+
+
+
+
+
+
+
+  /* Nombre del usuario y perfil */
+  .user-profile {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Transición suave para efectos hover */
+  }
+  
+  .user-profile:hover {
+    background-color: rgba(255,255,255,0.1); /* Cambio de color de fondo al pasar el mouse */
+  }
+  
+  .user-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid var(--accent-color, #ffcc00); /* Borde circular con color de acento */
+    object-fit: cover;
+    margin-right: 10px;
+    transition: all 0.3s ease; /* Transición suave para efectos hover */
+  }
+  
+  .user-profile:hover .user-avatar {
+    transform: scale(1.1); /* Efecto de escala al pasar el mouse */
+  }
+  
+  .user-details {
+    margin-right: 8px;
+  }
+  
+  .user-name {
+    font-weight: 600;
+    margin-right: 5px;
+  }
+  
+
+  
+  .user-role {
+    font-size: 12px;
+    opacity: 0.8; /* Opacidad para el rol del usuario */
+  }
+  
+  /* Dropdown del usuario */
+  .user-dropdown {
+    position: relative;
+  }
+  
+  .user-dropdown i {
+    transition: transform 0.3s ease; /* Transición suave para efectos hover */
+  }
+  
+  .user-profile:hover .user-dropdown i {
+    transform: rotate(180deg); /* Efecto de rotación al pasar el mouse */
+  }
+  
+  .dropdown-content {
+    position: absolute;
+    top: 30px;
+    right: 0;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Sombra para el dropdown */
+    width: 200px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease; /* Transición suave para efectos hover */
+    z-index: 100;
+  }
+  
+  .user-profile:hover .dropdown-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0); /* Muestra el dropdown al pasar el mouse */
+  }
+  
+  .dropdown-item, .logout-btn {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #333;
+}
+
+
+  .menu-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+  
+  .dropdown-item:hover, .logout-btn:hover {
+    background-color: #f8f9fa;
+}
+  
+  .dropdown-item i, .logout-btn i {
+    margin-right: 10px;
+    font-size: 14px;
+    width: 20px;
+    text-align: center;
+    color: var(--primary-color, #006633); /* Color de los íconos */
+  }
+  
+  .dropdown-content {
+    padding: 8px 0;
+}
+
+  .dropdown-divider {
+    height: 1px;
+    background-color: #e9ecef;
+    margin: 4px 0;
+}
+  
+  .logout-btn {
+    color: #dc3545; /* Color rojo para el botón de cerrar sesión */
+    font-weight: 500;
+  }
+  
+  .logout-btn i {
+    color: #dc3545; /* Color rojo para el ícono de cerrar sesión */
+  }
+
+
+/* ---------- CONTENEDOR PRINCIPAL ---------- */
+.main-container {
+    display: flex; /* Diseño flexible para el contenedor */
+    min-height: calc(100vh - 60px); /* Altura mínima ajustada */
+}
+
+/* ---------- MENÚ LATERAL ---------- */
+.sidebar {
+    width: 280px; /* Ancho aumentado del menú lateral */
+    background-color: #f9f9f9; /* Color de fondo */
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05); /* Sombra lateral */
+    padding: 15px 0; /* Espaciado interno */
+    transition: width var(--transition-speed); /* Transición suave */
+    position: relative; /* Posición relativa */
+    overflow-y: auto; /* Scroll vertical si es necesario */
+    overflow-x: hidden; /* Oculta el scroll horizontal */
+    font-family: 'Nunito', 'Segoe UI', Roboto, sans-serif; /* Fuente más intuitiva */
+}
+
+/* Encabezado del menú lateral */
+.sidebar-header {
+    padding: 15px 20px; /* Espaciado interno aumentado */
+    display: flex; /* Diseño flexible */
+    align-items: center; /* Centrado vertical */
+    justify-content: center; /* Centrado horizontal */
+    border-bottom: 2px solid #e0e0e0; /* Borde inferior más grueso */
+    margin-bottom: 20px; /* Margen inferior aumentado */
+    background-color: var(--primary-light); /* Fondo con color primario claro */
+    border-radius: var(--border-radius); /* Bordes redondeados */
+    margin: 0 15px 20px 15px; /* Margen en todos los lados */
+}
+
+/* Título en el encabezado */
+.sidebar-header h3 {
+    color: var(--primary-color); /* Color del texto */
+    margin: 0; /* Sin margen */
+    font-size: 22px; /* Tamaño de fuente aumentado */
+    font-weight: 700; /* Grosor de la fuente más fuerte */
+    display: flex; /* Diseño flexible */
+    align-items: center; /* Centrado vertical */
+    gap: 10px; /* Espacio entre elementos */
+}
+
+/* Añadir emoji con contenido */
+.sidebar-header h3:before {
+    content: "🏦 "; /* Emoji de banco */
+    font-size: 24px; /* Tamaño ligeramente mayor */
+}
+
+/* Lista del menú */
+.sidebar-menu {
+    list-style: none; /* Sin viñetas */
+    padding: 0 15px; /* Espaciado interno aumentado */
+    margin: 0; /* Sin margen */
+}
+
+/* Elementos del menú */
+.sidebar-menu-item {
+    margin-bottom: 8px; /* Margen inferior aumentado */
+    border-radius: var(--border-radius); /* Bordes redondeados */
+    transition: all var(--transition-speed); /* Transición suave */
+    position: relative; /* Posición relativa */
+    overflow: hidden; /* Oculta el desbordamiento */
+    animation: fadeIn 0.5s ease forwards; /* Animación de entrada */
+    opacity: 0; /* Inicialmente invisible */
+    transform: translateY(10px); /* Desplazamiento inicial */
+}
+
+/* Enlaces del menú */
+.sidebar-menu-item a {
+    display: flex; /* Diseño flexible */
+    align-items: center; /* Centrado vertical */
+    padding: 14px 18px; /* Espaciado interno aumentado */
+    color: var(--text-dark); /* Color del texto */
+    text-decoration: none; /* Sin subrayado */
+    font-weight: 600; /* Grosor de la fuente aumentado */
+    font-size: 17px; /* Tamaño de fuente aumentado */
+    transition: all var(--transition-speed); /* Transición suave */
+    border-radius: var(--border-radius); /* Bordes redondeados */
+    position: relative; /* Posición relativa */
+    z-index: 1; /* Capa superior */
+    letter-spacing: 0.2px; /* Espaciado entre letras para mejor legibilidad */
+}
+
+/* Iconos del menú */
+.sidebar-menu-item a i {
+    font-size: 18px; /* Tamaño de fuente para iconos */
+    margin-right: 12px; /* Margen derecho aumentado */
+    min-width: 24px; /* Ancho mínimo para alineación */
+    text-align: center; /* Centrado del texto */
+    transition: transform var(--transition-speed); /* Transición suave */
+    position: relative; /* Posición relativa */
+}
+
+/* Líneas de separación entre grupos de menú */
+.sidebar-menu-item:nth-child(3)::after,
+.sidebar-menu-item:nth-child(6)::after {
+    content: ""; /* Contenido vacío */
+    display: block; /* Bloque para ocupar espacio */
+    height: 2px; /* Altura de la línea */
+    background: linear-gradient(to right, transparent, #e0e0e0, transparent); /* Gradiente para la línea */
+    margin: 10px 0; /* Margen vertical */
+    border-radius: 1px; /* Borde redondeado */
+}
+
+/* Efecto al pasar el mouse */
+.sidebar-menu-item:hover a {
+    background-color: var(--hover-color); /* Color de fondo */
+    transform: translateX(5px); /* Desplazamiento al pasar el mouse */
+}
+
+/* Efecto al pasar el mouse sobre los iconos */
+.sidebar-menu-item:hover a i {
+    transform: scale(1.2); /* Escala del icono aumentada */
+    color: var(--primary-color); /* Color principal para iconos en hover */
+}
+
+/* Elemento activo del menú */
+.sidebar-menu-item.active {
+    background-color: var(--primary-light); /* Color de fondo */
+    box-shadow: var(--box-shadow); /* Sombra para elementos activos */
+}
+
+/* Enlace activo */
+.sidebar-menu-item.active a {
+    color: var(--primary-dark); /* Color del texto */
+    font-weight: 700; /* Grosor de la fuente aumentado */
+    padding-left: 22px; /* Espaciado izquierdo aumentado */
+}
+
+/* Indicador de elemento activo */
+.sidebar-menu-item.active a:before {
+    content: ""; /* Contenido vacío */
+    position: absolute; /* Posición absoluta */
+    left: 0; /* Alineado a la izquierda */
+    top: 0; /* Alineado arriba */
+    height: 100%; /* Altura completa */
+    width: 6px; /* Ancho del indicador aumentado */
+    background-color: var(--primary-color); /* Color del indicador */
+    border-radius: 0 3px 3px 0; /* Bordes redondeados */
+}
+
+/* Icono activo */
+.sidebar-menu-item.active a i {
+    color: var(--primary-color); /* Color del icono */
+    transform: scale(1.1); /* Escala del icono */
+}
+
+/* Pie del menú lateral */
+.sidebar-footer {
+    padding: 15px 20px; /* Espaciado interno */
+    border-top: 2px solid #e0e0e0; /* Borde superior más grueso */
+    margin-top: 20px; /* Margen superior aumentado */
+    display: flex; /* Diseño flexible */
+    flex-direction: column; /* Dirección de columna */
+    align-items: center; /* Centrado vertical */
+    justify-content: center; /* Centrado horizontal */
+    background-color: #f5f5f5; /* Fondo ligeramente diferente */
+    border-radius: var(--border-radius); /* Bordes redondeados */
+    margin: 20px 15px 0 15px; /* Margen en todos los lados */
+}
+
+/* Versión en el pie del menú */
+.sidebar-footer .version {
+    font-size: 14px; /* Tamaño de fuente aumentado */
+    color: #777; /* Color del texto más oscuro */
+    font-weight: 600; /* Negrita para mayor visibilidad */
+    margin-bottom: 5px; /* Margen inferior */
+    display: flex; /* Flexbox para alineación */
+    align-items: center; /* Centrado vertical */
+    gap: 5px; /* Espacio entre elementos */
+}
+
+/* Añadir emoji a la versión */
+.sidebar-footer .version:before {
+    content: "📱"; /* Emoji de móvil */
+}
+
+/* Información adicional en el pie del menú */
+.sidebar-footer:after {
+    content: "© 2025 Sistema Financiero"; /* Texto de copyright */
+    font-size: 12px; /* Tamaño de fuente pequeño */
+    color: #999; /* Color del texto suave */
+    margin-top: 5px; /* Margen superior */
+}
+
+/* ---------- ANIMACIÓN DE ENTRADA ---------- */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); } /* Estado inicial */
+    to { opacity: 1; transform: translateY(0); } /* Estado final */
+}
+
+/* ---------- RESPONSIVIDAD PARA MÓVILES ---------- */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 80px; /* Ancho reducido pero un poco mayor */
+        padding: 15px 0; /* Espaciado interno */
+    }
+
+    /* Ocultar texto en los enlaces */
+    .sidebar-menu-item a span {
+        display: none;
+    }
+
+    /* Ajustar iconos */
+    .sidebar-menu-item a i {
+        margin-right: 0; /* Sin margen */
+        font-size: 22px; /* Tamaño de fuente aumentado */
+    }
+
+    /* Mostrar solo emoji en el encabezado */
+    .sidebar-header h3 {
+        font-size: 24px; /* Tamaño de fuente solo para el emoji */
+    }
+    
+    .sidebar-header h3:after {
+        content: none; /* Sin texto después del emoji */
+    }
+    
+    /* Texto del encabezado */
+    .sidebar-header h3 span {
+        display: none; /* Ocultar texto, dejar solo emoji */
+    }
+
+    /* Ajustar espaciado del menú */
+    .sidebar-menu {
+        padding: 0 10px; /* Espaciado interno aumentado */
+    }
+
+    /* Centrar enlaces */
+    .sidebar-menu-item a {
+        justify-content: center; /* Centrado horizontal */
+        padding: 14px; /* Espaciado interno ajustado */
+    }
+    
+    /* Ajustar pie del menú */
+    .sidebar-footer {
+        padding: 10px; /* Espaciado reducido */
+        margin: 15px 5px 0 5px; /* Márgenes reducidos */
+    }
+    
+    .sidebar-footer .version:before {
+        font-size: 18px; /* Tamaño aumentado del emoji */
+    }
+    
+    .sidebar-footer .version {
+        font-size: 10px; /* Tamaño reducido */
+    }
+    
+    .sidebar-footer:after {
+        display: none; /* Ocultar texto de copyright */
+    }
+}

@@ -1,0 +1,449 @@
+<mxfile host="app.diagrams.net" modified="2025-01-14T00:00:00.000Z" agent="Ecoplast SRL" version="22.1.0" etag="ecoplast-v1.0">
+  <diagram name="Ecoplast - Diagrama de Clases" id="ecoplast-classes">
+    <mxGraphModel dx="2400" dy="1400" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="4200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- TÍTULO -->
+        <mxCell id="titulo" value="ECOPLAST SRL - DIAGRAMA DE CLASES COMPLETO&#xa;Sistema de Gestión de Producción de Plásticos Biodegradables" style="text;html=1;strokeColor=none;fillColor=#d5e8d4;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=20;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="50" y="40" width="800" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- ========== MÓDULO 1: USUARIOS ========== -->
+        <mxCell id="modulo-usuarios" value="MÓDULO: USUARIOS Y AUTENTICACIÓN" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="50" y="160" width="900" height="600" as="geometry" />
+        </mxCell>
+        
+        <!-- Clase Usuario -->
+        <mxCell id="usuario" value="Usuario" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="modulo-usuarios">
+          <mxGeometry x="20" y="60" width="250" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="usuario-attr" value="- id: int&#xa;- nombre_completo: string&#xa;- email: string&#xa;- password: string&#xa;- rol_id: int&#xa;- telefono: string&#xa;- foto_perfil: string&#xa;- activo: boolean&#xa;- ultimo_acceso: datetime" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="usuario">
+          <mxGeometry y="30" width="250" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="usuario-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="usuario">
+          <mxGeometry y="170" width="250" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="usuario-methods" value="+ login(): void&#xa;+ logout(): void&#xa;+ cambiarPassword(): void&#xa;+ asignarTurno(): void&#xa;+ getPermisos(): array" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="usuario">
+          <mxGeometry y="178" width="250" height="122" as="geometry" />
+        </mxCell>
+        
+        <!-- Clase Rol -->
+        <mxCell id="rol" value="Rol" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="modulo-usuarios">
+          <mxGeometry x="310" y="60" width="220" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="rol-attr" value="- id: int&#xa;- nombre_rol: string&#xa;- descripcion: text&#xa;- nivel_acceso: enum" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="rol">
+          <mxGeometry y="30" width="220" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="rol-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="rol">
+          <mxGeometry y="100" width="220" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="rol-methods" value="+ getPermisos(): array&#xa;+ tienePermiso(): bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="rol">
+          <mxGeometry y="108" width="220" height="92" as="geometry" />
+        </mxCell>
+        
+        <!-- Clase Turno -->
+        <mxCell id="turno" value="Turno" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="modulo-usuarios">
+          <mxGeometry x="570" y="60" width="220" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="turno-attr" value="- id: int&#xa;- nombre_turno: string&#xa;- hora_inicio: time&#xa;- hora_fin: time&#xa;- activo: boolean" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="turno">
+          <mxGeometry y="30" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="turno-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="turno">
+          <mxGeometry y="110" width="220" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="turno-methods" value="+ getDuracionHoras(): int&#xa;+ estaActivo(): bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="turno">
+          <mxGeometry y="118" width="220" height="82" as="geometry" />
+        </mxCell>
+        
+        <!-- Clase AsignacionTurno -->
+        <mxCell id="asignacion-turno" value="AsignacionTurno" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="modulo-usuarios">
+          <mxGeometry x="310" y="300" width="250" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="asignacion-attr" value="- id: int&#xa;- usuario_id: int&#xa;- turno_id: int&#xa;- fecha_asignacion: date&#xa;- observaciones: text" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="asignacion-turno">
+          <mxGeometry y="30" width="250" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="asignacion-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="asignacion-turno">
+          <mxGeometry y="110" width="250" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="asignacion-methods" value="+ validarAsignacion(): bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="asignacion-turno">
+          <mxGeometry y="118" width="250" height="62" as="geometry" />
+        </mxCell>
+        
+        <!-- Relaciones Usuario-Rol -->
+        <mxCell id="rel-usuario-rol" value="" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="modulo-usuarios" source="usuario-attr" target="rol-attr">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="280" y="200" as="sourcePoint" />
+            <mxPoint x="440" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rel-usuario-rol-label" value="1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="modulo-usuarios">
+          <mxGeometry x="280" y="110" width="30" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- Relaciones Usuario-AsignacionTurno -->
+        <mxCell id="rel-usuario-asignacion" value="" style="endArrow=open;endFill=0;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="modulo-usuarios" source="usuario" target="asignacion-attr">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="150" y="380" as="sourcePoint" />
+            <mxPoint x="310" y="380" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rel-usuario-asignacion-label" value="1..*" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="modulo-usuarios">
+          <mxGeometry x="260" y="340" width="40" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- Relaciones Turno-AsignacionTurno -->
+        <mxCell id="rel-turno-asignacion" value="" style="endArrow=open;endFill=0;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="modulo-usuarios" source="turno-attr" target="asignacion-attr">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="560" y="150" as="sourcePoint" />
+            <mxPoint x="560" y="370" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rel-turno-asignacion-label" value="1..*" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="modulo-usuarios">
+          <mxGeometry x="570" y="340" width="40" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- ========== MÓDULO 2: INVENTARIO INSUMOS ========== -->
+        <mxCell id="modulo-insumos" value="MÓDULO: MATERIAS PRIMAS E INVENTARIO" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="160" width="850" height="600" as="geometry" />
+        </mxCell>
+        
+        <!-- Clase Insumo -->
+        <mxCell id="insumo" value="Insumo" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="modulo-insumos">
+          <mxGeometry x="250" y="60" width="280" height="420" as="geometry" />
+        </mxCell>
+        <mxCell id="insumo-attr" value="- id: int&#xa;- codigo_insumo: string&#xa;- nombre_insumo: string&#xa;- categoria_id: int&#xa;- tipo_material: enum&#xa;- unidad_medida: enum&#xa;- densidad: decimal&#xa;- temperatura_fusion: decimal&#xa;- certificacion_biodegradable: string&#xa;- proveedor: string&#xa;- precio_unitario: decimal&#xa;- stock_minimo: decimal&#xa;- stock_actual: decimal&#xa;- activo: boolean" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="insumo">
+          <mxGeometry y="30" width="280" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="insumo-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="insumo">
+          <mxGeometry y="250" width="280" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="insumo-methods" value="+ verificarStockBajo(): bool&#xa;+ reservar(cantidad): void&#xa;+ consumir(cantidad): void&#xa;+ ajustarInventario(cantidad): void&#xa;+ getPrecioActual(): decimal&#xa;+ esBiodegradable(): bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="insumo">
+          <mxGeometry y="258" width="280" height="162" as="geometry" />
+        </mxCell>
+        
+        <!-- Clase CategoriaInsumo -->
+        <mxCell id="categoria-insumo" value="CategoriaInsumo" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="modulo-insumos">
+          <mxGeometry x="20" y="60" width="200" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="cat-insumo-attr" value="- id: int&#xa;- nombre_categoria: string&#xa;- descripcion: text&#xa;- es_biodegradable: bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="categoria-insumo">
+          <mxGeometry y="30" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="cat-insumo-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="categoria-insumo">
+          <mxGeometry y="100" width="200" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="cat-insumo-methods" value="+ getInsumos(): array" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="categoria-insumo">
+          <mxGeometry y="108" width="200" height="72" as="geometry" />
+        </mxCell>
+        
+        <!-- Clase MovimientoInventarioInsumo -->
+        <mxCell id="mov-insumo" value="MovimientoInventarioInsumo" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="modulo-insumos">
+          <mxGeometry x="560" y="60" width="270" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="mov-insumo-attr" value="- id: int&#xa;- insumo_id: int&#xa;- tipo_movimiento: enum&#xa;- cantidad: decimal&#xa;- lote: string&#xa;- fecha_vencimiento: date&#xa;- costo_unitario: decimal&#xa;- usuario_id: int&#xa;- motivo: text&#xa;- fecha_movimiento: datetime" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="mov-insumo">
+          <mxGeometry y="30" width="270" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="mov-insumo-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="mov-insumo">
+          <mxGeometry y="190" width="270" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="mov-insumo-methods" value="+ registrar(): void&#xa;+ validar(): bool&#xa;+ calcularCosto(): decimal&#xa;+ getTrazabilidad(): array" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="mov-insumo">
+          <mxGeometry y="198" width="270" height="142" as="geometry" />
+        </mxCell>
+        
+        <!-- Relaciones CategoriaInsumo-Insumo -->
+        <mxCell id="rel-cat-insumo" value="" style="endArrow=open;endFill=0;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="modulo-insumos" source="cat-insumo-attr" target="insumo">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="230" y="150" as="sourcePoint" />
+            <mxPoint x="390" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rel-cat-insumo-label" value="1..*" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="modulo-insumos">
+          <mxGeometry x="210" y="100" width="40" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- Relaciones Insumo-MovimientoInventario -->
+        <mxCell id="rel-insumo-mov" value="" style="endArrow=open;endFill=0;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="modulo-insumos" source="insumo-attr" target="mov-insumo-attr">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="540" y="180" as="sourcePoint" />
+            <mxPoint x="700" y="180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rel-insumo-mov-label" value="1..*" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="modulo-insumos">
+          <mxGeometry x="530" y="150" width="40" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- ========== MÓDULO 3: MAQUINARIA ========== -->
+        <mxCell id="modulo-maquinas" value="MÓDULO: MAQUINARIA Y EQUIPOS" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="50" y="840" width="1200" height="700" as="geometry" />
+        </mxCell>
+        
+        <!-- Clase Maquina -->
+        <mxCell id="maquina" value="Maquina" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="modulo-maquinas">
+          <mxGeometry x="20" y="60" width="330" height="550" as="geometry" />
+        </mxCell>
+        <mxCell id="maquina-attr" value="- id: int&#xa;- codigo_maquina: string&#xa;- nombre_maquina: string&#xa;- tipo_maquina_id: int&#xa;- marca: string&#xa;- modelo: string&#xa;- año_fabricacion: year&#xa;- capacidad_produccion: decimal&#xa;- consumo_energia_kwh: decimal&#xa;- temp_min_operacion: decimal&#xa;- temp_max_operacion: decimal&#xa;- presion_max_bar: decimal&#xa;- velocidad_max_rpm: decimal&#xa;- fecha_instalacion: date&#xa;- vida_util_años: int&#xa;- ubicacion: string&#xa;- estado_actual: enum&#xa;- activo: boolean" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="maquina">
+          <mxGeometry y="30" width="330" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="maquina-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="maquina">
+          <mxGeometry y="310" width="330" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="maquina-methods" value="+ estaDisponible(): bool&#xa;+ calcularOEE(): decimal&#xa;+ necesitaMantenimiento(): bool&#xa;+ bloquear(): void&#xa;+ liberar(): void&#xa;+ getHorasOperacion(): decimal&#xa;+ getUltimoMantenimiento(): datetime&#xa;+ calcularEficienciaEnergetica(): decimal" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="maquina">
+          <mxGeometry y="318" width="330" height="232" as="geometry" />
+        </mxCell>
+        
+        <!-- Clase TipoMaquina -->
+        <mxCell id="tipo-maquina" value="TipoMaquina" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="modulo-maquinas">
+          <mxGeometry x="390" y="60" width="220" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="tipo-maquina-attr" value="- id: int&#xa;- nombre_tipo: string&#xa;- descripcion: text" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="tipo-maquina">
+          <mxGeometry y="30" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tipo-maquina-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="tipo-maquina">
+          <mxGeometry y="90" width="220" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="tipo-maquina-methods" value="+ getEspecificaciones(): array&#xa;+ getMaquinas(): array" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="tipo-maquina">
+          <mxGeometry y="98" width="220" height="82" as="geometry" />
+        </mxCell>
+        
+        <!-- Clase Mantenimiento -->
+        <mxCell id="mantenimiento" value="Mantenimiento" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="modulo-maquinas">
+          <mxGeometry x="650" y="60" width="270" height="380" as="geometry" />
+        </mxCell>
+        <mxCell id="mantenimiento-attr" value="- id: int&#xa;- maquina_id: int&#xa;- tipo_mantenimiento: enum&#xa;- descripcion: text&#xa;- fecha_programada: datetime&#xa;- fecha_inicio: datetime&#xa;- fecha_fin: datetime&#xa;- duracion_horas: decimal&#xa;- costo: decimal&#xa;- tecnico_id: int&#xa;- estado: enum&#xa;- prioridad: enum&#xa;- observaciones: text" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="mantenimiento">
+          <mxGeometry y="30" width="270" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="mantenimiento-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="mantenimiento">
+          <mxGeometry y="230" width="270" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="mantenimiento-methods" value="+ iniciar(): void&#xa;+ completar(): void&#xa;+ calcularDuracion(): decimal&#xa;+ programarProximo(): void&#xa;+ agregarRepuesto(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="mantenimiento">
+          <mxGeometry y="238" width="270" height="142" as="geometry" />
+        </mxCell>
+        
+        <!-- Clase ParoMaquina -->
+        <mxCell id="paro-maquina" value="ParoMaquina" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="modulo-maquinas">
+          <mxGeometry x="950" y="60" width="230" height="360" as="geometry" />
+        </mxCell>
+        <mxCell id="paro-attr" value="- id: int&#xa;- maquina_id: int&#xa;- tipo_paro: enum&#xa;- fecha_inicio: datetime&#xa;- fecha_fin: datetime&#xa;- duracion_minutos: int&#xa;- descripcion: text&#xa;- causa_raiz: text&#xa;- accion_correctiva: text&#xa;- operador_id: int&#xa;- impacto_produccion: decimal&#xa;- costo_estimado: decimal" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="paro-maquina">
+          <mxGeometry y="30" width="230" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="paro-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="paro-maquina">
+          <mxGeometry y="220" width="230" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="paro-methods" value="+ registrar(): void&#xa;+ cerrar(): void&#xa;+ calcularImpacto(): decimal&#xa;+ afectaMTBF(): bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="paro-maquina">
+          <mxGeometry y="228" width="230" height="132" as="geometry" />
+        </mxCell>
+        
+        <!-- Relaciones TipoMaquina-Maquina -->
+        <mxCell id="rel-tipo-maquina" value="" style="endArrow=open;endFill=0;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="modulo-maquinas" source="tipo-maquina-attr" target="maquina">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="380" y="120" as="sourcePoint" />
+            <mxPoint x="360" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rel-tipo-maquina-label" value="1..*" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="modulo-maquinas">
+          <mxGeometry x="350" y="90" width="40" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- Relaciones Maquina-Mantenimiento -->
+        <mxCell id="rel-maquina-mant" value="" style="endArrow=open;endFill=0;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="modulo-maquinas" source="maquina" target="mantenimiento-attr">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="185" y="50" as="sourcePoint" />
+            <mxPoint x="650" y="150" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="185" y="30" />
+              <mxPoint x="600" y="30" />
+              <mxPoint x="600" y="160" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rel-maquina-mant-label" value="1..*" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="modulo-maquinas">
+          <mxGeometry x="600" y="130" width="40" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- Relaciones Maquina-Paro -->
+        <mxCell id="rel-maquina-paro" value="" style="endArrow=open;endFill=0;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="modulo-maquinas" source="maquina" target="paro-attr">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="360" y="150" as="sourcePoint" />
+            <mxPoint x="950" y="150" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="900" y="198" />
+              <mxPoint x="900" y="155" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rel-maquina-paro-label" value="1..*" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="modulo-maquinas">
+          <mxGeometry x="900" y="130" width="40" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- ========== MÓDULO 4: PRODUCTOS ========== -->
+        <mxCell id="modulo-productos" value="MÓDULO: PRODUCTOS BIODEGRADABLES" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="1300" y="840" width="950" height="600" as="geometry" />
+        </mxCell>
+        
+        <!-- Clase Producto -->
+        <mxCell id="producto" value="Producto" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="modulo-productos">
+          <mxGeometry x="250" y="60" width="320" height="500" as="geometry" />
+        </mxCell>
+        <mxCell id="producto-attr" value="- id: int&#xa;- codigo_producto: string&#xa;- nombre_producto: string&#xa;- categoria_producto_id: int&#xa;- material_principal: enum&#xa;- certificacion_compostable: string&#xa;- tiempo_compostaje_dias: int&#xa;- peso_unitario_gramos: decimal&#xa;- dimensiones: string&#xa;- color: string&#xa;- formulacion_id: int&#xa;- tiempo_ciclo_segundos: int&#xa;- temperatura_proceso: decimal&#xa;- precio_venta: decimal&#xa;- stock_minimo: int&#xa;- stock_actual: int&#xa;- activo: boolean" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="producto">
+          <mxGeometry y="30" width="320" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="producto-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="producto">
+          <mxGeometry y="290" width="320" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="producto-methods" value="+ calcularCostoUnitario(): decimal&#xa;+ calcularMargen(): decimal&#xa;+ verificarStock(): bool&#xa;+ esCertificado(): bool&#xa;+ getTiempoDegradacion(): int&#xa;+ actualizarPrecio(): void&#xa;+ getFormulacion(): Formulacion" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="producto">
+          <mxGeometry y="298" width="320" height="202" as="geometry" />
+        </mxCell>
+        
+        <!-- Clase CategoriaProducto -->
+        <mxCell id="categoria-producto" value="CategoriaProducto" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="modulo-productos">
+          <mxGeometry x="20" y="60" width="200" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="cat-prod-attr" value="- id: int&#xa;- nombre_categoria: string&#xa;- descripcion: text&#xa;- aplicacion: string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="categoria-producto">
+          <mxGeometry y="30" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="cat-prod-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="categoria-producto">
+          <mxGeometry y="100" width="200" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="cat-prod-methods" value="+ getProductos(): array" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="categoria-producto">
+          <mxGeometry y="108" width="200" height="72" as="geometry" />
+        </mxCell>
+        
+        <!-- Clase MovimientoInventarioProducto -->
+        <mxCell id="mov-producto" value="MovimientoInventarioProducto" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="modulo-productos">
+          <mxGeometry x="600" y="60" width="320" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="mov-prod-attr" value="- id: int&#xa;- producto_id: int&#xa;- tipo_movimiento: enum&#xa;- cantidad: int&#xa;- lote_produccion: string&#xa;- fecha_fabricacion: date&#xa;- fecha_vencimiento: date&#xa;- usuario_id: int&#xa;- referencia: string&#xa;- motivo: text&#xa;- fecha_movimiento: datetime" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="mov-producto">
+          <mxGeometry y="30" width="320" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="mov-prod-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="mov-producto">
+          <mxGeometry y="200" width="320" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="mov-prod-methods" value="+ registrar(): void&#xa;+ validar(): bool&#xa;+ getLote(): LoteProduccion&#xa;+ getTrazabilidad(): array" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="mov-producto">
+          <mxGeometry y="208" width="320" height="132" as="geometry" />
+        </mxCell>
+        
+        <!-- Relaciones CategoriaProducto-Producto -->
+        <mxCell id="rel-cat-prod" value="" style="endArrow=open;endFill=0;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="modulo-productos" source="cat-prod-attr" target="producto">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="230" y="150" as="sourcePoint" />
+            <mxPoint x="390" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rel-cat-prod-label" value="1..*" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="modulo-productos">
+          <mxGeometry x="210" y="100" width="40" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- Relaciones Producto-MovimientoInventario -->
+        <mxCell id="rel-prod-mov" value="" style="endArrow=open;endFill=0;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="modulo-productos" source="producto-attr" target="mov-prod-attr">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="580" y="180" as="sourcePoint" />
+            <mxPoint x="740" y="180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rel-prod-mov-label" value="1..*" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="modulo-productos">
+          <mxGeometry x="570" y="150" width="40" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- ========== MÓDULO 5: ÓRDENES DE PRODUCCIÓN (CORE) ========== -->
+        <mxCell id="modulo-ordenes" value="MÓDULO: ÓRDENES DE PRODUCCIÓN (CORE)" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="50" y="1620" width="1800" height="800" as="geometry" />
+        </mxCell>
+        
+        <!-- Clase OrdenProduccion -->
+        <mxCell id="orden" value="OrdenProduccion" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#ffcccc;strokeColor=#cc0000;fontStyle=1" vertex="1" parent="modulo-ordenes">
+          <mxGeometry x="600" y="60" width="350" height="650" as="geometry" />
+        </mxCell>
+        <mxCell id="orden-attr" value="- id: int&#xa;- numero_orden: string&#xa;- producto_id: int&#xa;- cantidad_planificada: int&#xa;- cantidad_producida: int&#xa;- cantidad_conforme: int&#xa;- cantidad_defectuosa: int&#xa;- formulacion_id: int&#xa;- maquina_id: int&#xa;- turno_id: int&#xa;- fecha_programada: datetime&#xa;- fecha_inicio: datetime&#xa;- fecha_fin: datetime&#xa;- operador_id: int&#xa;- supervisor_id: int&#xa;- estado: enum&#xa;- prioridad: enum&#xa;- notas_produccion: text&#xa;- observaciones_calidad: text" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="orden">
+          <mxGeometry y="30" width="350" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="orden-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="orden">
+          <mxGeometry y="330" width="350" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="orden-methods" value="+ iniciar(): void&#xa;+ pausar(): void&#xa;+ reanudar(): void&#xa;+ finalizar(): void&#xa;+ cancelar(): void&#xa;+ calcularProgreso(): decimal&#xa;+ calcularOEE(): decimal&#xa;+ agregarRegistro(): void&#xa;+ generarLote(): LoteProduccion&#xa;+ getEficiencia(): array&#xa;+ getTiempoRestante(): int&#xa;+ notificarOperador(): void&#xa;+ validarMateriales(): bool&#xa;+ reservarMaquina(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0" vertex="1" parent="orden">
+          <mxGeometry y="338" width="350" height="312" as="geometry" />
+        </mxCell>
+        
+        <!-- Clase LoteProduccion -->
+        <mxCell id="lote" value="LoteProduccion" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#ffcccc;strokeColor=#cc0000;" vertex="1" parent="modulo-ordenes">
+          <mxGeometry x="1020" y="60" width="320" height="380" as="geometry" />
+        </mxCell>
+        <mxCell id="lote-attr" value="- id: int&#xa;- numero_lote: string&#xa;- orden_id: int&#xa;- cantidad: int&#xa;- fecha_fabricacion: datetime&#xa;- fecha_vencimiento: date&#xa;- trazabilidad_insumos: json&#xa;- estado_lote: enum&#xa;- ubicacion_almacen: string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="lote">
+          <mxGeometry y="30" width="320" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="lote-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="lote">
+          <mxGeometry y="170" width="320" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="lote-methods" value="+ aprobar(): void&#xa;+ rechazar(): void&#xa;+ getTrazabilidad(): array&#xa;+ generarCertificado(): string&#xa;+ enviarACuarentena(): void&#xa;+ calcularVidaUtil(): int&#xa;+ verificarCondiciones(): bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="lote">
+          <mxGeometry y="178" width="320" height="202" as="geometry" />
+        </mxCell>
+        
+        <!-- Clase RegistroProduccion -->
+        <mxCell id="registro" value="RegistroProduccion" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#ffcccc;strokeColor=#cc0000;" vertex="1" parent="modulo-ordenes">
+          <mxGeometry x="1400" y="60" width="350" height="700" as="geometry" />
+        </mxCell>
+        <mxCell id="registro-attr" value="- id: int&#xa;- orden_id: int&#xa;- maquina_id: int&#xa;- operador_id: int&#xa;- fecha_hora: datetime&#xa;- piezas_producidas: int&#xa;- piezas_conformes: int&#xa;- piezas_defectuosas: int&#xa;- tipo_defecto: string&#xa;- temperatura_zona1: decimal&#xa;- temperatura_zona2: decimal&#xa;- temperatura_zona3: decimal&#xa;- temperatura_zona4: decimal&#xa;- presion_inyeccion: decimal&#xa;- velocidad_husillo: decimal&#xa;- tiempo_ciclo_real: decimal&#xa;- consumo_energia_kwh: decimal&#xa;- consumo_material_kg: decimal&#xa;- scrap_kg: decimal&#xa;- observaciones: text&#xa;- alerta_calidad: boolean" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="registro">
+          <mxGeometry y="30" width="350" height="330" as="geometry" />
+        </mxCell>
+        <mxCell id="registro-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="registro">
+          <mxGeometry y="360" width="350" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="registro-methods" value="+ registrar(): void&#xa;+ validarParametros(): bool&#xa;+ detectarAnomalias(): array&#xa;+ calcularEficiencia(): decimal&#xa;+ compararConEstandar(): array&#xa;+ generarAlerta(): void&#xa;+ actualizarOrden(): void&#xa;+ getTendencia(): array&#xa;+ exportarDatos(): json" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="registro">
+          <mxGeometry y="368" width="350" height="332" as="geometry" />
+        </mxCell>
+        
+        <!-- Relación Orden-Lote -->
+        <mxCell id="rel-orden-lote" value="" style="endArrow=diamond;endFill=0;endSize=20;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="modulo-ordenes" source="orden" target="lote-attr">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="960" y="200" as="sourcePoint" />
+            <mxPoint x="1120" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rel-orden-lote-label" value="1..*" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="modulo-ordenes">
+          <mxGeometry x="960" y="130" width="40" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- Relación Orden-Registro -->
+        <mxCell id="rel-orden-registro" value="" style="endArrow=open;endFill=0;html=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="modulo-ordenes" source="orden" target="registro-attr">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="960" y="500" as="sourcePoint" />
+            <mxPoint x="1400" y="300" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1300" y="548" />
+              <mxPoint x="1300" y="255" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rel-orden-registro-label" value="1..*" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="modulo-ordenes">
+          <mxGeometry x="1300" y="230" width="40" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- NOTA IMPORTANTE -->
+        <mxCell id="nota-core" value="⚠️ NÚCLEO DEL SISTEMA&#xa;OrdenProduccion es la clase más importante.&#xa;Conecta usuarios, máquinas, productos,&#xa;formulaciones y genera todos los KPIs." style="text;html=1;strokeColor=#d79b00;fillColor=#ffe6cc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=14;fontStyle=1;strokeWidth=2;" vertex="1" parent="modulo-ordenes">
+          <mxGeometry x="20" y="60" width="420" height="120" as="geometry" />
+        </mxCell>
+        
+        <!-- LEYENDA -->
+        <mxCell id="leyenda" value="LEYENDA DE RELACIONES&#xa;&#xa;◆──  Composición (el todo contiene las partes)&#xa;◇──  Agregación (relación débil)&#xa;────▷ Herencia (es-un)&#xa;────  Asociación simple&#xa;&#xa;Multiplicidad:&#xa;1      Exactamente uno&#xa;0..1   Cero o uno&#xa;1..*   Uno o más&#xa;*      Cero o más" style="text;html=1;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=12;fontStyle=0;strokeWidth=1;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="2350" y="160" width="280" height="260" as="geometry" />
+        </mxCell>
+        
+        <!-- ESTADÍSTICAS -->
+        <mxCell id="estadisticas" value="📊 ESTADÍSTICAS DEL SISTEMA&#xa;&#xa;Total de Clases: 27&#xa;Total de Módulos: 10&#xa;&#xa;Relaciones:&#xa;• Composición: 5&#xa;• Agregación: 8&#xa;• Asociación: 45+&#xa;&#xa;Tablas DB: 40+&#xa;Vistas: 5&#xa;Triggers: 3&#xa;Stored Procedures: 1" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=12;fontStyle=0;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="2350" y="460" width="280" height="280" as="geometry" />
+        </mxCell>
+        
+        <!-- NOTAS DE DISEÑO -->
+        <mxCell id="notas-diseño" value="📝 NOTAS DE DISEÑO&#xa;&#xa;1. Todas las clases heredan timestamps&#xa;   (created_at, updated_at)&#xa;&#xa;2. Soft deletes en clases críticas&#xa;&#xa;3. Índices en campos de búsqueda frecuente&#xa;&#xa;4. Foreign Keys con restricciones&#xa;&#xa;5. Validaciones en capa de modelo&#xa;&#xa;6. Observers para eventos automáticos&#xa;&#xa;7. Scopes para consultas comunes" style="text;html=1;strokeColor=#d6b656;fillColor=#fff2cc;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=11;fontStyle=0;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="2350" y="780" width="280" height="320" as="geometry" />
+        </mxCell>
+        
+        <!-- FOOTER -->
+        <mxCell id="footer" value="Ecoplast SRL - Sistema de Gestión de Producción de Plásticos Biodegradables | Versión 1.0 | 2025" style="text;html=1;strokeColor=none;fillColor=#d5e8d4;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=14;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="50" y="2500" width="2580" height="60" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

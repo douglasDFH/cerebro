@@ -1,0 +1,1132 @@
+{\rtf1\fbidis\ansi\ansicpg1252\deff0\nouicompat\deflang3082{\fonttbl{\f0\fnil\fcharset0 Calibri;}{\f1\fnil\fcharset1 Segoe UI Symbol;}{\f2\fnil Calibri;}{\f3\fnil\fcharset1 Segoe UI Symbol;}{\f4\fnil\fcharset1 Segoe UI Emoji;}}
+{\colortbl ;\red51\green51\blue51;\red255\green255\blue0;}
+{\*\generator Riched20 10.0.22621}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\cf1\highlight2\f0\fs22\lang10 <?php\par
+// =====================================================\par
+// 40. VISTA DE ADMINISTRACI\'d3N - LISTA DE PRODUCTOS (/app/Views/admin/products.php)\par
+// =====================================================\par
+$page_title = 'Productos - Admin';\par
+$current_page = 'Product';\par
+$breadcrumbs = [\par
+    ['title' => 'Productos']\par
+];\par
+\par
+// Capturar el contenido de la p\'e1gina\par
+ob_start();\par
+?>\par
+!-- IMPORTANTE: Incluir jQuery y DataTables ANTES del contenido -->\par
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>\par
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">\par
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>\par
+<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>\par
+<!-- Header with Actions -->\par
+<div class="row mb-4">\par
+    <div class="col-12">\par
+        <div class="d-flex justify-content-between align-items-center">\par
+            <h1 class="mb-0">Gesti\'f3n de Productos</h1>\par
+            <div class="d-flex gap-2">\par
+                <button class="btn btn-outline-primary" onclick="exportProducts()">\par
+                    <i class="fas fa-download me-1"></i> Exportar\par
+                </button>\par
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal">\par
+                    <i class="fas fa-plus me-1"></i> Nuevo Producto\par
+                </button>\par
+            </div>\par
+        </div>\par
+    </div>\par
+</div>\par
+\par
+<!-- Filters Card -->\par
+<div class="admin-card mb-4">\par
+    <div class="admin-card-header">\par
+        <h5 class="mb-0">Filtros</h5>\par
+    </div>\par
+    <div class="card-body">\par
+        <div class="row g-3">\par
+            <div class="col-lg-3 col-md-6">\par
+                <input type="text" class="form-control" id="searchFilter" placeholder="Buscar productos...">\par
+            </div>\par
+            <div class="col-lg-3 col-md-6">\par
+                <select class="form-select" id="categoryFilter">\par
+                    <option value="">Todas las categor\'edas</option>\par
+                    <?php foreach ($categories as $category): ?>\par
+                     <option value="<?php echo htmlspecialchars($category['id']); ?>"><?php echo htmlspecialchars($category['name']); ?></option>\par
+                    <?php endforeach; ?>\par
+                </select>\par
+            </div>\par
+            <div class="col-lg-3 col-md-6">\par
+                <select class="form-select" id="statusFilter">\par
+                    <option value="">Todos los estados</option>\par
+                    <option value="active">Activo</option>\par
+                    <option value="inactive">Inactivo</option>\par
+                    <option value="draft">Borrador</option>\par
+                </select>\par
+            </div>\par
+            <div class="col-lg-3 col-md-6">\par
+                <button type="button" class="btn btn-outline-secondary w-100" onclick="clearFilters()">\par
+                    <i class="fas fa-times me-1"></i> Limpiar\par
+                </button>\par
+            </div>\par
+        </div>\par
+    </div>\par
+</div>\par
+\par
+<!-- Stats Cards -->\par
+<div class="row mb-4">\par
+    <div class="col-lg-3 col-md-6 mb-3">\par
+        <div class="stat-card primary">\par
+            <div class="card-body">\par
+                <div class="d-flex justify-content-between align-items-center">\par
+                    <div>\par
+                        <div class="stat-label">Total Productos</div>\par
+                        <div class="stat-value"><?php echo number_format($stats['total_products'] ?? 0); ?></div>\par
+                    </div>\par
+                    <div class="stat-icon bg-primary bg-opacity-10 text-primary">\par
+                        <i class="fas fa-boxes"></i>\par
+                    </div>\par
+                </div>\par
+            </div>\par
+        </div>\par
+    </div>\par
+    \par
+    <div class="col-lg-3 col-md-6 mb-3">\par
+        <div class="stat-card success">\par
+            <div class="card-body">\par
+                <div class="d-flex justify-content-between align-items-center">\par
+                    <div>\par
+                        <div class="stat-label">Activos</div>\par
+                        <div class="stat-value"><?php echo number_format($stats['active_products'] ?? 0); ?></div>\par
+                    </div>\par
+                    <div class="stat-icon bg-success bg-opacity-10 text-success">\par
+                        <i class="fas fa-check-circle"></i>\par
+                    </div>\par
+                </div>\par
+            </div>\par
+        </div>\par
+    </div>\par
+    \par
+    <div class="col-lg-3 col-md-6 mb-3">\par
+        <div class="stat-card warning">\par
+            <div class="card-body">\par
+                <div class="d-flex justify-content-between align-items-center">\par
+                    <div>\par
+                        <div class="stat-label">Sin Stock</div>\par
+                        <div class="stat-value"><?php echo number_format($stats['out_of_stock'] ?? 0); ?></div>\par
+                    </div>\par
+                    <div class="stat-icon bg-warning bg-opacity-10 text-warning">\par
+                        <i class="fas fa-exclamation-triangle"></i>\par
+                    </div>\par
+                </div>\par
+            </div>\par
+        </div>\par
+    </div>\par
+    \par
+    <div class="col-lg-3 col-md-6 mb-3">\par
+        <div class="stat-card info">\par
+            <div class="card-body">\par
+                <div class="d-flex justify-content-between align-items-center">\par
+                    <div>\par
+                        <div class="stat-label">Destacados</div>\par
+                        <div class="stat-value"><?php echo number_format($stats['featured_products'] ?? 0); ?></div>\par
+                    </div>\par
+                    <div class="stat-icon bg-info bg-opacity-10 text-info">\par
+                        <i class="fas fa-star"></i>\par
+                    </div>\par
+                </div>\par
+            </div>\par
+        </div>\par
+    </div>\par
+</div>\par
+\par
+<!-- Products Table -->\par
+<div class="admin-card">\par
+    <div class="admin-card-header d-flex justify-content-between align-items-center">\par
+        <h5 class="mb-0">Listado de Productos</h5>\par
+        <div class="text-muted">Mostrando <?php echo count($products); ?> productos</div>\par
+    </div>\par
+    <div class="card-body">\par
+        <div class="admin-table">\par
+            <table id="productsTable" class="table table-hover">\par
+                <thead>\par
+                    <tr>\par
+                        <th>ID</th>\par
+                        <th>Imagen</th>\par
+                        <th>Nombre</th>\par
+                        <th>SKU</th>\par
+                        <th>Categor\'eda</th>\par
+                        <th>Precio</th>\par
+                        <th>Stock</th>\par
+                        <th>Estado</th>\par
+                        <th>Destacado</th>\par
+                        <th>Acciones</th>\par
+                    </tr>\par
+                </thead>\par
+                <tbody>\par
+                    <?php foreach ($products as $product): ?>\par
+                    <tr>\par
+                        <td><?php echo $product['id']; ?></td>\par
+                        <td>\par
+                            <div class="product-image-container">\par
+                                <img src="<?php echo $base_url . 'assets/uploads/' . ($product['image'] ?: 'placeholder.jpg'); ?>" \par
+                                     alt="<?php echo $product['name']; ?>" class="product-image rounded">\par
+                            </div>\par
+                        </td>\par
+                        <td>\par
+                            <div>\par
+                                <strong><?php echo $product['name']; ?></strong>\par
+                                <?php if ($product['short_description']): ?>\par
+                                <br><small class="text-muted"><?php echo substr($product['short_description'], 0, 50) . '...'; ?></small>\par
+                                <?php endif; ?>\par
+                            </div>\par
+                        </td>\par
+                        <td><code><?php echo $product['sku']; ?></code></td>\par
+                        <td><?php echo $product['category_name'] ?: '-'; ?></td>\par
+                        <td>\par
+                            <?php if ($product['sale_price'] && $product['sale_price'] < $product['price']): ?>\par
+                                <div class="text-success fw-bold"><?php echo $currency_symbol . number_format($product['sale_price'], 2); ?></div>\par
+                                <small class="text-muted text-decoration-line-through"><?php echo $currency_symbol . number_format($product['price'], 2); ?></small>\par
+                            <?php else: ?>\par
+                                <div class="fw-bold"><?php echo $currency_symbol . number_format($product['price'], 2); ?></div>\par
+                            <?php endif; ?>\par
+                        </td>\par
+                        <td class="text-center">\par
+                            <span class="badge bg-<?php echo $product['stock'] > 10 ? 'success' : ($product['stock'] > 0 ? 'warning' : 'danger'); ?>">\par
+                                <?php echo $product['stock']; ?>\par
+                            </span>\par
+                        </td>\par
+                        <td>\par
+                            <span class="badge bg-<?php echo $product['status'] === 'active' ? 'success' : ($product['status'] === 'draft' ? 'warning' : 'secondary'); ?>">\par
+                                <?php echo ucfirst($product['status']); ?>\par
+                            </span>\par
+                        </td>\par
+                        <td class="text-center">\par
+                            <?php if ($product['featured']): ?>\par
+                                <i class="fas fa-star text-warning" title="Destacado"></i>\par
+                            <?php else: ?>\par
+                                <i class="far fa-star text-muted" title="No destacado"></i>\par
+                            <?php endif; ?>\par
+                        </td>\par
+                        <td>\par
+                            <div class="btn-group btn-group-sm">\par
+                                <button class="btn btn-outline-primary" onclick="editProduct(<?php echo $product['id']; ?>)" title="Editar">\par
+                                    <i class="fas fa-edit"></i>\par
+                                </button>\par
+                                <button class="btn btn-outline-info" onclick="viewProduct(<?php echo $product['id']; ?>)" title="Ver">\par
+                                    <i class="fas fa-eye"></i>\par
+                                </button>\par
+                                <div class="btn-group btn-group-sm">\par
+                                    <button class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" title="M\'e1s opciones">\par
+                                        <i class="fas fa-ellipsis-v"></i>\par
+                                    </button>\par
+                                    <ul class="dropdown-menu">\par
+                                        <li><a class="dropdown-item" href="#" onclick="toggleFeatured(<?php echo $product['id']; ?>, <?php echo $product['featured'] ? 'false' : 'true'; ?>)">\par
+                                            <i class="fas fa-star me-2"></i><?php echo $product['featured'] ? 'Quitar destacado' : 'Destacar'; ?>\par
+                                        </a></li>\par
+                                        <li><hr class="dropdown-divider"></li>\par
+                                        <li><a class="dropdown-item" href="#" onclick="duplicateProduct(<?php echo $product['id']; ?>)">\par
+                                            <i class="fas fa-copy me-2"></i>Duplicar\par
+                                        </a></li>\par
+                                        <li><a class="dropdown-item text-danger" href="#" onclick="deleteProduct(<?php echo $product['id']; ?>)">\par
+                                            <i class="fas fa-trash me-2"></i>Eliminar\par
+                                        </a></li>\par
+                                    </ul>\par
+                                </div>\par
+                            </div>\par
+                        </td>\par
+                    </tr>\par
+                    <?php endforeach; ?>\par
+                </tbody>\par
+            </table>\par
+        </div>\par
+    </div>\par
+</div>\par
+\par
+<!-- Product Modal -->\par
+<div class="modal fade" id="productModal" tabindex="-1">\par
+    <div class="modal-dialog modal-lg">\par
+        <div class="modal-content">\par
+            <form id="productForm" enctype="multipart/form-data">\par
+                <div class="modal-header">\par
+                    <h5 class="modal-title">Nuevo Producto</h5>\par
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>\par
+                </div>\par
+                <div class="modal-body">\par
+                    <input type="hidden" name="action" value="create">\par
+                    <input type="hidden" name="id" id="product_id">\par
+                    \par
+                    <div class="row">\par
+                        <div class="col-md-8">\par
+                            <div class="mb-3">\par
+                                <label for="name" class="form-label">Nombre *</label>\par
+                                <input type="text" class="form-control" name="name" id="name" required>\par
+                            </div>\par
+                            \par
+                            <div class="mb-3">\par
+                                <label for="short_description" class="form-label">Descripci\'f3n Corta</label>\par
+                                <textarea class="form-control" name="short_description" id="short_description" rows="2"></textarea>\par
+                            </div>\par
+                            \par
+                            <div class="mb-3">\par
+                                <label for="description" class="form-label">Descripci\'f3n Completa</label>\par
+                                <textarea class="form-control" name="description" id="description" rows="4"></textarea>\par
+                            </div>\par
+                            \par
+                            <div class="row">\par
+                                <div class="col-md-6">\par
+                                    <div class="mb-3">\par
+                                        <label for="price" class="form-label">Precio *</label>\par
+                                        <div class="input-group">\par
+                                            <span class="input-group-text"><?php echo $currency_symbol; ?></span>\par
+                                            <input type="number" step="0.01" class="form-control" name="price" id="price" required>\par
+                                        </div>\par
+                                    </div>\par
+                                </div>\par
+                                <div class="col-md-6">\par
+                                    <div class="mb-3">\par
+                                        <label for="sale_price" class="form-label">Precio de Oferta</label>\par
+                                        <div class="input-group">\par
+                                            <span class="input-group-text"><?php echo $currency_symbol; ?></span>\par
+                                            <input type="number" step="0.01" class="form-control" name="sale_price" id="sale_price">\par
+                                        </div>\par
+                                    </div>\par
+                                </div>\par
+                            </div>\par
+                            \par
+                            <div class="row">\par
+                                <div class="col-md-6">\par
+                                    <div class="mb-3">\par
+                                        <label for="sku" class="form-label">SKU *</label>\par
+                                        <input type="text" class="form-control" name="sku" id="sku" required>\par
+                                    </div>\par
+                                </div>\par
+                                <div class="col-md-6">\par
+                                    <div class="mb-3">\par
+                                        <label for="stock" class="form-label">Stock *</label>\par
+                                        <input type="number" class="form-control" name="stock" id="stock" required>\par
+                                    </div>\par
+                                </div>\par
+                            </div>\par
+                            \par
+                            <div class="row">\par
+                                <div class="col-md-6">\par
+                                    <div class="mb-3">\par
+                                        <label for="category_id" class="form-label">Categor\'eda</label>\par
+                                        <select class="form-select" name="category_id" id="category_id">\par
+                                            <option value="">Sin categor\'eda</option>\par
+                                            <?php foreach ($categories as $category): ?>\par
+                                            <option value="<?php echo $category['id']; ?>"><?php echo $category['name']; ?></option>\par
+                                            <?php endforeach; ?>\par
+                                        </select>\par
+                                    </div>\par
+                                </div>\par
+                                <div class="col-md-6">\par
+                                    <div class="mb-3">\par
+                                        <label for="status" class="form-label">Estado</label>\par
+                                        <select class="form-select" name="status" id="status">\par
+                                            <option value="active">Activo</option>\par
+                                            <option value="inactive">Inactivo</option>\par
+                                            <option value="draft">Borrador</option>\par
+                                        </select>\par
+                                    </div>\par
+                                </div>\par
+                            </div>\par
+                            \par
+                            <div class="mb-3">\par
+                                <div class="form-check">\par
+                                    <input class="form-check-input" type="checkbox" name="featured" id="featured">\par
+                                    <label class="form-check-label" for="featured">\par
+                                        Producto destacado\par
+                                    </label>\par
+                                </div>\par
+                            </div>\par
+                        </div>\par
+                        \par
+                        <div class="col-md-4">\par
+                            <div class="mb-3">\par
+                                <label for="image" class="form-label">Imagen Principal</label>\par
+                                <input type="file" class="form-control" name="image" id="image" accept="image/*">\par
+                                <div id="imagePreview" class="mt-2"></div>\par
+                            </div>\par
+                            \par
+                            <div class="mb-3">\par
+                                <label for="dimensions" class="form-label">Dimensiones</label>\par
+                                <input type="text" class="form-control" name="dimensions" id="dimensions" placeholder="ej: 50x30x20 cm">\par
+                            </div>\par
+                            \par
+                            <div class="mb-3">\par
+                                <label for="weight" class="form-label">Peso (kg)</label>\par
+                                <input type="number" step="0.01" class="form-control" name="weight" id="weight">\par
+                            </div>\par
+                            \par
+                            <div class="mb-3">\par
+                                <label for="tags" class="form-label">Etiquetas</label>\par
+                                <input type="text" class="form-control" name="tags" id="tags" placeholder="tag1, tag2, tag3">\par
+                                <small class="text-muted">Separar con comas</small>\par
+                            </div>\par
+                        </div>\par
+                    </div>\par
+                </div>\par
+                <div class="modal-footer">\par
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>\par
+                    <button type="submit" class="btn btn-primary">Guardar Producto</button>\par
+                </div>\par
+            </form>\par
+        </div>\par
+    </div>\par
+</div>\par
+\par
+<!-- Product Details Modal -->\par
+<div class="modal fade" id="productDetailsModal" tabindex="-1">\par
+    <div class="modal-dialog modal-xl">\par
+        <div class="modal-content">\par
+            <div class="modal-header">\par
+                <h5 class="modal-title">Detalles del Producto</h5>\par
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>\par
+            </div>\par
+            <div class="modal-body" id="productDetailsContent">\par
+                <!-- Content loaded via AJAX -->\par
+            </div>\par
+        </div>\par
+    </div>\par
+</div>\par
+\par
+<script>\par
+// =====================================================\par
+// JAVASCRIPT PARA GESTI\'d3N DE PRODUCTOS - ADMINISTRADOR\par
+// =====================================================\par
+\par
+// \f1\u9989?\f2  \f0 CONFIGURACI\'d3N GLOBAL\par
+window.ADMIN_CONFIG = \{\par
+    base_url: '<?php echo $base_url; ?>',\par
+    currency_symbol: '<?php echo $currency_symbol; ?>',\par
+    store_name: '<?php echo $store_name; ?>'\par
+\};\par
+\par
+// \f1\u9989?\f2  \f0 INICIALIZACI\'d3N AL CARGAR DOM\par
+$(document).ready(function() \{\par
+    console.log('\f3\u-10179?\u-8576?\f2  \f0 Iniciando gesti\'f3n de productos...');\par
+    console.log('\f3\u-10179?\u-9011?\f2  \f0 Base URL:', window.ADMIN_CONFIG.base_url);\par
+    \par
+    // Inicializar DataTable\par
+    initializeDataTable();\par
+    \par
+    // Configurar formulario de productos\par
+    setupProductForm();\par
+    \par
+    // Configurar filtros\par
+    setupFilters();\par
+    \par
+    // Configurar subida de im\'e1genes\par
+    setupImageUpload();\par
+    \par
+    // Event listeners\par
+    attachEventListeners();\par
+    \par
+    console.log('\f1\u9989?\f2  \f0 Gesti\'f3n de productos inicializada correctamente');\par
+\});\par
+\par
+// =====================================================\par
+// FUNCIONES DE INICIALIZACI\'d3N\par
+// =====================================================\par
+\par
+function initializeDataTable() \{\par
+    if ($('#productsTable').length === 0) return;\par
+    \par
+    try \{\par
+        const table = $('#productsTable').DataTable(\{\par
+            pageLength: 25,\par
+            order: [[0, 'desc']],\par
+            language: \{\par
+                url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json'\par
+            \},\par
+            columnDefs: [\par
+                \{ orderable: false, targets: -1 \}, // Columna de acciones\par
+                \{ className: 'text-center', targets: [0, 6, 7, 8] \} // Centrar ciertas columnas\par
+            ],\par
+            responsive: true,\par
+            dom: '<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>rtip',\par
+            initComplete: function() \{\par
+                console.log('\f1\u9989?\f2  \f0 DataTable inicializada');\par
+            \}\par
+        \});\par
+        \par
+        // Configurar filtros personalizados\par
+        $('#searchFilter').on('keyup', function() \{\par
+            table.search(this.value).draw();\par
+        \});\par
+        \par
+        $('#categoryFilter').on('change', function() \{\par
+            table.column(4).search(this.value).draw();\par
+        \});\par
+        \par
+        $('#statusFilter').on('change', function() \{\par
+            table.column(7).search(this.value).draw();\par
+        \});\par
+        \par
+        // Guardar referencia global\par
+        window.productsTable = table;\par
+        \par
+    \} catch (error) \{\par
+        console.error('\f1\u10060?\f2  \f0 Error inicializando DataTable:', error);\par
+        showAdminNotification('Error al cargar la tabla de productos', 'error');\par
+    \}\par
+\}\par
+\par
+function setupProductForm() \{\par
+    const form = $('#productForm');\par
+    if (form.length === 0) return;\par
+    \par
+    // Prevenir env\'edo normal del formulario\par
+    form.on('submit', function(e) \{\par
+        e.preventDefault();\par
+        e.stopPropagation();\par
+        handleProductSubmit();\par
+        return false;\par
+    \});\par
+    \par
+    // Auto-generar SKU basado en el nombre\par
+    $('#name').on('input', debounce(function() \{\par
+        const name = $(this).val();\par
+        const isNewProduct = !$('#product_id').val();\par
+        \par
+        if (name && isNewProduct && !$('#sku').val()) \{\par
+            const sku = generateSKU(name);\par
+            $('#sku').val(sku);\par
+        \}\par
+    \}, 500));\par
+    \par
+    // Validaci\'f3n de precio de oferta\par
+    $('#sale_price').on('input', function() \{\par
+        const salePrice = parseFloat($(this).val());\par
+        const regularPrice = parseFloat($('#price').val());\par
+        \par
+        if (salePrice && regularPrice && salePrice >= regularPrice) \{\par
+            $(this).addClass('is-invalid');\par
+            $(this).siblings('.invalid-feedback').remove();\par
+            $(this).after('<div class="invalid-feedback">El precio de oferta debe ser menor al precio regular</div>');\par
+        \} else \{\par
+            $(this).removeClass('is-invalid');\par
+            $(this).siblings('.invalid-feedback').remove();\par
+        \}\par
+    \});\par
+    \par
+    console.log('\f1\u9989?\f2  \f0 Formulario de productos configurado');\par
+\}\par
+\par
+function setupFilters() \{\par
+    // Reset de filtros\par
+    $('#clearFiltersBtn').on('click', function() \{\par
+        clearAllFilters();\par
+    \});\par
+    \par
+    // Aplicar filtros en tiempo real\par
+    const filterInputs = $('#searchFilter, #categoryFilter, #statusFilter');\par
+    filterInputs.on('change keyup', debounce(function() \{\par
+        applyFilters();\par
+    \}, 300));\par
+    \par
+    console.log('\f1\u9989?\f2  \f0 Filtros configurados');\par
+\}\par
+\par
+function setupImageUpload() \{\par
+    $('#image').on('change', function() \{\par
+        handleImagePreview(this);\par
+    \});\par
+    \par
+    // Drag & Drop (opcional)\par
+    const dropZone = $('.image-drop-zone');\par
+    if (dropZone.length > 0) \{\par
+        setupDragDrop(dropZone);\par
+    \}\par
+    \par
+    console.log('\f1\u9989?\f2  \f0 Sistema de im\'e1genes configurado');\par
+\}\par
+\par
+function attachEventListeners() \{\par
+    // Modal events\par
+    $('#productModal').on('hidden.bs.modal', function() \{\par
+        resetProductForm();\par
+    \});\par
+    \par
+    $('#productModal').on('shown.bs.modal', function() \{\par
+        $('#name').focus();\par
+    \});\par
+    \par
+    // Keyboard shortcuts\par
+    $(document).on('keydown', function(e) \{\par
+        // Ctrl/Cmd + N = Nuevo producto\par
+        if ((e.ctrlKey || e.metaKey) && e.key === 'n' && !$('.modal').hasClass('show')) \{\par
+            e.preventDefault();\par
+            $('#productModal').modal('show');\par
+        \}\par
+        \par
+        // Escape = Cerrar modal\par
+        if (e.key === 'Escape' && $('.modal').hasClass('show')) \{\par
+            $('.modal').modal('hide');\par
+        \}\par
+    \});\par
+    \par
+    console.log('\f1\u9989?\f2  \f0 Event listeners configurados');\par
+\}\par
+\par
+// =====================================================\par
+// FUNCIONES PRINCIPALES\par
+// =====================================================\par
+\par
+function handleProductSubmit() \{\par
+    const form = $('#productForm')[0];\par
+    const formData = new FormData(form);\par
+    const submitBtn = $('#productForm button[type="submit"]');\par
+    const originalText = submitBtn.html();\par
+    \par
+    // Validaciones b\'e1sicas\par
+    if (!validateProductForm()) \{\par
+        return false;\par
+    \}\par
+    \par
+    // UI: Deshabilitar bot\'f3n\par
+    submitBtn.prop('disabled', true)\par
+             .html('<i class="fas fa-spinner fa-spin"></i> Guardando...');\par
+    \par
+    // Determinar acci\'f3n\par
+    const action = $('#product_id').val() ? 'update' : 'create';\par
+    formData.set('action', action);\par
+    \par
+    console.log('\f3\u-10179?\u-8988?\f2  \f0 Enviando producto...', action);\par
+    \par
+    $.ajax(\{\par
+        url: window.ADMIN_CONFIG.base_url + 'admin/products/save',\par
+        method: 'POST',\par
+        data: formData,\par
+        processData: false,\par
+        contentType: false,\par
+        dataType: 'json',\par
+        timeout: 30000,\par
+        success: function(response) \{\par
+            console.log('\f1\u9989?\f2  \f0 Respuesta:', response);\par
+            \par
+            if (response && response.success) \{\par
+                showAdminNotification(response.message || 'Producto guardado exitosamente', 'success');\par
+                $('#productModal').modal('hide');\par
+                \par
+                // Recargar tabla o p\'e1gina\par
+                if (window.productsTable) \{\par
+                    window.productsTable.ajax.reload();\par
+                \} else \{\par
+                    setTimeout(() => location.reload(), 1500);\par
+                \}\par
+            \} else \{\par
+                handleFormErrors(response);\par
+            \}\par
+        \},\par
+        error: function(xhr, status, error) \{\par
+            console.error('\f1\u10060?\f2  \f0 Error AJAX:', \{xhr, status, error\});\par
+            \par
+            let errorMessage = 'Error de conexi\'f3n';\par
+            \par
+            if (xhr.status === 404) \{\par
+                errorMessage = 'Ruta no encontrada. Verifica la configuraci\'f3n.';\par
+            \} else if (xhr.status === 500) \{\par
+                errorMessage = 'Error interno del servidor. Revisa los logs.';\par
+            \} else if (xhr.responseJSON?.message) \{\par
+                errorMessage = xhr.responseJSON.message;\par
+            \}\par
+            \par
+            showAdminNotification(errorMessage, 'error');\par
+        \},\par
+        complete: function() \{\par
+            // Rehabilitar bot\'f3n\par
+            submitBtn.prop('disabled', false).html(originalText);\par
+        \}\par
+    \});\par
+\}\par
+\par
+function editProduct(id) \{\par
+    console.log('\f4\u9999?\u-497?\f2  \f0 Editando producto ID:', id);\par
+    \par
+    $.ajax(\{\par
+        url: window.ADMIN_CONFIG.base_url + 'admin/products/get/' + id,\par
+        method: 'GET',\par
+        dataType: 'json',\par
+        success: function(product) \{\par
+            console.log('\f1\u9989?\f2  \f0 Producto cargado:', product);\par
+            \par
+            // Llenar formulario\par
+            populateProductForm(product);\par
+            \par
+            // Configurar modal para edici\'f3n\par
+            $('#productModal .modal-title').text('Editar Producto');\par
+            $('#productModal').modal('show');\par
+        \},\par
+        error: function(xhr) \{\par
+            console.error('\f1\u10060?\f2  \f0 Error cargando producto:', xhr);\par
+            showAdminNotification('Error al cargar el producto', 'error');\par
+        \}\par
+    \});\par
+\}\par
+\par
+function viewProduct(id) \{\par
+    console.log('\f4\u-10179?\u-9151?\u-497?\f2  \f0 Viendo producto ID:', id);\par
+    \par
+    $('#productDetailsContent').html('<div class="text-center p-4"><i class="fas fa-spinner fa-spin fa-2x"></i><p class="mt-2">Cargando...</p></div>');\par
+    $('#productDetailsModal').modal('show');\par
+    \par
+    $.ajax(\{\par
+        url: window.ADMIN_CONFIG.base_url + 'admin/products/view/' + id,\par
+        method: 'GET',\par
+        success: function(data) \{\par
+            $('#productDetailsContent').html(data);\par
+        \},\par
+        error: function(xhr) \{\par
+            console.error('\f1\u10060?\f2  \f0 Error cargando detalles:', xhr);\par
+            $('#productDetailsContent').html('<div class="alert alert-danger">Error al cargar los detalles del producto</div>');\par
+        \}\par
+    \});\par
+\}\par
+\par
+function deleteProduct(id) \{\par
+    if (!confirm('\f4\u9888?\u-497?\f2  \f0\'bfEst\'e1s seguro de eliminar este producto?\\n\\nEsta acci\'f3n cambiar\'e1 su estado a inactivo.')) \{\par
+        return;\par
+    \}\par
+    \par
+    console.log('\f4\u-10179?\u-8751?\u-497?\f2  \f0 Eliminando producto ID:', id);\par
+    \par
+    $.ajax(\{\par
+        url: window.ADMIN_CONFIG.base_url + 'admin/products/delete',\par
+        method: 'POST',\par
+        data: \{id: id\},\par
+        dataType: 'json',\par
+        success: function(response) \{\par
+            if (response && response.success) \{\par
+                showAdminNotification(response.message, 'success');\par
+                \par
+                // Recargar tabla\par
+                if (window.productsTable) \{\par
+                    window.productsTable.ajax.reload();\par
+                \} else \{\par
+                    setTimeout(() => location.reload(), 1000);\par
+                \}\par
+            \} else \{\par
+                showAdminNotification(response.message || 'Error al eliminar', 'error');\par
+            \}\par
+        \},\par
+        error: function(xhr) \{\par
+            console.error('\f1\u10060?\f2  \f0 Error eliminando:', xhr);\par
+            showAdminNotification('Error al eliminar producto', 'error');\par
+        \}\par
+    \});\par
+\}\par
+\par
+function toggleFeatured(id, featured) \{\par
+    console.log('\f1\u11088?\f2  \f0 Toggle featured:', \{id, featured\});\par
+    \par
+    $.ajax(\{\par
+        url: window.ADMIN_CONFIG.base_url + 'admin/products/toggle-featured',\par
+        method: 'POST',\par
+        data: \{id: id\},\par
+        dataType: 'json',\par
+        success: function(response) \{\par
+            if (response && response.success) \{\par
+                showAdminNotification(response.message, 'success');\par
+                setTimeout(() => location.reload(), 500);\par
+            \} else \{\par
+                showAdminNotification(response.message || 'Error al actualizar', 'error');\par
+            \}\par
+        \},\par
+        error: function(xhr) \{\par
+            console.error('\f1\u10060?\f2  \f0 Error toggle featured:', xhr);\par
+            showAdminNotification('Error al actualizar estado destacado', 'error');\par
+        \}\par
+    \});\par
+\}\par
+\par
+function duplicateProduct(id) \{\par
+    if (!confirm('\f3\u-10179?\u-9013?\f2  \f0\'bfCrear una copia de este producto?')) return;\par
+    \par
+    console.log('\f3\u-10179?\u-9013?\f2  \f0 Duplicando producto ID:', id);\par
+    \par
+    $.ajax(\{\par
+        url: window.ADMIN_CONFIG.base_url + 'admin/products/duplicate',\par
+        method: 'POST',\par
+        data: \{id: id\},\par
+        dataType: 'json',\par
+        success: function(response) \{\par
+            if (response && response.success) \{\par
+                showAdminNotification(response.message, 'success');\par
+                setTimeout(() => location.reload(), 1000);\par
+            \} else \{\par
+                showAdminNotification(response.message || 'Error al duplicar', 'error');\par
+            \}\par
+        \},\par
+        error: function(xhr) \{\par
+            console.error('\f1\u10060?\f2  \f0 Error duplicando:', xhr);\par
+            showAdminNotification('Error al duplicar producto', 'error');\par
+        \}\par
+    \});\par
+\}\par
+\par
+function exportProducts() \{\par
+    console.log('\f3\u-10179?\u-9014?\f2  \f0 Exportando productos...');\par
+    showAdminNotification('Preparando exportaci\'f3n...', 'info');\par
+    \par
+    // Abrir en nueva ventana para descarga\par
+    window.open(window.ADMIN_CONFIG.base_url + 'admin/products/export', '_blank');\par
+\}\par
+\par
+// =====================================================\par
+// FUNCIONES DE UTILIDAD\par
+// =====================================================\par
+\par
+function validateProductForm() \{\par
+    const requiredFields = [\par
+        \{field: '#name', message: 'El nombre es requerido'\},\par
+        \{field: '#sku', message: 'El SKU es requerido'\},\par
+        \{field: '#price', message: 'El precio es requerido'\},\par
+        \{field: '#stock', message: 'El stock es requerido'\}\par
+    ];\par
+    \par
+    let isValid = true;\par
+    \par
+    // Limpiar errores anteriores\par
+    $('.is-invalid').removeClass('is-invalid');\par
+    $('.invalid-feedback').remove();\par
+    \par
+    requiredFields.forEach(function(item) \{\par
+        const field = $(item.field);\par
+        const value = field.val().trim();\par
+        \par
+        if (!value) \{\par
+            field.addClass('is-invalid');\par
+            field.after(`<div class="invalid-feedback">$\{item.message\}</div>`);\par
+            isValid = false;\par
+        \}\par
+    \});\par
+    \par
+    // Validaci\'f3n de n\'fameros\par
+    const numericFields = ['#price', '#sale_price', '#stock', '#weight'];\par
+    numericFields.forEach(function(fieldId) \{\par
+        const field = $(fieldId);\par
+        const value = field.val();\par
+        \par
+        if (value && (isNaN(value) || parseFloat(value) < 0)) \{\par
+            field.addClass('is-invalid');\par
+            field.after('<div class="invalid-feedback">Debe ser un n\'famero v\'e1lido mayor o igual a 0</div>');\par
+            isValid = false;\par
+        \}\par
+    \});\par
+    \par
+    // Validaci\'f3n de precio de oferta\par
+    const price = parseFloat($('#price').val());\par
+    const salePrice = parseFloat($('#sale_price').val());\par
+    \par
+    if (salePrice && salePrice >= price) \{\par
+        $('#sale_price').addClass('is-invalid');\par
+        $('#sale_price').after('<div class="invalid-feedback">El precio de oferta debe ser menor al precio regular</div>');\par
+        isValid = false;\par
+    \}\par
+    \par
+    if (!isValid) \{\par
+        // Scroll al primer error\par
+        const firstError = $('.is-invalid').first();\par
+        if (firstError.length) \{\par
+            firstError[0].scrollIntoView(\{behavior: 'smooth', block: 'center'\});\par
+        \}\par
+    \}\par
+    \par
+    return isValid;\par
+\}\par
+\par
+function populateProductForm(product) \{\par
+    $('#product_id').val(product.id);\par
+    $('#name').val(product.name || '');\par
+    $('#short_description').val(product.short_description || '');\par
+    $('#description').val(product.description || '');\par
+    $('#price').val(product.price || '');\par
+    $('#sale_price').val(product.sale_price || '');\par
+    $('#sku').val(product.sku || '');\par
+    $('#stock').val(product.stock || '');\par
+    $('#min_stock').val(product.min_stock || '');\par
+    $('#category_id').val(product.category_id || '');\par
+    $('#brand_id').val(product.brand_id || '');\par
+    $('#status').val(product.status || 'active');\par
+    $('#featured').prop('checked', product.featured === true || product.featured === 1);\par
+    $('#digital').prop('checked', product.digital === true || product.digital === 1);\par
+    $('#manage_stock').prop('checked', product.manage_stock === true || product.manage_stock === 1);\par
+    $('#specifications').val(product.specifications || '');\par
+    $('#dimensions').val(product.dimensions || '');\par
+    $('#weight').val(product.weight || '');\par
+    $('#meta_title').val(product.meta_title || '');\par
+    $('#meta_description').val(product.meta_description || '');\par
+    $('#tags').val(product.tags || '');\par
+    \par
+    // Preview de imagen\par
+    if (product.image) \{\par
+        const imageUrl = window.ADMIN_CONFIG.base_url + 'public/assets/uploads/' + product.image;\par
+        $('#imagePreview').html(`<img src="$\{imageUrl\}" class="img-fluid rounded" style="max-height: 150px;">`);\par
+    \}\par
+\}\par
+\par
+function resetProductForm() \{\par
+    $('#productForm')[0].reset();\par
+    $('#product_id').val('');\par
+    $('#imagePreview').empty();\par
+    $('#productModal .modal-title').text('Nuevo Producto');\par
+    \par
+    // Limpiar errores\par
+    $('.is-invalid').removeClass('is-invalid');\par
+    $('.invalid-feedback').remove();\par
+    \par
+    console.log('\f3\u-10179?\u-8956?\f2  \f0 Formulario reseteado');\par
+\}\par
+\par
+function handleImagePreview(input) \{\par
+    const file = input.files[0];\par
+    const preview = $('#imagePreview');\par
+    \par
+    if (file) \{\par
+        // Validaciones\par
+        const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];\par
+        if (!allowedTypes.includes(file.type)) \{\par
+            showAdminNotification('Solo se permiten im\'e1genes JPG, PNG, GIF o WebP', 'error');\par
+            $(input).val('');\par
+            preview.empty();\par
+            return;\par
+        \}\par
+        \par
+        if (file.size > 5 * 1024 * 1024) \{\par
+            showAdminNotification('La imagen no puede ser mayor a 5MB', 'error');\par
+            $(input).val('');\par
+            preview.empty();\par
+            return;\par
+        \}\par
+        \par
+        // Mostrar preview\par
+        const reader = new FileReader();\par
+        reader.onload = function(e) \{\par
+            preview.html(`\par
+                <img src="$\{e.target.result\}" class="img-fluid rounded shadow" style="max-height: 150px;">\par
+                <div class="mt-2 text-muted small">\par
+                    <i class="fas fa-file-image me-1"></i>\par
+                    $\{file.name\} ($\{(file.size / 1024 / 1024).toFixed(2)\} MB)\par
+                </div>\par
+            `);\par
+        \};\par
+        reader.readAsDataURL(file);\par
+    \} else \{\par
+        preview.empty();\par
+    \}\par
+\}\par
+\par
+function handleFormErrors(response) \{\par
+    if (response && response.errors) \{\par
+        // Mostrar errores de validaci\'f3n\par
+        for (const field in response.errors) \{\par
+            const input = $('#' + field);\par
+            if (input.length) \{\par
+                input.addClass('is-invalid');\par
+                \par
+                let errorMessage = response.errors[field];\par
+                if (Array.isArray(errorMessage)) \{\par
+                    errorMessage = errorMessage[0];\par
+                \}\par
+                \par
+                input.after(`<div class="invalid-feedback">$\{errorMessage\}</div>`);\par
+            \}\par
+        \}\par
+        \par
+        // Scroll al primer error\par
+        const firstError = $('.is-invalid').first();\par
+        if (firstError.length) \{\par
+            firstError[0].scrollIntoView(\{behavior: 'smooth', block: 'center'\});\par
+        \}\par
+    \}\par
+    \par
+    const message = response?.message || 'Error en el formulario';\par
+    showAdminNotification(message, 'error');\par
+\}\par
+\par
+function generateSKU(name) \{\par
+    const cleanName = name.toLowerCase()\par
+        .replace(/[\'e1\'e9\'ed\'f3\'fa\'f1\'fc]/g, function(match) \{\par
+            const map = \{\'e1:'a',\'e9:'e',\'ed:'i',\'f3:'o',\'fa:'u',\'f1:'n',\'fc:'u'\};\par
+            return map[match];\par
+        \})\par
+        .replace(/[^a-z0-9\\s-]/g, '')\par
+        .replace(/\\s+/g, '-')\par
+        .replace(/-+/g, '-')\par
+        .replace(/^-|-$/g, '');\par
+    \par
+    const timestamp = Date.now().toString().slice(-4);\par
+    return 'PRD-' + cleanName.substring(0, 8).toUpperCase() + '-' + timestamp;\par
+\}\par
+\par
+function clearAllFilters() \{\par
+    $('#searchFilter, #categoryFilter, #statusFilter').val('');\par
+    \par
+    if (window.productsTable) \{\par
+        window.productsTable.search('').columns().search('').draw();\par
+    \}\par
+    \par
+    showAdminNotification('Filtros limpiados', 'info');\par
+\}\par
+\par
+function applyFilters() \{\par
+    // Esta funci\'f3n se puede expandir para filtros m\'e1s complejos\par
+    console.log('\f3\u-10179?\u-8947?\f2  \f0 Aplicando filtros...');\par
+\}\par
+\par
+// Utilidad: Debounce\par
+function debounce(func, wait, immediate) \{\par
+    let timeout;\par
+    return function executedFunction(...args) \{\par
+        const later = () => \{\par
+            timeout = null;\par
+            if (!immediate) func(...args);\par
+        \};\par
+        const callNow = immediate && !timeout;\par
+        clearTimeout(timeout);\par
+        timeout = setTimeout(later, wait);\par
+        if (callNow) func(...args);\par
+    \};\par
+\}\par
+\par
+// =====================================================\par
+// EXPORTAR FUNCIONES GLOBALES\par
+// =====================================================\par
+\par
+// Funciones disponibles globalmente\par
+window.editProduct = editProduct;\par
+window.viewProduct = viewProduct;\par
+window.deleteProduct = deleteProduct;\par
+window.toggleFeatured = toggleFeatured;\par
+window.duplicateProduct = duplicateProduct;\par
+window.exportProducts = exportProducts;\par
+window.clearAllFilters = clearAllFilters;\par
+\par
+console.log('\f3\u-10179?\u-8986?\f2  \f0 M\'f3dulo de productos cargado exitosamente');\par
+</script>\par
+\par
+<style>\par
+/* Estilos adicionales para la gesti\'f3n de productos */\par
+\par
+.product-image-container \{\par
+    position: relative;\par
+    overflow: hidden;\par
+\}\par
+\par
+.product-image \{\par
+    width: 50px;\par
+    height: 50px;\par
+    object-fit: cover;\par
+    transition: transform 0.2s ease;\par
+\}\par
+\par
+.product-image:hover \{\par
+    transform: scale(1.1);\par
+\}\par
+\par
+#imagePreview img \{\par
+    max-width: 100%;\par
+    border: 2px solid #e9ecef;\par
+    transition: border-color 0.2s ease;\par
+\}\par
+\par
+#imagePreview img:hover \{\par
+    border-color: var(--bs-primary);\par
+\}\par
+\par
+.image-drop-zone \{\par
+    border: 2px dashed #dee2e6;\par
+    border-radius: 8px;\par
+    padding: 2rem;\par
+    text-align: center;\par
+    transition: all 0.2s ease;\par
+    cursor: pointer;\par
+\}\par
+\par
+.image-drop-zone:hover,\par
+.image-drop-zone.dragover \{\par
+    border-color: var(--bs-primary);\par
+    background-color: rgba(var(--bs-primary-rgb), 0.05);\par
+\}\par
+\par
+.btn-group-sm .btn \{\par
+    --bs-btn-padding-y: 0.25rem;\par
+    --bs-btn-padding-x: 0.5rem;\par
+    --bs-btn-font-size: 0.875rem;\par
+\}\par
+\par
+.badge \{\par
+    font-size: 0.75em;\par
+\}\par
+\par
+.table-responsive \{\par
+    border-radius: 8px;\par
+    overflow: hidden;\par
+    box-shadow: 0 0 0 1px rgba(0,0,0,.05);\par
+\}\par
+\par
+/* Loading states */\par
+.btn.loading \{\par
+    pointer-events: none;\par
+    opacity: 0.6;\par
+\}\par
+\par
+/* Form improvements */\par
+.form-floating > .form-control:focus ~ label,\par
+.form-floating > .form-control:not(:placeholder-shown) ~ label \{\par
+    opacity: 0.65;\par
+    transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);\par
+\}\par
+\par
+/* Enhanced modals */\par
+.modal-xl \{\par
+    max-width: 90%;\par
+\}\par
+\par
+.modal-header \{\par
+    border-bottom: 1px solid #dee2e6;\par
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);\par
+\}\par
+\par
+/* Responsive improvements */\par
+@media (max-width: 768px) \{\par
+    .btn-group-sm .btn \{\par
+        --bs-btn-padding-y: 0.125rem;\par
+        --bs-btn-padding-x: 0.25rem;\par
+        --bs-btn-font-size: 0.75rem;\par
+    \}\par
+    \par
+    .product-image \{\par
+        width: 40px;\par
+        height: 40px;\par
+    \}\par
+    \par
+    .modal-xl \{\par
+        max-width: 95%;\par
+    \}\par
+\}\par
+\par
+/* Dark mode support */\par
+@media (prefers-color-scheme: dark) \{\par
+    .image-drop-zone \{\par
+        border-color: #495057;\par
+        background-color: #212529;\par
+    \}\par
+    \par
+    .image-drop-zone:hover,\par
+    .image-drop-zone.dragover \{\par
+        background-color: rgba(var(--bs-primary-rgb), 0.1);\par
+    \}\par
+\}\par
+</style>\par
+\par
+<?php\par
+// Capturar el contenido\par
+$content = ob_get_clean();\par
+\par
+// Incluir el layout y pasar el contenido\par
+include __DIR__ . '/../layouts/admin_layout.php';\par
+?>\par
+}
+ 

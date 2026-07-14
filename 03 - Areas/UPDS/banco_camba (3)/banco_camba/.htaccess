@@ -1,0 +1,15 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /upds/banco-mercantil/
+  
+  # Asegurarse de no redirigir archivos o directorios existentes
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  
+  # Redirigir todas las solicitudes que no sean para archivos o directorios existentes a index.php
+  RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+  
+  # Permitir explícitamente redirecciones a index.php con parámetros
+  RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/+index\.php\?controller=([^&\s]+)&action=([^&\s]+) [NC]
+  RewriteRule ^ %1/%2? [R=301,L]
+</IfModule>

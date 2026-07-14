@@ -1,0 +1,171 @@
+/**
+ * Estilos específicos para impresión en Banco Mercantil
+ * Fecha: 08/03/2025
+ * Mejora: Sistema de impresión optimizado para todos los módulos
+ */
+
+ @media print {
+    /* Ocultar elementos que no deben aparecer en la impresión */
+    .header, .footer, .sidebar, .main-menu, .no-print, 
+    button, .btn, .header-title, .header-actions, .footer-full-width,
+    .language-selector, .user-info, .user-profile, form, .btn-group,
+    .card-header .btn, .filter-section, .main-container .sidebar,
+    .navbar, .nav, .pagination, .dropdown, nav {
+        display: none !important;
+    }
+    
+    /* Asegurar que el contenido principal sea visible y con formato adecuado */
+    body {
+        background-color: white !important;
+        font-size: 12pt;
+        color: black !important;
+        font-family: Arial, Helvetica, sans-serif;
+        line-height: 1.5;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+    
+    /* Ajuste de contenedores */
+    .content, .container, .main-container, .card-body {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 10px !important;
+        float: none !important;
+        position: static !important;
+    }
+    
+    /* Estilo para tarjetas */
+    .card {
+        border: 1px solid #ddd !important;
+        box-shadow: none !important;
+        page-break-inside: avoid;
+        margin-bottom: 20px !important;
+        border-radius: 0 !important;
+        background-color: white !important;
+    }
+    
+    .card-header {
+        background-color: #f3f3f3 !important;
+        color: #000 !important;
+        border-bottom: 1px solid #ddd !important;
+        padding: 10px !important;
+        font-weight: bold !important;
+    }
+    
+    /* Tablas */
+    table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+        margin-bottom: 20px !important;
+        page-break-inside: auto !important;
+    }
+    
+    tr {
+        page-break-inside: avoid !important;
+        page-break-after: auto !important;
+    }
+    
+    th {
+        background-color: #f3f3f3 !important;
+        color: #000 !important;
+        border: 1px solid #ddd !important;
+        padding: 8px !important;
+        font-weight: bold !important;
+        text-align: left !important;
+    }
+    
+    td {
+        border: 1px solid #ddd !important;
+        padding: 8px !important;
+        text-align: left !important;
+    }
+    
+    /* Badges y etiquetas */
+    .badge {
+        border: 1px solid #000 !important;
+        padding: 2px 5px !important;
+        font-size: 10pt !important;
+        background-color: transparent !important;
+        color: #000 !important;
+    }
+    
+    .bg-warning, .bg-success, .bg-info, .bg-primary, .bg-secondary {
+        background-color: transparent !important;
+        color: black !important;
+        border: 1px solid #ddd !important;
+    }
+    
+    /* Encabezado de impresión */
+    .print-header {
+        text-align: center;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 10px;
+    }
+    
+    .print-header h1, .print-header h2 {
+        font-size: 18pt;
+        margin: 0 0 5px 0;
+        color: #056f1f;
+    }
+    
+    .print-header p {
+        font-size: 10pt;
+        margin: 0;
+    }
+    
+    /* Pie de página de impresión */
+    .print-footer {
+        text-align: center;
+        margin-top: 20px;
+        border-top: 1px solid #ddd;
+        padding-top: 10px;
+        font-size: 9pt;
+        color: #666;
+        bottom: 0;
+        position: fixed;
+        width: 100%;
+    }
+    
+    /* Información para impresión */
+    .print-info {
+        font-size: 10pt;
+        color: #666;
+        text-align: right;
+        margin-bottom: 10px;
+    }
+    
+    /* Saltos de página */
+    .page-break {
+        page-break-after: always;
+    }
+    
+    /* Configuración de página */
+    @page {
+        margin: 1.5cm;
+        size: portrait;
+    }
+    
+    /* Ajustes para el encabezado y pie de página */
+    @page {
+        @top-center {
+            content: "Banco Mercantil - Sistema Financiero";
+        }
+        @bottom-center {
+            content: "Página " counter(page) " de " counter(pages);
+        }
+    }
+    
+    /* Links */
+    a {
+        text-decoration: none !important;
+        color: black !important;
+    }
+    
+    /* Imágenes */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}

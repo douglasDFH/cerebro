@@ -1,0 +1,396 @@
+<div class="proveedores-container">
+  <!-- Header Section -->
+  <header class="header-section">
+    <div class="header-top">
+      <h1 class="main-title">Listado de Proveedores</h1>
+      
+      <div class="header-actions">
+        <!-- View Toggle Button -->
+        <button (click)="modoTarjeta = !modoTarjeta" class="btn btn-view-toggle">
+          @if (modoTarjeta) {
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <rect x="3" y="3" width="7" height="7"/>
+              <rect x="14" y="3" width="7" height="7"/>
+              <rect x="14" y="14" width="7" height="7"/>
+              <rect x="3" y="14" width="7" height="7"/>
+            </svg>
+            Modo Tabla
+          }
+          @if (!modoTarjeta) {
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+            Modo Tarjetas
+          }
+        </button>
+        
+        <!-- New Provider Button -->
+        <button (click)="mostrarFormulario = !mostrarFormulario" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <line x1="12" y1="5" x2="12" y2="19"/>
+            <line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+          {{ mostrarFormulario ? 'Ocultar' : (editandoId === null ? 'Registrar Proveedor' : 'Editar Proveedor') }}
+        </button>
+      </div>
+    </div>
+    
+    <!-- Controls Section -->
+    <div class="controls-section">
+      <!-- Search Bar -->
+      <div class="search-container">
+        <input 
+          type="text" 
+          [(ngModel)]="filtro" 
+          placeholder="Buscar por cualquier campo..."
+          class="search-input"
+        />
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.35-4.35"></path>
+        </svg>
+      </div>
+      
+      <!-- Filters Group -->
+      <div class="filters-group">
+        <div class="filter-item">
+          <label>Mostrar:</label>
+          <select [(ngModel)]="proveedoresPorPagina" class="filter-select">
+            <option [value]="5">5</option>
+            <option [value]="10">10</option>
+            <option [value]="20">20</option>
+          </select>
+        </div>
+        
+        <div class="filter-item">
+          <label>Ordenar:</label>
+          <div class="sort-controls">
+            <select [(ngModel)]="ordenColumna" class="filter-select">
+              <option value="">Sin orden</option>
+              <option value="idProveedor">ID</option>
+              <option value="razonSocial">Razón Social</option>
+              <option value="sectorComercial">Sector</option>
+              <option value="tipoDocumento">Documento</option>
+            </select>
+            <button (click)="ordenAscendente = !ordenAscendente" class="sort-direction-btn" 
+                    [title]="ordenAscendente ? 'Descendente' : 'Ascendente'">
+              @if (ordenAscendente) {
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="m3 16 4 4 4-4"/>
+                  <path d="M7 20V4"/>
+                </svg>
+              }
+              @if (!ordenAscendente) {
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="m3 8 4-4 4 4"/>
+                  <path d="M7 4v16"/>
+                </svg>
+              }
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Cards Grid -->
+  @if (!cargando && proveedores.length && modoTarjeta) {
+    <div class="cards-container">
+      <div class="cards-grid">
+        @for (proveedor of proveedoresPaginados; track proveedor.idProveedor) {
+          <div class="provider-card">
+            <div class="card-header">
+              <div class="card-id">#{{ proveedor.idProveedor }}</div>
+              <div class="card-actions">
+                <button (click)="editar(proveedor)" class="btn btn-edit" title="Editar">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/>
+                  </svg>
+                </button>
+                <button (click)="eliminar(proveedor.idProveedor)" class="btn btn-delete" title="Eliminar">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <polyline points="3,6 5,6 21,6"/>
+                    <path d="m19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M9 1v6m6-6v6"/>
+              </svg>
+            </div>
+
+            <div class="card-content">
+              <h3 class="card-title">{{ proveedor.razonSocial || 'Sin razón social' }}</h3>
+              
+              @if (proveedor.sectorComercial) {
+                <div class="sector-badge">
+                  {{ proveedor.sectorComercial }}
+                </div>
+              }
+              
+              <div class="card-details">
+                @if (proveedor.tipoDocumento && proveedor.numDocumento) {
+                  <div class="detail-row">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                      <polyline points="14,2 14,8 20,8"/>
+                      <line x1="16" y1="13" x2="8" y2="13"/>
+                      <line x1="16" y1="17" x2="8" y2="17"/>
+                      <polyline points="10,9 9,9 8,9"/>
+                    </svg>
+                    <span>{{ proveedor.tipoDocumento }}: {{ proveedor.numDocumento }}</span>
+                  </div>
+                }
+                
+                @if (proveedor.email) {
+                  <div class="detail-row">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                      <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                    <span>{{ proveedor.email }}</span>
+                  </div>
+                }
+                
+                @if (proveedor.telefono) {
+                  <div class="detail-row">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                    </svg>
+                    <span>{{ proveedor.telefono }}</span>
+                  </div>
+                }
+                
+                @if (proveedor.direccion) {
+                  <div class="detail-row">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                      <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                    <span>{{ proveedor.direccion }}</span>
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- Table View -->
+  @if (!cargando && proveedores.length && !modoTarjeta) {
+    <div class="table-container">
+      <div class="table-scroll">
+        <table class="providers-table">
+          <thead>
+            <tr>
+              <th (click)="ordenarPor('idProveedor')" class="sortable">ID</th>
+              <th (click)="ordenarPor('razonSocial')" class="sortable">Razón Social</th>
+              <th (click)="ordenarPor('sectorComercial')" class="sortable">Sector Comercial</th>
+              <th (click)="ordenarPor('tipoDocumento')" class="sortable">Tipo Doc</th>
+              <th (click)="ordenarPor('numDocumento')" class="sortable">N° Doc</th>
+              <th (click)="ordenarPor('direccion')" class="sortable">Dirección</th>
+              <th (click)="ordenarPor('telefono')" class="sortable">Teléfono</th>
+              <th (click)="ordenarPor('email')" class="sortable">Email</th>
+              <th class="actions-column">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (proveedor of proveedoresPaginados; track proveedor.idProveedor) {
+              <tr class="table-row">
+                <td class="id-cell">{{ proveedor.idProveedor }}</td>
+                <td class="name-cell">{{ proveedor.razonSocial }}</td>
+                <td class="sector-cell">{{ proveedor.sectorComercial || '-' }}</td>
+                <td class="doc-type-cell">{{ proveedor.tipoDocumento }}</td>
+                <td class="doc-num-cell">{{ proveedor.numDocumento || '-' }}</td>
+                <td class="address-cell">{{ proveedor.direccion || '-' }}</td>
+                <td class="phone-cell">{{ proveedor.telefono || '-' }}</td>
+                <td class="email-cell">{{ proveedor.email || '-' }}</td>
+                <td class="actions-cell">
+                  <button (click)="editar(proveedor)" class="btn btn-edit">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/>
+                    </svg>
+                  </button>
+                  <button (click)="eliminar(proveedor.idProveedor)" class="btn btn-delete">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <polyline points="3,6 5,6 21,6"/>
+                      <path d="m19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2"/>
+                    </svg>
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  }
+
+  <!-- Loading State -->
+  @if (cargando) {
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>Cargando proveedores...</p>
+    </div>
+  }
+
+  <!-- Empty State -->
+  @if (!cargando && !proveedores.length) {
+    <div class="empty-state">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="12"/>
+        <line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      <h3>No hay proveedores</h3>
+      <p>Comienza registrando tu primer proveedor</p>
+    </div>
+  }
+
+  <!-- Pagination -->
+  @if (!cargando && proveedores.length) {
+    <div class="pagination-container">
+      <button 
+        (click)="cambiarPagina(-1)" 
+        [disabled]="paginaActual === 1"
+        class="btn btn-pagination"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <polyline points="15,18 9,12 15,6"/>
+        </svg>
+        Anterior
+      </button>
+      
+      <div class="pagination-info">
+        <span class="page-numbers">Página {{ paginaActual }} de {{ totalPaginas }}</span>
+        <span class="results-count">({{ proveedoresOrdenados.length }} resultados)</span>
+      </div>
+      
+      <button 
+        (click)="cambiarPagina(1)" 
+        [disabled]="paginaActual >= totalPaginas"
+        class="btn btn-pagination"
+      >
+        Siguiente
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <polyline points="9,18 15,12 9,6"/>
+        </svg>
+      </button>
+    </div>
+  }
+
+  <!-- Modal Overlay for Form -->
+  @if (mostrarFormulario) {
+    <div class="modal-overlay" (click)="cancelar()">
+      <div class="modal-container" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h2>{{ editandoId === null ? 'Registrar Proveedor' : 'Editar Proveedor' }}</h2>
+          <button (click)="cancelar()" class="btn btn-close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="modal-content">
+          <form [formGroup]="form" (ngSubmit)="submit()" class="provider-form">
+            <div class="form-grid">
+              <div class="form-group form-group-full">
+                <label for="razonSocial">Razón Social *</label>
+                <input 
+                  id="razonSocial"
+                  type="text"
+                  formControlName="razonSocial" 
+                  placeholder="Ingrese la razón social"
+                  class="form-input"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="sectorComercial">Sector Comercial</label>
+                <input 
+                  id="sectorComercial"
+                  type="text"
+                  formControlName="sectorComercial" 
+                  placeholder="Ej: Tecnología, Retail, etc."
+                  class="form-input"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="tipoDocumento">Tipo de Documento *</label>
+                <select id="tipoDocumento" formControlName="tipoDocumento" class="form-select">
+                  <option value="RUC">RUC</option>
+                  <option value="DNI">DNI</option>
+                  <option value="CI">CI</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="numDocumento">N° Documento</label>
+                <input 
+                  id="numDocumento"
+                  type="text"
+                  formControlName="numDocumento" 
+                  placeholder="Número de documento"
+                  class="form-input"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="telefono">Teléfono</label>
+                <input 
+                  id="telefono"
+                  type="text"
+                  formControlName="telefono" 
+                  placeholder="Número de teléfono"
+                  class="form-input"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input 
+                  id="email"
+                  type="email"
+                  formControlName="email" 
+                  placeholder="Correo electrónico"
+                  class="form-input"
+                />
+              </div>
+
+              <div class="form-group form-group-full">
+                <label for="direccion">Dirección</label>
+                <input 
+                  id="direccion"
+                  type="text"
+                  formControlName="direccion" 
+                  placeholder="Dirección completa"
+                  class="form-input"
+                />
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" (click)="cancelar()" class="btn btn-secondary">
+                Cancelar
+              </button>
+              <button type="submit" [disabled]="form.invalid" class="btn btn-primary">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <polyline points="20,6 9,17 4,12"/>
+                </svg>
+                {{ editandoId === null ? 'Registrar' : 'Actualizar' }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  }
+</div>

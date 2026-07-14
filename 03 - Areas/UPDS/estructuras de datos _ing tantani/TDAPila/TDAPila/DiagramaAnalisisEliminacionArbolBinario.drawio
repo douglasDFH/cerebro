@@ -1,0 +1,393 @@
+<mxfile host="65bd71144e">
+    <diagram name="Análisis Eliminación" id="analisis-eliminacion">
+        <mxGraphModel dx="680" dy="646" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="2400" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="titulo" value="ANÁLISIS VISUAL DEL MÉTODO eliminarAB() - LOS 3 CASOS CON REFERENCIAS" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=22;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="150" y="20" width="1300" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="caso0-titulo" value="CASO 0: Validación Inicial - if(raiz == null) return false" style="text;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=16;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="40" y="80" width="580" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="c0-codigo" value="// Antes de eliminar cualquier nodo&#xa;public nodoAB eliminarAB(nodoAB raizA, int dato) {&#xa;    if(raizA == null) {&#xa;        return null;  // Árbol vacío o nodo no encontrado&#xa;    }&#xa;    // ... resto del código&#xa;}" style="text;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=10;fontFamily=Courier New;" vertex="1" parent="1">
+                    <mxGeometry x="40" y="125" width="380" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="c0-explicacion" value="EXPLICACIÓN:&#xa;&#xa;• Esta validación ocurre en CADA llamada recursiva&#xa;• Caso base de la recursión&#xa;• Retorna null en dos situaciones:&#xa;  1. El árbol está completamente vacío (raiz == null)&#xa;  2. Se llegó a un nodo null buscando el dato&#xa;     (el dato no existe en el árbol)" style="text;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=10;" vertex="1" parent="1">
+                    <mxGeometry x="440" y="125" width="340" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="c0-ejemplo" value="EJEMPLO VISUAL:" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="800" y="80" width="150" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="c0-raiz-null" value="raiz" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="820" y="110" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="c0-arrow-null" style="html=1;exitX=0.5;exitY=1;strokeWidth=2;strokeColor=#b85450;endArrow=classic;endFill=1;" edge="1" parent="1" source="c0-raiz-null">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="850" y="170" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="c0-null-text" value="null" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=1;fontColor=#b85450" vertex="1" parent="1">
+                    <mxGeometry x="870" y="190" width="5" as="geometry"/>
+                </mxCell>
+                <mxCell id="c0-resultado-box" value="return null&#xa;(No hay nada que eliminar)" style="text;html=1;strokeColor=#b85450;fillColor=#f8cecc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=10;fontStyle=1;fontFamily=Courier New;" vertex="1" parent="1">
+                    <mxGeometry x="790" y="205" width="180" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="arbol-inicial-titulo" value="ÁRBOL INICIAL (Para los ejemplos)" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="650" y="270" width="300" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ai-nodo50" value="50" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="1145" y="125" width="50" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="ai-nodo30" value="30" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="1060" y="195" width="50" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="ai-nodo70" value="70" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="1210" y="195" width="50" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="ai-nodo20" value="20" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="1010" y="260" width="50" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="ai-nodo40" value="40" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="1110" y="260" width="50" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="ai-nodo35" value="35" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="1085" y="325" width="50" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="ai-arrow1" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;endArrow=classic;endFill=1;" parent="1" source="ai-nodo50" target="ai-nodo30" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="ai-arrow2" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;endArrow=classic;endFill=1;" parent="1" source="ai-nodo50" target="ai-nodo70" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="ai-arrow3" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;endArrow=classic;endFill=1;" parent="1" source="ai-nodo30" target="ai-nodo20" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="ai-arrow4" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;endArrow=classic;endFill=1;" parent="1" source="ai-nodo30" target="ai-nodo40" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="ai-arrow5" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;endArrow=classic;endFill=1;" parent="1" source="ai-nodo40" target="ai-nodo35" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="caso1-titulo" value="CASO 1: Eliminar Nodo Hoja (35) - Sin hijos" style="text;html=1;strokeColor=#b85450;fillColor=#f8cecc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=16;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="40" y="410" width="700" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="c1-codigo" value="// Llamada&#xa;eliminarAB(35);&#xa;&#xa;// 1. raiz = eliminarAB(raiz, 35)&#xa;// 2. Navegación:&#xa;//    35 &lt; 50 → izq&#xa;//    35 &gt; 30 → der&#xa;//    35 &lt; 40 → izq&#xa;// 3. Llega a nodo 35&#xa;// 4. Verifica: HijoI==null &amp;&amp; HijoD==null&#xa;// 5. return null (elimina el nodo)" style="text;html=1;strokeColor=#b85450;fillColor=#f8cecc;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=10;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="455" width="300" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="c1-stack-title" value="PILA DE LLAMADAS RECURSIVAS:" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="360" y="455" width="250" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="c1-stack1" value="eliminarAB(raizA=50, dato=35)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=9;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="360" y="480" width="220" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="c1-stack2" value="eliminarAB(raizA=30, dato=35)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=9;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="370" y="510" width="220" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="c1-stack3" value="eliminarAB(raizA=40, dato=35)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=9;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="380" y="540" width="220" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="c1-stack4" value="eliminarAB(raizA=35, dato=35) ✓" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=9;fontFamily=Courier New;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="390" y="570" width="220" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="c1-condicion" value="if(raizA.getHijoI() == null &amp;&amp;&#xa;   raizA.getHijoD() == null)&#xa;    return null;" style="text;html=1;strokeColor=#b85450;fillColor=#f8cecc;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=10;fontFamily=Courier New;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="360" y="610" width="250" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="c1-antes" value="ANTES:" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="650" y="455" width="80" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="c1b-nodo40" value="40" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="690" y="485" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="c1b-nodo35" value="35" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#f8cecc;strokeColor=#b85450;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="670" y="540" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="c1b-null-d" value="null" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9" parent="1" vertex="1">
+                    <mxGeometry x="720" y="540" width="30" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="c1b-arrow1" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#b85450;endArrow=classic;endFill=1;" parent="1" source="c1b-nodo40" target="c1b-nodo35" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="c1b-label-i" value="HijoI" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="655" y="525" width="35" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="c1b-label-d" value="HijoD" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="715" y="525" width="35" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="c1-despues" value="DESPUÉS:" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="780" y="455" width="80" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="c1d-nodo40" value="40" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="810" y="485" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="c1d-null-i" value="null" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#82b366;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="785" y="535" width="30" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="c1d-null-d" value="null" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9" parent="1" vertex="1">
+                    <mxGeometry x="845" y="535" width="30" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="c1-resultado" value="raizA.setHijoI(null)&#xa;El nodo 35 es eliminado" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=10;fontStyle=1;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="760" y="565" width="160" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="caso2-titulo" value="CASO 2: Eliminar Nodo con Un Hijo (70) - Solo tiene hijo derecho" style="text;html=1;strokeColor=#d6b656;fillColor=#fff2cc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=16;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="40" y="710" width="850" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2-nota" value="NOTA: Primero insertamos 80 como HijoD de 70" style="text;html=1;strokeColor=#d6b656;fillColor=#fff2cc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=11;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="40" y="755" width="350" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2-codigo" value="// Llamada&#xa;eliminarAB(70);&#xa;&#xa;// 1. Navegación: 70 &gt; 50 → der&#xa;// 2. Llega a nodo 70&#xa;// 3. Verifica hijos:&#xa;//    HijoI == null → true&#xa;//    HijoD != null (80)&#xa;// 4. return raizA.getHijoD()&#xa;//    (retorna referencia a 80)" style="text;html=1;strokeColor=#d6b656;fillColor=#fff2cc;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=10;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="790" width="280" height="180" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2-stack-title" value="PILA DE LLAMADAS:" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="340" y="790" width="160" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2-stack1" value="eliminarAB(raizA=50, dato=70)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="815" width="220" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2-stack2" value="eliminarAB(raizA=70, dato=70) ✓" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;fontFamily=Courier New;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="350" y="845" width="220" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2-condicion" value="else if(raizA.getHijoI() == null)&#xa;    return raizA.getHijoD();" style="text;html=1;strokeColor=#d6b656;fillColor=#fff2cc;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=10;fontFamily=Courier New;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="340" y="885" width="250" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2-antes" value="ANTES:" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="620" y="755" width="80" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2b-nodo50" value="50" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="675" y="785" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2b-nodo70" value="70" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="715" y="840" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2b-nodo80" value="80" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="735" y="895" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2b-arrow1" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#d6b656;endArrow=classic;endFill=1;" parent="1" source="c2b-nodo50" target="c2b-nodo70" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2b-arrow2" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;endArrow=classic;endFill=1;" parent="1" source="c2b-nodo70" target="c2b-nodo80" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2b-label-d" value="HijoD" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="715" y="825" width="35" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2b-null-i" value="HijoI: null" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=8;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="640" y="850" width="70" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2-despues" value="DESPUÉS:" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="800" y="755" width="80" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2d-nodo50" value="50" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="840" y="785" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2d-nodo80" value="80" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="880" y="840" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2d-arrow1" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=3;strokeColor=#82b366;endArrow=classic;endFill=1;" parent="1" source="c2d-nodo50" target="c2d-nodo80" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2d-label" value="HijoD ahora&#xa;apunta a 80" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="880" y="820" width="70" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2-resultado" value="raizA.setHijoD(80)&#xa;El nodo 70 es reemplazado&#xa;por su único hijo (80)" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=10;fontStyle=1;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="780" y="895" width="180" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="caso3-titulo" value="CASO 3: Eliminar Nodo con Dos Hijos (30) - El más complejo" style="text;html=1;strokeColor=#9673a6;fillColor=#e1d5e7;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=16;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="40" y="1020" width="850" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3-codigo" value="// Llamada: eliminarAB(30);&#xa;&#xa;// 1. Navegación: 30 &lt; 50 → izq&#xa;// 2. Llega a nodo 30&#xa;// 3. Verifica: HijoI != null &amp;&amp; HijoD != null&#xa;// 4. Buscar sucesor in-orden:&#xa;//    sucesor = obtenerMinimo(raizA.getHijoD())&#xa;//    - Empieza en 40&#xa;//    - Busca el más a la izquierda&#xa;//    - Encuentra 35&#xa;// 5. raizA.setDato(35)  // Copia el dato&#xa;// 6. Eliminar el nodo 35 original:&#xa;//    raizA.setHijoD(eliminarAB(raizA.getHijoD(), 35))" style="text;html=1;strokeColor=#9673a6;fillColor=#e1d5e7;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=10;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="1065" width="400" height="240" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3-sucesor-titulo" value="BÚSQUEDA DEL SUCESOR:" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="460" y="1065" width="200" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3-sucesor-codigo" value="// obtenerMinimo(40)&#xa;nodo = 40&#xa;while(nodo.getHijoI() != null)&#xa;  nodo = nodo.getHijoI()&#xa;// nodo ahora es 35&#xa;return nodo  // retorna 35" style="text;html=1;strokeColor=#d79b00;fillColor=#ffe6cc;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=9;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="460" y="1090" width="230" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3-proceso" value="PROCESO EN 3 PASOS:" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="460" y="1205" width="200" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3-paso1" value="1. Encontrar sucesor (35)" style="text;html=1;strokeColor=#d79b00;fillColor=#ffe6cc;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=10" parent="1" vertex="1">
+                    <mxGeometry x="460" y="1230" width="200" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3-paso2" value="2. Copiar 35 al nodo 30" style="text;html=1;strokeColor=#9673a6;fillColor=#e1d5e7;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=10" parent="1" vertex="1">
+                    <mxGeometry x="460" y="1260" width="200" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3-paso3" value="3. Eliminar 35 original" style="text;html=1;strokeColor=#b85450;fillColor=#f8cecc;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=10" parent="1" vertex="1">
+                    <mxGeometry x="460" y="1290" width="200" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3-antes" value="ANTES:" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="720" y="1065" width="80" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3b-nodo50" value="50" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="810" y="1095" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3b-nodo30" value="30" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="760" y="1150" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3b-nodo20" value="20" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="730" y="1205" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3b-nodo40" value="40" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="790" y="1205" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3b-nodo35" value="35" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="770" y="1260" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3b-arrow1" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#9673a6;endArrow=classic;endFill=1;" parent="1" source="c3b-nodo50" target="c3b-nodo30" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3b-arrow2" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;endArrow=classic;endFill=1;" parent="1" source="c3b-nodo30" target="c3b-nodo20" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3b-arrow3" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;endArrow=classic;endFill=1;" parent="1" source="c3b-nodo30" target="c3b-nodo40" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3b-arrow4" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#d79b00;endArrow=classic;endFill=1;" parent="1" source="c3b-nodo40" target="c3b-nodo35" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3b-label-sucesor" value="Sucesor" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=1;fontColor=#d79b00" parent="1" vertex="1">
+                    <mxGeometry x="815" y="1270" width="50" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3b-label-eliminar" value="A eliminar" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=1;fontColor=#9673a6" parent="1" vertex="1">
+                    <mxGeometry x="700" y="1160" width="55" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3-intermedio" value="INTERMEDIO:" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="920" y="1065" width="100" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3i-nodo50" value="50" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="970" y="1095" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3i-nodo35a" value="35" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="920" y="1150" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3i-nodo20" value="20" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="890" y="1205" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3i-nodo40" value="40" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="950" y="1205" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3i-nodo35b" value="35" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#f8cecc;strokeColor=#b85450;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="930" y="1260" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3i-arrow1" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;endArrow=classic;endFill=1;" parent="1" source="c3i-nodo50" target="c3i-nodo35a" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3i-arrow2" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;endArrow=classic;endFill=1;" parent="1" source="c3i-nodo35a" target="c3i-nodo20" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3i-arrow3" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;endArrow=classic;endFill=1;" parent="1" source="c3i-nodo35a" target="c3i-nodo40" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3i-arrow4" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#b85450;endArrow=classic;endFill=1;" parent="1" source="c3i-nodo40" target="c3i-nodo35b" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3i-label1" value="Dato copiado" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=8;fontColor=#82b366" parent="1" vertex="1">
+                    <mxGeometry x="865" y="1157" width="55" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3i-label2" value="A eliminar" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=8;fontColor=#b85450" parent="1" vertex="1">
+                    <mxGeometry x="975" y="1270" width="50" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3-despues" value="DESPUÉS:" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="1070" y="1065" width="100" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3d-nodo50" value="50" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="1120" y="1095" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3d-nodo35" value="35" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="1070" y="1150" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3d-nodo20" value="20" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="1040" y="1205" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3d-nodo40" value="40" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="1100" y="1205" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3d-arrow1" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=3;strokeColor=#82b366;endArrow=classic;endFill=1;" parent="1" source="c3d-nodo50" target="c3d-nodo35" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3d-arrow2" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;endArrow=classic;endFill=1;" parent="1" source="c3d-nodo35" target="c3d-nodo20" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3d-arrow3" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;endArrow=classic;endFill=1;" parent="1" source="c3d-nodo35" target="c3d-nodo40" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3d-null-i" value="null" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9" parent="1" vertex="1">
+                    <mxGeometry x="1075" y="1250" width="30" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3d-null-d" value="null" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9" parent="1" vertex="1">
+                    <mxGeometry x="1135" y="1250" width="30" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3-resultado" value="30 fue reemplazado por 35&#xa;35 original fue eliminado&#xa;Estructura del árbol preservada" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=10;fontStyle=1;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="1030" y="1270" width="200" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="ley-titulo" value="LEYENDA DE COLORES" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="40" y="1360" width="200" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ley-eliminar" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11" parent="1" vertex="1">
+                    <mxGeometry x="40" y="1400" width="35" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="ley-txt-eliminar" value="Nodo a eliminar / eliminar después" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" parent="1" vertex="1">
+                    <mxGeometry x="85" y="1402" width="230" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ley-sucesor" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11" parent="1" vertex="1">
+                    <mxGeometry x="40" y="1445" width="35" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="ley-txt-sucesor" value="Nodo sucesor in-orden" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" parent="1" vertex="1">
+                    <mxGeometry x="85" y="1447" width="230" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ley-resultado" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11" parent="1" vertex="1">
+                    <mxGeometry x="40" y="1490" width="35" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="ley-txt-resultado" value="Nodo resultado después de eliminar" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" parent="1" vertex="1">
+                    <mxGeometry x="85" y="1492" width="230" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="algo-titulo" value="ALGORITMO RESUMIDO" style="text;html=1;strokeColor=#666666;fillColor=#f5f5f5;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=14;fontStyle=1;fontColor=#333333;" parent="1" vertex="1">
+                    <mxGeometry x="350" y="1360" width="500" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="algo1" value="1. Navegar recursivamente hasta encontrar el nodo" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" parent="1" vertex="1">
+                    <mxGeometry x="360" y="1400" width="400" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="algo2" value="2. Si es nodo hoja → return null" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" parent="1" vertex="1">
+                    <mxGeometry x="360" y="1425" width="400" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="algo3" value="3. Si tiene un hijo → return ese hijo" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" parent="1" vertex="1">
+                    <mxGeometry x="360" y="1450" width="400" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="algo4" value="4. Si tiene dos hijos:" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="360" y="1475" width="400" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="algo4a" value="   a) Encontrar sucesor (mínimo del subárbol derecho)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="370" y="1495" width="450" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="algo4b" value="   b) Copiar dato del sucesor al nodo actual" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="370" y="1515" width="450" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="algo4c" value="   c) Eliminar recursivamente el sucesor del subárbol der" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="370" y="1535" width="450" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="puntos-titulo" value="PUNTOS CLAVE" style="text;html=1;strokeColor=#d79b00;fillColor=#ffe6cc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="900" y="1360" width="300" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="punto1" value="• El método retorna una referencia al nodo" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" parent="1" vertex="1">
+                    <mxGeometry x="910" y="1400" width="280" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="punto2" value="• La raíz puede cambiar (si se elimina)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" parent="1" vertex="1">
+                    <mxGeometry x="910" y="1425" width="280" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="punto3" value="• El sucesor in-orden mantiene BST" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" parent="1" vertex="1">
+                    <mxGeometry x="910" y="1450" width="280" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="punto4" value="• obtenerMinimo() va siempre a la izq" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" parent="1" vertex="1">
+                    <mxGeometry x="910" y="1475" width="280" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="punto5" value="• El caso 3 combina copia + eliminación" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" parent="1" vertex="1">
+                    <mxGeometry x="910" y="1500" width="280" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="punto6" value="• Las referencias se actualizan en la pila" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" parent="1" vertex="1">
+                    <mxGeometry x="910" y="1525" width="280" height="20" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

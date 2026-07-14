@@ -1,0 +1,14 @@
+	Agenda Telefonica
+
+Nombre: douglas
+Apellido: flor
+Telefono: 74940820
+
+Nombre: aldo
+Apellido: pe¤a
+Telefono: 68779130
+
+Nombre: juan pablo
+Apellido: melgar
+Telefono: 68777752
+

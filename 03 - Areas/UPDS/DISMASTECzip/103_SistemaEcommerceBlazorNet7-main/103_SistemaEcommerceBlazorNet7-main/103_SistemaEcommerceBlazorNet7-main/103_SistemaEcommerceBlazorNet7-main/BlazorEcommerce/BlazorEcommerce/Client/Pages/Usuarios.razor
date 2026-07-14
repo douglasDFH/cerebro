@@ -1,0 +1,338 @@
+﻿@page "/usuarios"
+@inject IPersonaServicio personaServicio
+@inject IToastService toastService
+@inject SweetAlertService Swal
+@attribute [Authorize(Roles = "Usuario")]
+@using BlazorEcommerce.Shared
+@using System.Net.Http.Json
+@using System.Text.Json
+@inject IJSRuntime JSRuntime
+
+<div class="container users-container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="user-title"><span class="user-title-red">Gestión de</span> <span class="user-title-black">Usuarios</span></h2>
+    </div>
+
+    <div class="row justify-content-center mb-4">
+        <div class="col-sm-6 col-md-4 col-xl-3 mb-3">
+            <div class="d-grid gap-1 col-12 mx-auto">
+                <a class="btn btn-new-user" href="/usuario">
+                    <i class="oi oi-plus me-2"></i>Nuevo usuario
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-8 col-xl-9 mb-3">
+            <div class="input-group search-bar">
+                <input type="text" class="form-control search-input" placeholder="Buscar usuario por nombre, correo o teléfono..." @bind="buscar" />
+                <button class="btn search-button" type="button" @onclick="(async () => await ObtenerUsuarios(buscar))">
+                    <i class="oi oi-magnifying-glass"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filtro de roles -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="role-filter">
+                <button type="button" class="btn role-btn @(filtroRol == "Todos" ? "role-btn-active" : "")"
+                        @onclick="@(async () => await CambiarFiltroRol("Todos"))">
+                    <i class="oi oi-people me-2"></i>Todos
+                </button>
+                <button type="button" class="btn role-btn @(filtroRol == "Usuario" ? "role-btn-active" : "")"
+                        @onclick="@(async () => await CambiarFiltroRol("Usuario"))">
+                    <i class="oi oi-shield me-2"></i>Administradores
+                </button>
+                <button type="button" class="btn role-btn @(filtroRol == "Cliente" ? "role-btn-active" : "")"
+                        @onclick="@(async () => await CambiarFiltroRol("Cliente"))">
+                    <i class="oi oi-person me-2"></i>Clientes
+                </button>
+            </div>
+        </div>
+    </div>
+
+    @if (cargando)
+    {
+        <div class="d-flex justify-content-center my-5">
+            <div class="spinner-border user-spinner" role="status">
+                <span class="visually-hidden">Cargando usuarios...</span>
+            </div>
+        </div>
+    }
+    else if (mensajeError != null)
+    {
+        <div class="alert alert-danger d-flex align-items-center">
+            <i class="oi oi-warning me-2" style="font-size: 1.5rem;"></i>
+            <div>@mensajeError</div>
+        </div>
+    }
+    else
+    {
+        <div class="row users-grid g-4">
+            @if (listaFiltrada != null && listaFiltrada.Any())
+            {
+                @foreach (var item in listaFiltrada)
+                {
+                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                        <div class="user-card">
+                            <div class="user-header">
+                                <span class="user-role-badge @(item.Rol == "Usuario" ? "admin-badge" : "client-badge")">
+                                    @item.Rol
+                                </span>
+                            </div>
+                            <div class="user-image">
+                                @if (!string.IsNullOrEmpty(item.Imagen))
+                                {
+                                    <img src="@item.Imagen" alt="Imagen de perfil" />
+                                }
+                                else
+                                {
+                                    <div class="default-avatar">
+                                        <span>@(item.NombreCompleto?.Length > 0 ? item.NombreCompleto.Substring(0, 1).ToUpper() : "U")</span>
+                                    </div>
+                                }
+                            </div>
+                            <div class="user-body">
+                                <h5 class="user-name">@item.NombreCompleto</h5>
+                                <div class="user-detail">
+                                    <i class="oi oi-person text-muted"></i>
+                                    <span class="user-id">@item.IdPersona</span>
+                                </div>
+                                <div class="user-detail">
+                                    <i class="oi oi-envelope-closed text-muted"></i>
+                                    <span class="user-email">@item.Correo</span>
+                                </div>
+
+                                @if (!string.IsNullOrEmpty(item.Telefono))
+                                {
+                                    <div class="user-detail">
+                                        <i class="oi oi-phone text-muted"></i>
+                                        <span class="user-phone">
+                                            <span class="phone-prefix">@ObtenerPrefijo(item.Telefono)</span>
+                                            @ObtenerNumeroSinPrefijo(item.Telefono)
+                                        </span>
+                                    </div>
+                                }
+
+                                @if (!string.IsNullOrEmpty(item.Direccion))
+                                {
+                                    <div class="user-detail">
+                                        <i class="oi oi-home text-muted"></i>
+                                        <span class="user-address" title="@item.Direccion">
+                                            @TruncateText(item.Direccion, 40)
+                                        </span>
+                                    </div>
+                                    @if (!string.IsNullOrEmpty(item.Ciudad))
+                                    {
+                                        <div class="user-detail">
+                                            <i class="oi oi-map-marker text-muted"></i>
+                                            <span class="user-city">
+                                                @item.Ciudad
+                                                @if (!string.IsNullOrEmpty(item.Pais))
+                                                {
+                                                    <span>, @item.Pais</span>
+                                                }
+                                            </span>
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <div class="user-detail text-muted">
+                                        <i class="oi oi-ban text-muted"></i>
+                                        <span>Sin dirección registrada</span>
+                                    </div>
+                                }
+                            </div>
+                            <div class="user-footer">
+                                <a class="btn-user-edit" href="@($"usuario/{item.IdPersona}")">
+                                    <i class="oi oi-pencil"></i> Editar
+                                </a>
+                                <button class="btn-user-delete" type="button" @onclick="(async () => await Eliminar(item))">
+                                    <i class="oi oi-trash"></i> Eliminar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12">
+                    <div class="alert alert-info d-flex align-items-center">
+                        <i class="oi oi-info me-3" style="font-size: 2rem;"></i>
+                        <div>
+                            <h4 class="mt-1">No se encontraron usuarios</h4>
+                            <p>No existen usuarios con los criterios de búsqueda especificados. Intente con otros términos o cambie el filtro de rol.</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+@code {
+    private List<PersonaDTO>? lista = null;
+    private List<PersonaDTO>? listaFiltrada = null;
+    private string buscar = "";
+    private bool cargando = false;
+    private string? mensajeError = null;
+
+    // Variable para controlar el filtro de rol
+    private string filtroRol = "Todos";
+
+    // Lista de prefijos telefónicos comunes
+    private List<string> prefijosPaises = new List<string>
+    {
+        "+591", "+54", "+55", "+56", "+57", "+593", "+52", "+51",
+        "+598", "+58", "+34", "+1", "+44", "+33", "+49", "+39"
+    };
+
+    private async Task ObtenerUsuarios(string valor = "")
+    {
+        try
+        {
+            cargando = true;
+            mensajeError = null;
+
+            // Modificado para obtener todos los usuarios (tanto Usuarios como Clientes)
+            // Si es "Todos", enviamos una cadena vacía como rol para obtener todos los usuarios
+            var rolFiltro = filtroRol == "Todos" ? "" : filtroRol;
+
+            var response = await personaServicio.Lista(rolFiltro, valor);
+
+            if (response.EsCorrecto)
+            {
+                lista = response.Resultado ?? new List<PersonaDTO>();
+                AplicarFiltro(); // Aplicamos el filtro después de obtener la lista
+            }
+            else
+            {
+                lista = new List<PersonaDTO>();
+                listaFiltrada = new List<PersonaDTO>();
+                mensajeError = response.Mensaje ?? "Error al cargar usuarios";
+                toastService.ShowWarning(mensajeError);
+            }
+        }
+        catch (Exception ex)
+        {
+            lista = new List<PersonaDTO>();
+            listaFiltrada = new List<PersonaDTO>();
+            mensajeError = $"Error: {ex.Message}";
+            toastService.ShowError(mensajeError);
+        }
+        finally
+        {
+            cargando = false;
+        }
+    }
+
+    // Método para cambiar el filtro de rol
+    private async Task CambiarFiltroRol(string nuevoRol)
+    {
+        filtroRol = nuevoRol;
+        await ObtenerUsuarios(buscar);
+    }
+
+    // Método para aplicar filtro a la lista
+    private void AplicarFiltro()
+    {
+        if (lista == null)
+        {
+            listaFiltrada = new List<PersonaDTO>();
+            return;
+        }
+
+        // Si el filtro es "Todos", mostramos todos los usuarios
+        // De lo contrario, filtramos por el rol seleccionado
+        if (filtroRol == "Todos")
+        {
+            listaFiltrada = lista;
+        }
+        else
+        {
+            listaFiltrada = lista.Where(u => u.Rol == filtroRol).ToList();
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await ObtenerUsuarios();
+    }
+
+    private async Task Eliminar(PersonaDTO modelo)
+    {
+        try
+        {
+            SweetAlertResult result = await Swal.FireAsync(new SweetAlertOptions
+                {
+                    Title = "¿Está seguro?",
+                    Text = $"¿Eliminar usuario: {modelo.NombreCompleto}?",
+                    Icon = SweetAlertIcon.Warning,
+                    ShowCancelButton = true,
+                    ConfirmButtonText = "Sí, eliminar",
+                    CancelButtonText = "No, volver"
+                });
+
+            if (result.IsConfirmed)
+            {
+                var response = await personaServicio.Eliminar(modelo.IdPersona);
+
+                if (response.EsCorrecto)
+                {
+                    await ObtenerUsuarios();
+                    toastService.ShowSuccess("Usuario eliminado correctamente");
+                }
+                else
+                {
+                    toastService.ShowError(response.Mensaje ?? "Error al eliminar el usuario");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            toastService.ShowError($"Error: {ex.Message}");
+        }
+    }
+
+    // Método para obtener el prefijo telefónico
+    private string ObtenerPrefijo(string telefono)
+    {
+        if (string.IsNullOrEmpty(telefono))
+            return "";
+
+        foreach (var prefijo in prefijosPaises)
+        {
+            if (telefono.StartsWith(prefijo))
+                return prefijo;
+        }
+
+        // Si no encuentra un prefijo conocido, asume que es local
+        return "+591"; // Prefijo de Bolivia por defecto
+    }
+
+    // Método para obtener el número sin el prefijo
+    private string ObtenerNumeroSinPrefijo(string telefono)
+    {
+        if (string.IsNullOrEmpty(telefono))
+            return "";
+
+        string prefijo = ObtenerPrefijo(telefono);
+        if (telefono.StartsWith(prefijo))
+            return telefono.Substring(prefijo.Length);
+
+        return telefono;
+    }
+    
+        // ... tus métodos y propiedades existentes ...
+
+        // Método para truncar texto largo
+        private string TruncateText(string text, int maxLength)
+        {
+            if (string.IsNullOrEmpty(text) || text.Length <= maxLength)
+                return text;
+
+            return text.Substring(0, maxLength) + "...";
+        }
+    
+}
