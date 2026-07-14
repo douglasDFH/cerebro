@@ -26,6 +26,15 @@ creado: 2026-07-13
 > [!note] Código del proyecto
 > La app **Ojo-Camba** (código completo) está en `C:\Users\SAMSUNG\Desktop\Ojo-Camba`. No se movió al cerebro por ser un proyecto de código grande. Si quieres, la referenciamos o versionamos aparte.
 
+
+## 🗂️ Versiones duplicadas (revisar)
+- [[Actividad1_OjoCamba (1).docx]]
+- [[Actividad1_OjoCamba (2).docx]]
+- [[Actividad1_OjoCamba (3).docx]]
+- [[Actividad1_OjoCamba (4).docx]]
+- [[Actividad1_OjoCamba_Defensa (1).pptx]]
+- [[_Duplicados (revisar)/Guia_Actividad1 (1).pdf|Guia_Actividad1 (1).pdf]]
+
 ## ✅ Pendientes
 - [ ] 
 
