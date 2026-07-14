@@ -1,0 +1,4 @@
+#!/bin/sh
+# Después de cada pull/merge: reconectar los archivos nuevos que llegaron.
+python ".githooks/actualizar_indices.py" 2>/dev/null || py ".githooks/actualizar_indices.py" 2>/dev/null || true
+exit 0

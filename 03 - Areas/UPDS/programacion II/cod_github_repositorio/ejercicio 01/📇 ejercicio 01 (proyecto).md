@@ -7,7 +7,7 @@ tags:
 # 💻 ejercicio 01 — Proyecto de código
 
 > [!info] Proyecto de código
-> Sus archivos internos no se listan (serían cientos). Aquí el nivel principal.
+> Nivel principal (interior no listado).
 
 ## 📄 Archivos principales
 - [[03 - Areas/UPDS/programacion II/cod_github_repositorio/ejercicio 01/Form1.Designer.cs|Form1.Designer]]

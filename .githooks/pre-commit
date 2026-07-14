@@ -1,0 +1,6 @@
+#!/bin/sh
+# Antes de cada commit: regenerar los índices y añadirlos, para que todo
+# lo nuevo quede conectado automáticamente. Nunca bloquea el commit.
+python ".githooks/actualizar_indices.py" 2>/dev/null || py ".githooks/actualizar_indices.py" 2>/dev/null || true
+git add -A 2>/dev/null || true
+exit 0

@@ -7,7 +7,7 @@ tags:
 # 💻 banco_camba — Proyecto de código
 
 > [!info] Proyecto de código
-> Sus archivos internos no se listan (serían cientos). Aquí el nivel principal.
+> Nivel principal (interior no listado).
 
 ## 📁 Carpetas del proyecto
 - api

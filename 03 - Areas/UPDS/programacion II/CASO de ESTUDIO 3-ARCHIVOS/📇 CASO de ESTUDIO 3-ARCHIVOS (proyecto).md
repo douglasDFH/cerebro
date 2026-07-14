@@ -7,7 +7,7 @@ tags:
 # 💻 CASO de ESTUDIO 3-ARCHIVOS — Proyecto de código
 
 > [!info] Proyecto de código
-> Sus archivos internos no se listan (serían cientos). Aquí el nivel principal.
+> Nivel principal (interior no listado).
 
 ## 📁 Carpetas del proyecto
 - Archivos txt
