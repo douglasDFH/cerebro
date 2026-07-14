@@ -1,0 +1,409 @@
+<mxfile host="65bd71144e">
+    <diagram name="Análisis Inserción Árbol Binario" id="analisis-insercion">
+        <mxGraphModel dx="1199" dy="292" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="2000" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="titulo" value="ANÁLISIS VISUAL DEL MÉTODO insertarAB() - REFERENCIAS Y FLUJO" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=22;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="200" y="20" width="1200" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="secuencia" value="Secuencia: Insertar 50, 30, 70, 20, 40, 35" style="text;html=1;strokeColor=#d79b00;fillColor=#ffe6cc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="550" y="70" width="500" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="paso1-titulo" value="PASO 1: Insertar 50 - Raíz está null" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=15;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="40" y="130" width="450" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="p1-codigo" value="// ESTADO INICIAL&#xa;this.raiz = null;&#xa;&#xa;// Llamada&#xa;insertarAB(50);&#xa;  nodoAB nA = new nodoAB(50);&#xa;  insertarAB(raiz, nA);" style="text;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=11;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="175" width="220" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="p1-antes-label" value="ANTES:" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="280" y="175" width="80" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="p1-raiz-box" value="raiz" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=11;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="280" y="200" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="p1-null" value="null" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontStyle=1;fontColor=#d6b656" parent="1" vertex="1">
+                    <mxGeometry x="350" y="200" width="50" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="p1-naux-box" value="nAux" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="280" y="245" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="p1-arrow1" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;strokeWidth=2;strokeColor=#d79b00;endArrow=classic;endFill=1;" parent="1" source="p1-naux-box" target="p1-nodo50" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="p1-nodo50" value="50" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="360" y="240" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="p1-nodo50-left" value="HijoI: null" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="405" y="245" width="80" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="p1-nodo50-right" value="HijoD: null" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="405" y="260" width="80" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="p1-despues-label" value="DESPUÉS:" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="550" y="175" width="80" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="p1d-raiz-box" value="raiz" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="550" y="200" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="p1d-arrow1" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;strokeWidth=2;strokeColor=#82b366;endArrow=classic;endFill=1;" parent="1" source="p1d-raiz-box" target="p1d-nodo50" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="p1d-nodo50" value="50" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="640" y="195" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="p1d-nodo50-left" value="HijoI: null" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="685" y="200" width="80" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="p1d-nodo50-right" value="HijoD: null" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="685" y="215" width="80" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="p1-explicacion" value="if(raiz == null) → raiz = nAux;" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=11;fontStyle=1;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="520" y="250" width="260" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="paso2-titulo" value="PASO 2: Insertar 30 - Comparación y decisión" style="text;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=15;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="40" y="330" width="450" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="p2-codigo" value="// Llamada&#xa;insertarAB(30);&#xa;  nodoAB nA = new nodoAB(30);&#xa;  insertarAB(raiz, nA);&#xa;&#xa;// raizA apunta a 50&#xa;// nAux apunta a 30&#xa;// 30 &lt;= 50 → izquierda&#xa;// raizA.getHijoI() == null&#xa;// raizA.setHijoI(nAux);" style="text;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=10;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="375" width="220" height="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="p2-antes-label" value="ESTADO:" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="280" y="375" width="80" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="p2-raiz-box" value="raiz/raizA" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="280" y="400" width="80" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="p2-arrow1" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#666666;endArrow=classic;endFill=1;" parent="1" source="p2-raiz-box" target="p2-nodo50" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="p2-nodo50" value="50" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="300" y="440" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="p2-hijo-i-label" value="HijoI" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="250" y="490" width="40" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="p2-hijo-d-label" value="HijoD" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="350" y="490" width="40" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="p2-arrow-left" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;strokeWidth=2;strokeColor=#d79b00;endArrow=classic;endFill=1;dashed=1;" parent="1" source="p2-nodo50" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="270" y="505" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="320" y="495"/>
+                            <mxPoint x="270" y="495"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="p2-null-left" value="null" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#d6b656" parent="1" vertex="1">
+                    <mxGeometry x="245" y="505" width="50" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="p2-arrow-right" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;strokeWidth=2;strokeColor=#666666;endArrow=classic;endFill=1;dashed=1;" parent="1" source="p2-nodo50" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="370" y="505" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="320" y="495"/>
+                            <mxPoint x="370" y="495"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="p2-null-right" value="null" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#666666" parent="1" vertex="1">
+                    <mxGeometry x="345" y="505" width="50" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="p2-naux-box" value="nAux" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="420" y="400" width="60" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="p2-arrow-naux" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#d79b00;endArrow=classic;endFill=1;" parent="1" source="p2-naux-box" target="p2-nodo30" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="p2-nodo30" value="30" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="430" y="440" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="p2-nodo30-refs" value="HijoI: null&#xa;HijoD: null" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=8;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="475" y="445" width="70" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="p2-despues-label" value="DESPUÉS DE:&#xa;raizA.setHijoI(nAux)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="560" y="385" width="150" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="p2d-nodo50" value="50" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="615" y="430" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="p2d-arrow-left" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=3;strokeColor=#82b366;endArrow=classic;endFill=1;" parent="1" source="p2d-nodo50" target="p2d-nodo30" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="p2d-nodo30" value="30" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="585" y="490" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="p2d-label-left" value="HijoI" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="565" y="470" width="35" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="p2d-null-30-left" value="null" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=8;fontColor=#666666" parent="1" vertex="1">
+                    <mxGeometry x="555" y="535" width="30" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="p2d-null-30-right" value="null" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=8;fontColor=#666666" parent="1" vertex="1">
+                    <mxGeometry x="630" y="545" width="30" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="paso3-titulo" value="PASO 3: Insertar 70 - Rama derecha" style="text;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=15;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="40" y="580" width="450" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="p3-codigo" value="// Llamada&#xa;insertarAB(70);&#xa;&#xa;// raizA apunta a 50&#xa;// nAux apunta a 70&#xa;// 70 &gt; 50 → derecha&#xa;// raizA.getHijoD() == null&#xa;// raizA.setHijoD(nAux);" style="text;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=10;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="625" width="220" height="150" as="geometry"/>
+                </mxCell>
+                <mxCell id="p3-result" value="RESULTADO:" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="300" y="625" width="100" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="p3d-nodo50" value="50" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="330" y="655" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="p3d-nodo30" value="30" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="285" y="710" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="p3d-nodo70" value="70" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="375" y="710" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="p3d-arrow1" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#666666;endArrow=classic;endFill=1;" parent="1" source="p3d-nodo50" target="p3d-nodo30" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="p3d-arrow2" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=3;strokeColor=#82b366;endArrow=classic;endFill=1;" parent="1" source="p3d-nodo50" target="p3d-nodo70" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="p3d-label-d" value="HijoD" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="375" y="695" width="35" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="paso4-titulo" value="PASO 4: Insertar 20 - Recursión en subárbol izquierdo" style="text;html=1;strokeColor=#9673a6;fillColor=#e1d5e7;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=15;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="40" y="810" width="650" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="p4-codigo" value="// Llamada&#xa;insertarAB(20);&#xa;&#xa;// 1ra llamada recursiva:&#xa;//   raizA → 50, nAux → 20&#xa;//   20 &lt;= 50 → izquierda&#xa;//   raizA.getHijoI() != null&#xa;//   insertarAB(raizA.getHijoI(), nAux)&#xa;&#xa;// 2da llamada recursiva:&#xa;//   raizA → 30, nAux → 20&#xa;//   20 &lt;= 30 → izquierda&#xa;//   raizA.getHijoI() == null&#xa;//   raizA.setHijoI(nAux);" style="text;html=1;strokeColor=#9673a6;fillColor=#e1d5e7;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=10;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="855" width="280" height="245" as="geometry"/>
+                </mxCell>
+                <mxCell id="p4-stack-title" value="PILA DE LLAMADAS:" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="340" y="855" width="160" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="p4-stack1" value="insertarAB(raizA=50, nAux=20)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="880" width="220" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="p4-stack2" value="insertarAB(raizA=30, nAux=20)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="350" y="915" width="220" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="p4-stack-arrow" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;strokeColor=#9673a6;endArrow=classic;endFill=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="460" y="910" as="sourcePoint"/>
+                        <mxPoint x="460" y="915" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="p4-result" value="RESULTADO:" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="340" y="960" width="100" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="p4d-nodo50" value="50" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="420" y="990" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="p4d-nodo30" value="30" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="375" y="1045" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="p4d-nodo70" value="70" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="465" y="1045" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="p4d-nodo20" value="20" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="345" y="1100" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="p4d-arrow1" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#666666;endArrow=classic;endFill=1;" parent="1" source="p4d-nodo50" target="p4d-nodo30" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="p4d-arrow2" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#666666;endArrow=classic;endFill=1;" parent="1" source="p4d-nodo50" target="p4d-nodo70" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="p4d-arrow3" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=3;strokeColor=#82b366;endArrow=classic;endFill=1;" parent="1" source="p4d-nodo30" target="p4d-nodo20" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="p4d-nulls20" value="HijoI: null   HijoD: null" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=8;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="305" y="1145" width="120" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="paso5-titulo" value="PASO 5: Insertar 40 - Recursión: izquierda luego derecha" style="text;html=1;strokeColor=#9673a6;fillColor=#e1d5e7;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=15;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="750" y="130" width="650" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="p5-codigo" value="// Llamada: insertarAB(40);&#xa;&#xa;// 1ra recursión: raizA=50, nAux=40&#xa;//   40 &lt;= 50 → izquierda&#xa;//   getHijoI() != null → recursión&#xa;&#xa;// 2da recursión: raizA=30, nAux=40&#xa;//   40 &gt; 30 → derecha&#xa;//   getHijoD() == null&#xa;//   raizA.setHijoD(nAux);" style="text;html=1;strokeColor=#9673a6;fillColor=#e1d5e7;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=10;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="795" y="177.5" width="280" height="180" as="geometry"/>
+                </mxCell>
+                <mxCell id="p5-result" value="RESULTADO:" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="1060" y="175" width="100" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="p5d-nodo50" value="50" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="1150" y="205" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="p5d-nodo30" value="30" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="1100" y="260" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="p5d-nodo70" value="70" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="1200" y="260" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="p5d-nodo20" value="20" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="1075" y="315" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="p5d-nodo40" value="40" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="1125" y="315" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="p5d-arrow1" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#666666;endArrow=classic;endFill=1;" parent="1" source="p5d-nodo50" target="p5d-nodo30" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="p5d-arrow2" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#666666;endArrow=classic;endFill=1;" parent="1" source="p5d-nodo50" target="p5d-nodo70" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="p5d-arrow3" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#666666;endArrow=classic;endFill=1;" parent="1" source="p5d-nodo30" target="p5d-nodo20" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="p5d-arrow4" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=3;strokeColor=#82b366;endArrow=classic;endFill=1;" parent="1" source="p5d-nodo30" target="p5d-nodo40" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="p5d-label" value="HijoD" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="1125" y="300" width="35" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="paso6-titulo" value="PASO 6: Insertar 35 - Triple recursión (ÁRBOL FINAL)" style="text;html=1;strokeColor=#d79b00;fillColor=#ffe6cc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=15;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="750" y="390" width="650" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="p6-codigo" value="// Llamada: insertarAB(35);&#xa;&#xa;// 1ra: raizA=50, nAux=35&#xa;//   35 &lt;= 50 → izq, != null → recursión&#xa;&#xa;// 2da: raizA=30, nAux=35&#xa;//   35 &gt; 30 → der, != null → recursión&#xa;&#xa;// 3ra: raizA=40, nAux=35&#xa;//   35 &lt;= 40 → izq, == null&#xa;//   raizA.setHijoI(nAux) ✓" style="text;html=1;strokeColor=#d79b00;fillColor=#ffe6cc;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=10;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="750" y="435" width="250" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="p6-stack-title" value="PILA DE LLAMADAS:" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="1020" y="435" width="160" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="p6-stack1" value="insertarAB(raizA=50, nAux=35)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=9;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="1020" y="460" width="210" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="p6-stack2" value="insertarAB(raizA=30, nAux=35)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=9;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="1030" y="490" width="210" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="p6-stack3" value="insertarAB(raizA=40, nAux=35)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=9;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="1040" y="520" width="210" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="p6-final-title" value="ÁRBOL BINARIO FINAL" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=16;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="920" y="660" width="300" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="p6f-nodo50" value="50" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="1050" y="710" width="50" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="p6f-nodo30" value="30" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="970" y="780" width="50" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="p6f-nodo70" value="70" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="1130" y="780" width="50" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="p6f-nodo20" value="20" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="920" y="850" width="50" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="p6f-nodo40" value="40" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="1020" y="850" width="50" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="p6f-nodo35" value="35" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=16;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="995" y="920" width="50" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="p6f-arrow1" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=3;strokeColor=#666666;endArrow=classic;endFill=1;" parent="1" source="p6f-nodo50" target="p6f-nodo30" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="p6f-arrow2" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=3;strokeColor=#666666;endArrow=classic;endFill=1;" parent="1" source="p6f-nodo50" target="p6f-nodo70" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="p6f-arrow3" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=3;strokeColor=#666666;endArrow=classic;endFill=1;" parent="1" source="p6f-nodo30" target="p6f-nodo20" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="p6f-arrow4" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=3;strokeColor=#666666;endArrow=classic;endFill=1;" parent="1" source="p6f-nodo30" target="p6f-nodo40" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="p6f-arrow5" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=3;strokeColor=#82b366;endArrow=classic;endFill=1;" parent="1" source="p6f-nodo40" target="p6f-nodo35" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="p6f-null20-i" value="null" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#666666" parent="1" vertex="1">
+                    <mxGeometry x="890" y="905" width="30" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="p6f-null20-d" value="null" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#666666" parent="1" vertex="1">
+                    <mxGeometry x="950" y="905" width="30" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="p6f-null35-i" value="null" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#666666" parent="1" vertex="1">
+                    <mxGeometry x="965" y="975" width="30" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="p6f-null35-d" value="null" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#666666" parent="1" vertex="1">
+                    <mxGeometry x="1025" y="975" width="30" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="p6f-null70-i" value="null" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#666666" parent="1" vertex="1">
+                    <mxGeometry x="1100" y="835" width="30" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="p6f-null70-d" value="null" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#666666" parent="1" vertex="1">
+                    <mxGeometry x="1160" y="835" width="30" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="ley-titulo" value="LEYENDA DE COLORES" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="40" y="1200" width="200" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ley-nuevo" value="Nuevo" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="40" y="1240" width="35" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="ley-txt-nuevo" value="Nodo recién insertado en este paso" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" parent="1" vertex="1">
+                    <mxGeometry x="85" y="1242" width="220" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ley-exist" value="Exist" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="40" y="1285" width="35" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="ley-txt-exist" value="Nodos ya existentes" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" parent="1" vertex="1">
+                    <mxGeometry x="85" y="1287" width="220" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ley-naux" value="nAux" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="40" y="1330" width="35" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="ley-txt-naux" value="Nodo auxiliar (parámetro)" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" parent="1" vertex="1">
+                    <mxGeometry x="85" y="1332" width="220" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="conceptos-titulo" value="CONCEPTOS CLAVE DEL ALGORITMO" style="text;html=1;strokeColor=#666666;fillColor=#f5f5f5;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=14;fontStyle=1;fontColor=#333333;" parent="1" vertex="1">
+                    <mxGeometry x="350" y="1200" width="400" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="concepto1" value="• raiz: Referencia global al nodo raíz del árbol" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="360" y="1240" width="380" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="concepto2" value="• raizA: Parámetro que apunta al nodo actual en recursión" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="360" y="1265" width="450" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="concepto3" value="• nAux: Referencia al nuevo nodo a insertar" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="360" y="1290" width="380" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="concepto4" value="• HijoI: Referencia al hijo izquierdo (≤)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="360" y="1315" width="380" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="concepto5" value="• HijoD: Referencia al hijo derecho (&gt;)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="360" y="1340" width="380" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="concepto6" value="• null: Indica que no hay referencia (fin de rama)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="360" y="1365" width="450" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="flujo-titulo" value="FLUJO DE RECURSIÓN" style="text;html=1;strokeColor=#9673a6;fillColor=#e1d5e7;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="820" y="1200" width="300" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="flujo1" value="1. Se compara nAux.getDato() con raizA.getDato()" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" parent="1" vertex="1">
+                    <mxGeometry x="830" y="1240" width="380" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="flujo2" value="2. Si ≤ → navegar a HijoI, si &gt; → navegar a HijoD" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" parent="1" vertex="1">
+                    <mxGeometry x="830" y="1265" width="380" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="flujo3" value="3. Si el hijo es null → asignar nAux (caso base)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" parent="1" vertex="1">
+                    <mxGeometry x="830" y="1290" width="380" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="flujo4" value="4. Si el hijo != null → llamada recursiva" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" parent="1" vertex="1">
+                    <mxGeometry x="830" y="1315" width="380" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="flujo5" value="5. La pila se desapila cuando termina la recursión" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" parent="1" vertex="1">
+                    <mxGeometry x="830" y="1340" width="380" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0;exitY=0.5;entryX=0.25;entryY=0;strokeWidth=2;strokeColor=#82b366;endArrow=classic;endFill=1;entryDx=0;entryDy=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="p2d-nodo30" target="p2d-null-30-left">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="620" y="225" as="sourcePoint"/>
+                        <mxPoint x="650" y="225" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="3" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;entryX=1;entryY=0.75;strokeWidth=2;strokeColor=#82b366;endArrow=classic;endFill=1;entryDx=0;entryDy=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="p2d-nodo30" target="p2d-null-30-right">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="595" y="520" as="sourcePoint"/>
+                        <mxPoint x="573" y="545" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="650" y="510"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

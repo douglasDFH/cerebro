@@ -1,0 +1,8 @@
+{
+    "material-icon-theme.folders.associations": {
+        "SistemVeterinario": "App",
+        "CapaDatos": "Database",
+        "CapaNegocio": "Client",
+        "Forms": "Views",
+    }
+}

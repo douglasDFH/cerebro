@@ -1,0 +1,364 @@
+<mxfile host="65bd71144e">
+    <diagram name="Análisis Hojas Ascendentes" id="analisis-hojas-asc">
+        <mxGraphModel dx="680" dy="646" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="2000" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="titulo" value="ANÁLISIS VISUAL DEL MÉTODO eliminarHojasAscendentes()" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=22;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="150" y="20" width="1300" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="concepto-titulo" value="CONCEPTO: ¿Qué es un Valor Ascendente?" style="text;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=16;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="40" y="80" width="760" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="concepto-def" value="Un valor ascendente es aquel cuyos dígitos están en orden estrictamente creciente.&#xa;Cada dígito debe ser MENOR que el siguiente.&#xa;&#xa;Ejemplos:&#xa;• 5 → UN SOLO DÍGITO → SÍ es ascendente&#xa;• 123 → 1 &lt; 2 &lt; 3 → SÍ es ascendente&#xa;• 145 → 1 &lt; 4 &lt; 5 → SÍ es ascendente&#xa;• 2345 → 2 &lt; 3 &lt; 4 &lt; 5 → SÍ es ascendente&#xa;• 312 → 3 &gt; 1 → NO es ascendente&#xa;• 555 → 5 = 5 (dígitos iguales) → NO es ascendente&#xa;• 54 → 5 &gt; 4 (descendente) → NO es ascendente" style="text;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=11;" vertex="1" parent="1">
+                    <mxGeometry x="40" y="125" width="380" height="220" as="geometry"/>
+                </mxCell>
+                <mxCell id="metodo-titulo" value="MÉTODO esValorAscendente():" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="440" y="125" width="200" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="metodo-codigo" value="private boolean esValorAscendente(int valor) {&#xa;    String numStr = String.valueOf(Math.abs(valor));&#xa;    &#xa;    // Un solo dígito es ascendente&#xa;    if (numStr.length() &lt;= 1) {&#xa;        return true;&#xa;    }&#xa;    &#xa;    // Verificar cada dígito &lt; siguiente&#xa;    for (int i = 0; i &lt; numStr.length() - 1; i++) {&#xa;        if (numStr.charAt(i) &gt;= numStr.charAt(i + 1)) {&#xa;            return false;&#xa;        }&#xa;    }&#xa;    &#xa;    return true;&#xa;}" style="text;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=9;fontFamily=Courier New;" vertex="1" parent="1">
+                    <mxGeometry x="440" y="150" width="360" height="195" as="geometry"/>
+                </mxCell>
+                <mxCell id="ejemplo-titulo" value="EJEMPLOS VISUALES DE VALIDACIÓN:" style="text;html=1;strokeColor=#d79b00;fillColor=#ffe6cc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=14;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="840" y="80" width="720" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ej1-titulo" value="123" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="860" y="120" width="60" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="ej1-d1" value="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="860" y="145" width="30" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ej1-d2" value="2" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="895" y="145" width="30" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ej1-d3" value="3" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="930" y="145" width="30" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ej1-comp1" value="&lt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontColor=#82b366;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="887" y="150" width="15" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="ej1-comp2" value="&lt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontColor=#82b366;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="922" y="150" width="15" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="ej1-result" value="✓ ASCENDENTE" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=10;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="855" y="185" width="110" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="ej2-titulo" value="312" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="860" y="225" width="60" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="ej2-d1" value="3" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="860" y="250" width="30" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ej2-d2" value="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="895" y="250" width="30" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ej2-d3" value="2" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="930" y="250" width="30" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ej2-comp1" value="&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontColor=#b85450;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="887" y="255" width="15" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="ej2-result" value="✗ NO ASCENDENTE" style="text;html=1;strokeColor=#b85450;fillColor=#f8cecc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=10;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="850" y="290" width="120" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="ej3-titulo" value="5" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="1010" y="120" width="40" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="ej3-d1" value="5" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="1010" y="145" width="30" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ej3-result" value="✓ ASCENDENTE&#xa;(un dígito)" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=10;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="985" y="185" width="80" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="ej4-titulo" value="555" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="1105" y="120" width="60" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="ej4-d1" value="5" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="1100" y="145" width="30" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ej4-d2" value="5" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="1135" y="145" width="30" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ej4-d3" value="5" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="1170" y="145" width="30" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ej4-comp1" value="=" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontColor=#b85450;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="1127" y="150" width="15" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="ej4-comp2" value="=" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontColor=#b85450;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="1162" y="150" width="15" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="ej4-result" value="✗ NO ASCENDENTE&#xa;(dígitos iguales)" style="text;html=1;strokeColor=#b85450;fillColor=#f8cecc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=10;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="1080" y="185" width="130" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="ej5-titulo" value="2345" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="1010" y="235" width="70" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="ej5-d1" value="2" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="1000" y="260" width="30" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ej5-d2" value="3" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="1035" y="260" width="30" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ej5-d3" value="4" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="1070" y="260" width="30" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ej5-d4" value="5" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="1105" y="260" width="30" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ej5-comp1" value="&lt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontColor=#82b366;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="1027" y="265" width="15" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="ej5-comp2" value="&lt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontColor=#82b366;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="1062" y="265" width="15" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="ej5-comp3" value="&lt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontColor=#82b366;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="1097" y="265" width="15" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="ej5-result" value="✓ ASCENDENTE" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=10;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="1010" y="300" width="120" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="ej6-titulo" value="54" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="1270" y="120" width="40" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="ej6-d1" value="5" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="1260" y="145" width="30" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ej6-d2" value="4" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="1295" y="145" width="30" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ej6-comp1" value="&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontColor=#b85450;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="1287" y="150" width="15" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="ej6-result" value="✗ NO ASCENDENTE&#xa;(descendente)" style="text;html=1;strokeColor=#b85450;fillColor=#f8cecc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=10;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="1240" y="185" width="110" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="algoritmo-titulo" value="ALGORITMO eliminarHojasAscendentes() - PASO A PASO" style="text;html=1;strokeColor=#9673a6;fillColor=#e1d5e7;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=16;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="40" y="380" width="760" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="algo-codigo" value="public int eliminarHojasAscendentes() {&#xa;    if (raiz == null) {&#xa;        return 0;  // Árbol vacío&#xa;    }&#xa;    int[] contador = {0};&#xa;    raiz = eliminarHojasAscendentes(raiz, contador);&#xa;    return contador[0];&#xa;}&#xa;&#xa;private nodoAB eliminarHojasAscendentes(nodoAB nodo, int[] contador) {&#xa;    if (nodo == null) return null;&#xa;    &#xa;    // 1. Procesar recursivamente hijos&#xa;    nodo.setHijoI(eliminarHojasAscendentes(nodo.getHijoI(), contador));&#xa;    nodo.setHijoD(eliminarHojasAscendentes(nodo.getHijoD(), contador));&#xa;    &#xa;    // 2. Verificar si es hoja&#xa;    boolean esHoja = (nodo.getHijoI() == null &amp;&amp; nodo.getHijoD() == null);&#xa;    &#xa;    // 3. Si es hoja y valor ascendente, eliminar&#xa;    if (esHoja) {&#xa;        if (esValorAscendente((int) nodo.getDato())) {&#xa;            contador[0]++;&#xa;            return null;  // Eliminar hoja&#xa;        }&#xa;    }&#xa;    &#xa;    return nodo;  // Mantener nodo&#xa;}" style="text;html=1;strokeColor=#9673a6;fillColor=#e1d5e7;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=9;fontFamily=Courier New;" vertex="1" parent="1">
+                    <mxGeometry x="40" y="425" width="500" height="410" as="geometry"/>
+                </mxCell>
+                <mxCell id="proceso-titulo" value="PROCESO:" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="560" y="425" width="100" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="proc1" value="1. Recorre el árbol en post-orden" style="text;html=1;strokeColor=#9673a6;fillColor=#e1d5e7;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="560" y="450" width="240" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="proc2" value="2. Primero procesa hijos (recursión)" style="text;html=1;strokeColor=#9673a6;fillColor=#e1d5e7;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="560" y="490" width="240" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="proc3" value="3. Luego verifica si es hoja" style="text;html=1;strokeColor=#9673a6;fillColor=#e1d5e7;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="560" y="530" width="240" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="proc4" value="4. Si es hoja ascendente → elimina" style="text;html=1;strokeColor=#d5e8d4;fillColor=#82b366;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=11;fontStyle=1;fontColor=#FFFFFF" vertex="1" parent="1">
+                    <mxGeometry x="560" y="570" width="240" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="proc5" value="5. Si NO es hoja → mantiene" style="text;html=1;strokeColor=#d6b656;fillColor=#fff2cc;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="560" y="610" width="240" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="proc6" value="6. Retorna contador de eliminados" style="text;html=1;strokeColor=#9673a6;fillColor=#e1d5e7;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="560" y="650" width="240" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ejemplo-completo-titulo" value="EJEMPLO COMPLETO: Árbol con Varios Nodos" style="text;html=1;strokeColor=#d79b00;fillColor=#ffe6cc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=16;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="40" y="870" width="1520" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="arbol-antes-titulo" value="ANTES DE ELIMINAR:" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="120" y="920" width="200" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="ab-nodo50" value="50" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="210" y="960" width="50" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="ab-nodo30" value="30" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="130" y="1030" width="50" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="ab-nodo70" value="70" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="270" y="1030" width="50" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="ab-nodo20" value="20" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="80" y="1100" width="50" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="ab-nodo312" value="312" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=14;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="180" y="1100" width="50" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="ab-nodo123" value="123" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="240" y="1100" width="50" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="ab-nodo5" value="5" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="315" y="1100" width="50" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="ab-arrow1" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;endArrow=classic;endFill=1;" edge="1" parent="1" source="ab-nodo50" target="ab-nodo30">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="ab-arrow2" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;endArrow=classic;endFill=1;" edge="1" parent="1" source="ab-nodo50" target="ab-nodo70">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="ab-arrow3" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;endArrow=classic;endFill=1;" edge="1" parent="1" source="ab-nodo30" target="ab-nodo20">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="ab-arrow4" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;endArrow=classic;endFill=1;" edge="1" parent="1" source="ab-nodo30" target="ab-nodo312">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="ab-arrow5" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#82b366;endArrow=classic;endFill=1;" edge="1" parent="1" source="ab-nodo70" target="ab-nodo123">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="ab-arrow6" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#82b366;endArrow=classic;endFill=1;" edge="1" parent="1" source="ab-nodo70" target="ab-nodo5">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="ab-label-raiz" value="Raíz (no es hoja)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="175" y="950" width="90" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="ab-label-padre" value="Padres&#xa;(no son hojas)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="50" y="1040" width="70" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="ab-label-hoja1" value="Hoja NO asc" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#d6b656;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="165" y="1155" width="80" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="ab-label-hoja2" value="Hoja ASC ✓" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#82b366;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="225" y="1155" width="80" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="ab-label-hoja3" value="Hoja ASC ✓" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#82b366;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="300" y="1155" width="80" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="proceso-elim-titulo" value="PROCESO DE ELIMINACIÓN:" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="470" y="920" width="250" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="pe-paso1" value="PASO 1: Revisar nodo 20" style="text;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=10;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="470" y="955" width="250" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="pe-paso1-txt" value="• Es hoja (sin hijos)&#xa;• Valor: 20 → '2' &lt; '0'? NO (2 &gt; 0)&#xa;• NO es ascendente → MANTENER" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=9" vertex="1" parent="1">
+                    <mxGeometry x="480" y="985" width="230" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="pe-paso2" value="PASO 2: Revisar nodo 312" style="text;html=1;strokeColor=#d6b656;fillColor=#fff2cc;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=10;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="470" y="1035" width="250" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="pe-paso2-txt" value="• Es hoja (sin hijos)&#xa;• Valor: 312 → '3' &gt; '1'&#xa;• NO es ascendente → MANTENER" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=9" vertex="1" parent="1">
+                    <mxGeometry x="480" y="1065" width="230" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="pe-paso3" value="PASO 3: Revisar nodo 123" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=10;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="750" y="955" width="250" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="pe-paso3-txt" value="• Es hoja (sin hijos)&#xa;• Valor: 123 → '1' &lt; '2' &lt; '3' ✓&#xa;• SÍ es ascendente → ELIMINAR" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=9;fontColor=#FFFFFF;fillColor=#82b366" vertex="1" parent="1">
+                    <mxGeometry x="760" y="985" width="230" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="pe-paso4" value="PASO 4: Revisar nodo 5" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=10;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="750" y="1035" width="250" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="pe-paso4-txt" value="• Es hoja (sin hijos)&#xa;• Valor: 5 → un solo dígito ✓&#xa;• SÍ es ascendente → ELIMINAR" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=9;fontColor=#FFFFFF;fillColor=#82b366" vertex="1" parent="1">
+                    <mxGeometry x="760" y="1065" width="230" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="pe-resumen" value="RESUMEN: Se eliminan 2 hojas (123 y 5)" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=11;fontStyle=1;fontColor=#FFFFFF" vertex="1" parent="1">
+                    <mxGeometry x="470" y="1125" width="530" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="arbol-despues-titulo" value="DESPUÉS DE ELIMINAR:" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="1180" y="920" width="250" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="ad-nodo50" value="50" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="1280" y="960" width="50" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="ad-nodo30" value="30" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="1200" y="1030" width="50" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="ad-nodo70" value="70" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="1340" y="1030" width="50" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="ad-nodo20" value="20" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="1150" y="1100" width="50" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="ad-nodo312" value="312" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="1250" y="1100" width="50" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="ad-arrow1" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;endArrow=classic;endFill=1;" edge="1" parent="1" source="ad-nodo50" target="ad-nodo30">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="ad-arrow2" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#82b366;endArrow=classic;endFill=1;" edge="1" parent="1" source="ad-nodo50" target="ad-nodo70">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="ad-arrow3" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;endArrow=classic;endFill=1;" edge="1" parent="1" source="ad-nodo30" target="ad-nodo20">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="ad-arrow4" style="html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;endArrow=classic;endFill=1;" edge="1" parent="1" source="ad-nodo30" target="ad-nodo312">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="ad-null1" value="null" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#82b366;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="1320" y="1105" width="40" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="ad-null2" value="null" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#82b366;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="1380" y="1105" width="40" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="ad-label1" value="70 ahora es hoja" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#82b366;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="1320" y="1155" width="90" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="ad-resultado" value="RESULTADO: Árbol sin hojas ascendentes&#xa;Se conservan: 50, 30, 70, 20, 312" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=11;fontStyle=1;fontColor=#FFFFFF" vertex="1" parent="1">
+                    <mxGeometry x="1120" y="1180" width="330" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="leyenda-titulo" value="LEYENDA" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="40" y="1270" width="120" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="ley1-circulo" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="40" y="1305" width="35" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="ley1-txt" value="Hoja con valor ascendente (se elimina)" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="85" y="1310" width="250" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="ley2-circulo" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="40" y="1350" width="35" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="ley2-txt" value="Hoja con valor NO ascendente (se mantiene)" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="85" y="1355" width="280" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="ley3-circulo" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="40" y="1395" width="35" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="ley3-txt" value="Nodo con hijos (no se elimina, no es hoja)" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="85" y="1400" width="290" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="puntos-titulo" value="PUNTOS CLAVE" style="text;html=1;strokeColor=#d79b00;fillColor=#ffe6cc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=14;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="420" y="1270" width="300" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="punto1" value="• Solo elimina HOJAS (nodos sin hijos)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="430" y="1310" width="280" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="punto2" value="• Un solo dígito SÍ se considera ascendente" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="430" y="1335" width="280" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="punto3" value="• Recorrido post-orden (hijos primero)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="430" y="1360" width="280" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="punto4" value="• Retorna cantidad de hojas eliminadas" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="430" y="1385" width="280" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="punto5" value="• Dígitos iguales NO son ascendentes" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="430" y="1410" width="280" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="complejidad-titulo" value="COMPLEJIDAD" style="text;html=1;strokeColor=#9673a6;fillColor=#e1d5e7;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=14;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="760" y="1270" width="300" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="comp1" value="• Temporal: O(n) - visita cada nodo una vez" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="770" y="1310" width="280" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="comp2" value="• Espacial: O(h) - altura del árbol (recursión)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="770" y="1335" width="280" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="comp3" value="• Validación dígitos: O(d) - d = cantidad dígitos" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="770" y="1360" width="290" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="casos-titulo" value="CASOS ESPECIALES" style="text;html=1;strokeColor=#b85450;fillColor=#f8cecc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=14;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="1100" y="1270" width="300" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="caso1" value="• Árbol vacío → retorna 0" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="1110" y="1310" width="280" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="caso2" value="• Raíz es hoja ascendente → elimina raíz" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="1110" y="1335" width="280" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="caso3" value="• No hay hojas ascendentes → retorna 0" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="1110" y="1360" width="280" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="caso4" value="• Después de eliminar, padre puede quedar hoja" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="1110" y="1385" width="290" height="20" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

@@ -1,0 +1,219 @@
+﻿@inject ICarritoServicio carritoServicio
+@inject SweetAlertService Swal;
+@inject NavigationManager _navigationManager
+@implements IDisposable
+@using BlazorEcommerce.Client.Extensiones;
+@using Microsoft.AspNetCore.Components.Authorization
+@using System.Security.Claims;
+@inject AuthenticationStateProvider autenticacionProvider
+@inject HttpClient Http
+@using System.Net.Http.Json
+@inject HttpClient Http
+
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light fixed-top">
+    <div class="container">
+        <a class="navbar-brand" runat="server" href="#">
+            <span class="brand-red">DISMAC</span><span class="brand-black">TEC</span>
+        </a>
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Alternar navegación" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="@NavMenuCssClass navbar-collapse d-sm-inline-flex justify-content-between">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <AuthorizeView Roles="Usuario">
+                    <Authorized>
+                        <li class="nav-item"><NavLink class="nav-link" href="dashboard"> Dashboard</NavLink></li>
+                        <li class="nav-item"><NavLink class="nav-link" href="usuarios"> Usuarios</NavLink></li>
+                        <li class="nav-item"><NavLink class="nav-link" href="categorias"> Categorias</NavLink></li>
+                        <li class="nav-item"><NavLink class="nav-link" href="productos"> Productos</NavLink></li>
+                    </Authorized>
+                </AuthorizeView>
+
+                <li class="nav-item"><NavLink class="nav-link tienda-link" href="catalogo"> Tienda</NavLink></li>
+            </ul>
+
+            <div class="welcome-message">
+                <span class="welcome-red">Bien</span><span class="welcome-black">venido</span>
+            </div>
+
+            <AuthorizeView>
+                <Authorized>
+                    <div class="d-flex align-items-center me-3">
+                        @if (!string.IsNullOrEmpty(imagenUsuario))
+                        {
+                            <img src="@imagenUsuario" alt="Perfil" class="rounded-circle me-2" style="width: 30px; height: 30px; object-fit: cover;" />
+                        }
+                        else
+                        {
+                            <span class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-2" style="width: 30px; height: 30px;">
+                                @(context.User.Identity.Name?.Substring(0, 1).ToUpper() ?? "?")
+                            </span>
+                        }
+                        <span class="navbar-text">
+                            @context.User.Identity.Name
+                        </span>
+                    </div>
+                </Authorized>
+            </AuthorizeView>
+            <a class="btn btn-outline-dark ms-auto ms-md-0 me-3" href="/cart">
+                <span class="cart-icon">🛒</span>
+                <span class="badge bg-danger text-white ms-1 rounded-pill">@mostrarCantidadCarrito()</span>
+            </a>
+            <AuthorizeView>
+                <Authorized>
+                    <button class="btn btn-outline-dark ms-auto ms-md-0 me-3" type="button" @onclick="CerrarSesion">Salir</button>
+                </Authorized>
+                <NotAuthorized>
+                    <a class="btn btn-primary ms-auto ms-md-0 me-3" href="/login">Iniciar sesión</a>
+                </NotAuthorized>
+            </AuthorizeView>
+        </div>
+    </div>
+</nav>
+
+<style>
+    .cart-icon {
+        color: #e60000;
+        font-size: 1.2rem;
+    }
+
+    .welcome-message {
+        font-weight: 500;
+        color: #000;
+        margin-right: 10px;
+    }
+
+    .bg-danger {
+        background-color: #e60000 !important;
+    }
+</style>
+
+@code {
+    private bool collapseNavMenu = true;
+    private bool collapseMenuUser = false;
+    private string? imagenUsuario;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    private string? UserMenuCssClass => collapseMenuUser ? "show" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+    private void ToggleMenuUser()
+    {
+        collapseMenuUser = !collapseMenuUser;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        carritoServicio.ActualizarVista += StateHasChanged;
+        await ObtenerImagenUsuario();
+    }
+
+    public void Dispose()
+    {
+        carritoServicio.ActualizarVista -= StateHasChanged; // Corregido: debe ser -= no +=
+    }
+
+    private int mostrarCantidadCarrito()
+    {
+        return carritoServicio.CantidadProductos();
+    }
+
+    private async Task ObtenerImagenUsuario()
+    {
+        try
+        {
+            var authState = await autenticacionProvider.GetAuthenticationStateAsync();
+            var user = authState.User;
+
+            if (user.Identity.IsAuthenticated)
+            {
+                // Intentar obtener el ID o correo del usuario para consultar su imagen
+                var userId = user.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+                var userEmail = user.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+
+                if (!string.IsNullOrEmpty(userId))
+                {
+                    try
+                    {
+                        var response = await Http.GetFromJsonAsync<ImagenUsuarioResponse>($"api/usuario/imagen/{userId}");
+                        if (response != null)
+                        {
+                            imagenUsuario = response.RutaImagen;
+                        }
+                    }
+                    catch
+                    {
+                        // Si falla con ID, intentar con email
+                        if (!string.IsNullOrEmpty(userEmail))
+                        {
+                            try
+                            {
+                                var response = await Http.GetFromJsonAsync<ImagenUsuarioResponse>($"api/usuario/imagen/email/{userEmail}");
+                                if (response != null)
+                                {
+                                    imagenUsuario = response.RutaImagen;
+                                }
+                            }
+                            catch
+                            {
+                                // Si tampoco funciona con email, usamos una imagen predeterminada
+                                imagenUsuario = "/images/default-profile.png";
+                            }
+                        }
+                    }
+                }
+                else if (!string.IsNullOrEmpty(userEmail))
+                {
+                    try
+                    {
+                        var response = await Http.GetFromJsonAsync<ImagenUsuarioResponse>($"api/usuario/imagen/email/{userEmail}");
+                        if (response != null)
+                        {
+                            imagenUsuario = response.RutaImagen;
+                        }
+                    }
+                    catch
+                    {
+                        // Si falla, usar imagen predeterminada
+                        imagenUsuario = "/images/default-profile.png";
+                    }
+                }
+            }
+        }
+        catch
+        {
+            // Si ocurre algún error, simplemente mostramos la inicial del usuario
+            imagenUsuario = null;
+        }
+    }
+
+    private async Task CerrarSesion()
+    {
+        SweetAlertResult result = await Swal.FireAsync(new SweetAlertOptions
+            {
+                Title = "¿Desea salir?",
+                Icon = SweetAlertIcon.Info,
+                ShowCancelButton = true,
+                ConfirmButtonText = "Sí",
+                CancelButtonText = "No",
+                ConfirmButtonColor = "#e60000",
+                CancelButtonColor = "#000000"
+            });
+
+        if (result.IsConfirmed)
+        {
+            var autenticacionExt = (AutenticacionExtension)autenticacionProvider;
+            await autenticacionExt.ActualizarEstadoAutenticacion(null);
+            _navigationManager.NavigateTo("/", true);
+        }
+    }
+
+    private class ImagenUsuarioResponse
+    {
+        public string RutaImagen { get; set; }
+    }
+}

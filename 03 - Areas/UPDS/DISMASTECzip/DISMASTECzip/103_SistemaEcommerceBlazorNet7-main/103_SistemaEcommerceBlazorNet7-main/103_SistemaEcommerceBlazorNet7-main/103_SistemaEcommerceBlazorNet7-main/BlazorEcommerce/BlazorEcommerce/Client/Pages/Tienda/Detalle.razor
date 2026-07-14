@@ -1,0 +1,115 @@
+﻿@page "/detalle/{Id:int}"
+@inject IProductoServicio productoServicio;
+@inject ICarritoServicio carritoServicio
+@using Microsoft.AspNetCore.Components.Authorization
+
+<div class="container px-4 px-lg-5 my-5">
+
+
+    @if (modelo != null)
+    {
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="col-md-6 position-relative">
+                @if (!string.IsNullOrEmpty(modelo.Etiqueta))
+                {
+                    @switch (modelo.Etiqueta)
+                    {
+                        case "Nuevo":
+                            <div class="badge bg-primary text-white position-absolute" style="top: 0.5rem; right: 1.5rem; z-index: 1;">@modelo.Etiqueta</div>
+                            break;
+                        case "Ultima Unidad":
+                            <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 1.5rem; z-index: 1;">@modelo.Etiqueta</div>
+                            break;
+                        case "Combo":
+                            <div class="badge bg-success text-white position-absolute" style="top: 0.5rem; right: 1.5rem; z-index: 1;">@modelo.Etiqueta</div>
+                            break;
+                        case "Oferta":
+                            <div class="badge bg-warning text-dark position-absolute" style="top: 0.5rem; right: 1.5rem; z-index: 1;">@modelo.Etiqueta</div>
+                            break;
+                        default:
+                            <div class="badge bg-primary text-white position-absolute" style="top: 0.5rem; right: 1.5rem; z-index: 1;">@modelo.Etiqueta</div>
+                            break;
+                    }
+                }
+                <img class="card-img-top border-dark border-1" src="@modelo.Imagen" style="width:80%;">
+            </div>
+            <div class="col-md-6">
+                <h1 class="display-5 fw-bolder">@modelo.Nombre</h1>
+                <hr />
+                <h6 class="display-50 fw-bolder"> COD.  @modelo.Producto</h6>
+                <br />
+                <div class="fs-5 mb-5">
+                    @if (modelo.PrecioOferta.HasValue && modelo.PrecioOferta > 0 && modelo.Precio.HasValue && modelo.PrecioOferta < modelo.Precio)
+                    {
+                        decimal diferencia = modelo.Precio.Value - modelo.PrecioOferta.Value;
+                        int porcentajeDescuento = 0;
+
+                        if (modelo.Precio.Value > 0)
+                        {
+                            porcentajeDescuento = (int)Math.Round((diferencia / modelo.Precio.Value) * 100);
+                        }
+
+                        <small class="badge bg-danger ms-1 ">(Ahorras Bs. @diferencia.ToString("0.00"))</small> @*<span class="badge bg-danger ms-2">-@porcentajeDescuento%</span>*@
+                        <br />
+                        <br />
+
+                        <span class="text-danger text-decoration-line-through">Bs. @modelo.Precio.Value.ToString("0.00")</span> <br />
+                        <span style="font-size: 50px;">Bs. @modelo.PrecioOferta.Value.ToString("0.00")</span>
+                    }
+                    else
+                    {
+                        <span>Bs. @(modelo.Precio.HasValue ? modelo.Precio.Value.ToString("0.00") : "0.00")</span>
+                    }
+                </div>
+                <p class="lead">@modelo.Descripcion</p>
+                <div class="d-flex">
+                    <input class="form-control text-center me-3" type="number" min="1" style="width:60px" @bind-value="cantidad">
+                    <button class="btn btn-outline-dark flex-shrink-0 me-3" type="button" @onclick="(async() => await AgregarCarrito(modelo))">
+                        <i class="bi-cart-fill me-1"> 🛒</i>
+                        Agregar al carrito
+                    </button>
+                    <a class="btn btn-outline-dark flex-shrink-0" href="/catalogo">
+                        <i class="bi-cart-fill me-1"></i>
+                        Volver
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    }
+
+
+
+</div>
+
+@code {
+    [Parameter] public int Id { get; set; }
+    private ProductoDTO? modelo = null;
+    private int cantidad = 1;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        var response = await productoServicio.Obtener(Id);
+        if (response.EsCorrecto)
+            modelo = (ProductoDTO)response.Resultado!;
+    }
+
+    private async Task AgregarCarrito(ProductoDTO modelo)
+    {
+        decimal? precioFinal = (modelo.PrecioOferta != 0 && modelo.PrecioOferta < modelo.Precio) ? modelo.PrecioOferta : modelo.Precio;
+        CarritoDTO carrito = new CarritoDTO()
+            {
+                Producto = modelo,
+                Cantidad = cantidad,
+                Precio = precioFinal,
+                Total = Convert.ToDecimal(cantidad) * precioFinal
+            };
+        await carritoServicio.AgregarCarrito(carrito);
+    }
+
+}

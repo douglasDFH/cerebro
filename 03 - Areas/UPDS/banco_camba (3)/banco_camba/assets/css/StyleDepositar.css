@@ -1,0 +1,477 @@
+/* ---------- VARIABLES DE COLORES Y FUENTES ---------- */
+:root {
+    --primary: #0B6E24; /* Color primario */
+    --primary-dark: #075019; /* Color primario oscuro */
+    --primary-light: #f0f7f2; /* Color primario claro */
+    --secondary: #FAD02C; /* Color secundario */
+    --success: #28a745; /* Color para indicar éxito */
+    --success-dark: #1e7e34; /* Color de éxito oscuro */
+    --text-color: #333333; /* Color principal del texto */
+    --text-muted: #6c757d; /* Color de texto atenuado */
+    --border-color: #ced4da; /* Color de los bordes */
+    --white: #ffffff; /* Color blanco */
+}
+
+/* ---------- ESTILOS GENERALES DEL BODY ---------- */
+body {
+    font-family: Arial, sans-serif; /* Fuente principal */
+    background-color: #f5f5f5; /* Color de fondo */
+    color: var(--text-color); /* Color del texto */
+    padding: 0; /* Sin relleno */
+    margin: 0; /* Sin margen */
+}
+
+/* ---------- ESTILOS PARA EL ENCABEZADO DE LA PÁGINA ---------- */
+.page-header {
+    background-color: var(--primary); /* Fondo del encabezado */
+    color: var(--white); /* Color del texto */
+    padding: 15px; /* Relleno interno */
+    margin-bottom: 20px; /* Margen inferior */
+    position: relative; /* Posición relativa */
+}
+
+.page-header h2 {
+    font-size: 20px; /* Tamaño de la fuente */
+    margin: 0; /* Sin margen */
+    font-weight: 600; /* Grosor de la fuente */
+    display: flex; /* Flexbox para alinear elementos */
+    align-items: center; /* Centrar verticalmente */
+}
+
+.page-header h2 i {
+    margin-right: 10px; /* Margen derecho para el ícono */
+    animation: pulse 2s infinite; /* Animación de pulsación */
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); } /* Escala normal */
+    50% { transform: scale(1.1); } /* Escala aumentada */
+    100% { transform: scale(1); } /* Vuelve a la escala normal */
+}
+
+.page-header::after {
+    content: ''; /* Contenido vacío */
+    position: absolute; /* Posición absoluta */
+    bottom: 0; /* Alineado al fondo */
+    left: 0; /* Alineado a la izquierda */
+    width: 100%; /* Ancho completo */
+    height: 3px; /* Altura de la línea */
+    background-color: var(--secondary); /* Color de la línea */
+}
+
+/* ---------- ESTILOS PARA LA CAJA DE ALERTA ---------- */
+.alert-box {
+    padding: 15px; /* Relleno interno */
+    margin: 0 20px 20px 20px; /* Margen exterior */
+    border-left: 4px solid; /* Borde izquierdo */
+    background-color: #f8f9fa; /* Color de fondo */
+    border-radius: 4px; /* Bordes redondeados */
+    animation: fadeInLeft 0.5s ease; /* Animación de entrada */
+}
+
+@keyframes fadeInLeft {
+    from { opacity: 0; transform: translateX(-20px); } /* Inicio de la animación */
+    to { opacity: 1; transform: translateX(0); } /* Fin de la animación */
+}
+
+.alert-info {
+    border-color: var(--primary); /* Color del borde para alertas de información */
+}
+
+.alert-box i {
+    margin-right: 10px; /* Margen derecho para el ícono */
+    color: var(--primary); /* Color del ícono */
+}
+
+/* ---------- ESTILOS PARA EL FORMULARIO ---------- */
+.form-container {
+    background-color: var(--white); /* Fondo blanco */
+    border: 1px solid #ddd; /* Borde del contenedor */
+    margin: 0 20px 20px 20px; /* Margen exterior */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05); /* Sombra suave */
+}
+
+.form-section {
+    padding: 25px; /* Relleno interno */
+}
+
+.form-label {
+    font-weight: 600; /* Grosor de la fuente */
+    color: var(--text-color); /* Color del texto */
+    margin-bottom: 10px; /* Margen inferior */
+    display: block; /* Mostrar como bloque */
+    font-size: 16px; /* Tamaño de la fuente */
+}
+
+.form-label .required {
+    color: #dc3545; /* Color para campos obligatorios */
+    margin-left: 3px; /* Margen izquierdo */
+}
+
+.form-control {
+    border: 2px solid var(--border-color); /* Borde del campo */
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 15px 15px 15px 50px; /* Relleno interno */
+    width: 100%; /* Ancho completo */
+    font-size: 18px; /* Tamaño de la fuente */
+    letter-spacing: 1px; /* Espaciado entre letras */
+    transition: all 0.3s; /* Transición suave */
+}
+
+.form-control:focus {
+    border-color: var(--primary); /* Color del borde al enfocar */
+    box-shadow: 0 0 0 0.2rem rgba(11, 110, 36, 0.25); /* Sombra al enfocar */
+    outline: none; /* Sin contorno */
+}
+
+.form-control::placeholder {
+    color: #adb5bd; /* Color del texto de placeholder */
+    font-size: 16px; /* Tamaño de la fuente */
+}
+
+.input-group {
+    position: relative; /* Posición relativa */
+    margin-bottom: 25px; /* Margen inferior */
+}
+
+.input-icon {
+    position: absolute; /* Posición absoluta */
+    left: 15px; /* Alineado a la izquierda */
+    top: 50%; /* Centrado verticalmente */
+    transform: translateY(-50%); /* Ajuste de posición */
+    color: var(--primary); /* Color del ícono */
+    font-size: 20px; /* Tamaño del ícono */
+    z-index: 5; /* Capa superior */
+}
+
+.btn {
+    padding: 12px 25px; /* Relleno interno */
+    border-radius: 6px; /* Bordes redondeados */
+    font-weight: 600; /* Grosor de la fuente */
+    font-size: 16px; /* Tamaño de la fuente */
+    cursor: pointer; /* Cursor de puntero */
+    border: none; /* Sin borde */
+    transition: all 0.3s; /* Transición suave */
+}
+
+.btn-primary {
+    background-color: var(--primary); /* Fondo del botón primario */
+    color: var(--white); /* Color del texto */
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark); /* Fondo al pasar el mouse */
+    transform: translateY(-2px); /* Efecto de elevación */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra al pasar el mouse */
+}
+
+.btn-secondary {
+    background-color: #6c757d; /* Fondo del botón secundario */
+    color: var(--white); /* Color del texto */
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268; /* Fondo al pasar el mouse */
+    transform: translateY(-2px); /* Efecto de elevación */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra al pasar el mouse */
+}
+
+.btn-success {
+    background-color: var(--success); /* Fondo del botón de éxito */
+    color: var(--white); /* Color del texto */
+}
+
+.btn-success:hover {
+    background-color: var(--success-dark); /* Fondo al pasar el mouse */
+    transform: translateY(-2px); /* Efecto de elevación */
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3); /* Sombra al pasar el mouse */
+}
+
+.btn i {
+    margin-right: 8px; /* Margen derecho para el ícono */
+}
+
+.form-actions {
+    display: flex; /* Flexbox para alinear botones */
+    gap: 15px; /* Espacio entre botones */
+    margin-top: 10px; /* Margen superior */
+}
+
+
+
+
+
+
+/* ---------- SECCIÓN DE AYUDA DINÁMICA ---------- */
+.help-cards {
+    margin: 0 20px; /* Margen horizontal */
+    display: flex; /* Flexbox para alinear tarjetas */
+    flex-wrap: wrap; /* Permite que las tarjetas se envuelvan */
+    gap: 15px; /* Espacio entre tarjetas */
+}
+
+.help-card {
+    flex: 1 0 calc(50% - 15px); /* Flexibilidad y tamaño de las tarjetas */
+    min-width: 250px; /* Ancho mínimo */
+    background-color: var(--white); /* Fondo blanco */
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 15px; /* Relleno interno */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* Sombra suave */
+    border-top: 3px solid var(--primary); /* Borde superior */
+    cursor: pointer; /* Cursor de puntero */
+    transition: all 0.3s; /* Transición suave */
+    opacity: 0; /* Inicialmente invisible */
+    animation: fadeInUp 0.5s ease forwards; /* Animación de entrada */
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); } /* Inicio de la animación */
+    to { opacity: 1; transform: translateY(0); } /* Fin de la animación */
+}
+
+.help-card:nth-child(1) { animation-delay: 0.1s; } /* Retardo para la primera tarjeta */
+.help-card:nth-child(2) { animation-delay: 0.2s; } /* Retardo para la segunda tarjeta */
+.help-card:nth-child(3) { animation-delay: 0.3s; } /* Retardo para la tercera tarjeta */
+.help-card:nth-child(4) { animation-delay: 0.4s; } /* Retardo para la cuarta tarjeta */
+
+.help-card:hover {
+    transform: translateY(-5px); /* Efecto de elevación al pasar el mouse */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Sombra al pasar el mouse */
+}
+
+.help-card-icon {
+    font-size: 24px; /* Tamaño del ícono */
+    color: var(--primary); /* Color del ícono */
+    margin-bottom: 10px; /* Margen inferior */
+    display: inline-block; /* Mostrar como bloque en línea */
+}
+
+.help-card-title {
+    font-weight: 600; /* Grosor de la fuente */
+    margin-bottom: 5px; /* Margen inferior */
+    color: var(--primary); /* Color del título */
+}
+
+.help-card-text {
+    color: var(--text-muted); /* Color del texto */
+    font-size: 14px; /* Tamaño de la fuente */
+    line-height: 1.4; /* Altura de línea */
+}
+
+/* ---------- SECCIÓN DE CUENTAS DE EJEMPLO ---------- */
+.example-accounts {
+    margin: 30px 20px; /* Margen exterior */
+    background-color: var(--white); /* Fondo blanco */
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 20px; /* Relleno interno */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* Sombra suave */
+}
+
+.accounts-title {
+    font-size: 18px; /* Tamaño de la fuente */
+    color: var(--primary); /* Color del título */
+    margin-bottom: 15px; /* Margen inferior */
+    font-weight: 600; /* Grosor de la fuente */
+    display: flex; /* Flexbox para alinear elementos */
+    align-items: center; /* Centrar verticalmente */
+}
+
+.accounts-title i {
+    margin-right: 10px; /* Margen derecho para el ícono */
+}
+
+.account-cards {
+    display: flex; /* Flexbox para alinear tarjetas */
+    flex-wrap: wrap; /* Permite que las tarjetas se envuelvan */
+    gap: 15px; /* Espacio entre tarjetas */
+    margin-top: 15px; /* Margen superior */
+}
+
+.account-card {
+    flex: 1 0 calc(33.33% - 15px); /* Flexibilidad y tamaño de las tarjetas */
+    min-width: 200px; /* Ancho mínimo */
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); /* Fondo degradado */
+    color: white; /* Color del texto */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 15px; /* Relleno interno */
+    position: relative; /* Posición relativa */
+    overflow: hidden; /* Oculta el contenido que se desborda */
+    cursor: pointer; /* Cursor de puntero */
+    transition: all 0.3s; /* Transición suave */
+    opacity: 0; /* Inicialmente invisible */
+    animation: fadeInUp 0.5s ease forwards; /* Animación de entrada */
+    animation-delay: 0.5s; /* Retardo para la animación */
+}
+
+.account-card:nth-child(2) { animation-delay: 0.6s; } /* Retardo para la segunda tarjeta */
+.account-card:nth-child(3) { animation-delay: 0.7s; } /* Retardo para la tercera tarjeta */
+
+.account-card:hover {
+    transform: translateY(-5px) scale(1.02); /* Efecto de elevación y escala al pasar el mouse */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15); /* Sombra al pasar el mouse */
+}
+
+.account-card-chip {
+    width: 30px; /* Ancho del chip */
+    height: 20px; /* Altura del chip */
+    background: var(--secondary); /* Fondo del chip */
+    border-radius: 3px; /* Bordes redondeados */
+    margin-bottom: 15px; /* Margen inferior */
+}
+
+.account-card-type {
+    position: absolute; /* Posición absoluta */
+    top: 15px; /* Alineado arriba */
+    right: 15px; /* Alineado a la derecha */
+    font-size: 12px; /* Tamaño de la fuente */
+    background: rgba(255,255,255,0.2); /* Fondo semitransparente */
+    padding: 3px 8px; /* Relleno interno */
+    border-radius: 3px; /* Bordes redondeados */
+}
+
+.account-card-number {
+    font-family: monospace; /* Fuente monoespaciada */
+    font-size: 16px; /* Tamaño de la fuente */
+    letter-spacing: 2px; /* Espaciado entre letras */
+    margin-bottom: 15px; /* Margen inferior */
+}
+
+.account-card-name {
+    font-size: 12px; /* Tamaño de la fuente */
+    text-transform: uppercase; /* Texto en mayúsculas */
+    opacity: 0.8; /* Opacidad del texto */
+}
+
+/* ---------- ANIMACIÓN DE ESCANEO ---------- */
+.scan-animation {
+    position: absolute; /* Posición absoluta */
+    width: 100%; /* Ancho completo */
+    height: 2px; /* Altura de la línea */
+    background: var(--secondary); /* Color de fondo */
+    top: 0; /* Alineado arriba */
+    left: 0; /* Alineado a la izquierda */
+    opacity: 0; /* Inicialmente invisible */
+    animation: scanLine 2s infinite; /* Animación de escaneo */
+    pointer-events: none; /* Sin interacción */
+}
+
+@keyframes scanLine {
+    0%, 100% { top: 0; opacity: 0; } /* Inicio y fin de la animación */
+    50% { top: 100%; opacity: 1; } /* Punto medio de la animación */
+}
+
+/* ---------- ANIMACIONES PERSONALIZADAS ---------- */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); } /* Sin movimiento */
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); } /* Movimiento a la izquierda */
+    20%, 40%, 60%, 80% { transform: translateX(5px); } /* Movimiento a la derecha */
+}
+
+.shake {
+    animation: shake 0.5s; /* Aplicar animación de sacudida */
+}
+
+/* ---------- NOTIFICACIÓN TOAST ---------- */
+.toast-notification {
+    position: fixed; /* Posición fija */
+    bottom: 20px; /* Alineado abajo */
+    left: 50%; /* Centrado horizontalmente */
+    transform: translateX(-50%); /* Ajuste de posición */
+    background-color: rgba(0,0,0,0.8); /* Fondo semitransparente */
+    color: white; /* Color del texto */
+    padding: 12px 20px; /* Relleno interno */
+    border-radius: 6px; /* Bordes redondeados */
+    z-index: 9999; /* Capa superior */
+    max-width: 80%; /* Ancho máximo */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* Sombra */
+    font-size: 14px; /* Tamaño de la fuente */
+    animation: fadeInUp 0.3s ease; /* Animación de entrada */
+}
+
+/* ---------- ANIMACIÓN DE CARGA ---------- */
+.loading-overlay {
+    position: fixed; /* Posición fija */
+    top: 0; /* Alineado arriba */
+    left: 0; /* Alineado a la izquierda */
+    width: 100%; /* Ancho completo */
+    height: 100%; /* Altura completa */
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo semitransparente */
+    display: flex; /* Flexbox para centrar contenido */
+    flex-direction: column; /* Dirección de columna */
+    align-items: center; /* Centrar horizontalmente */
+    justify-content: center; /* Centrar verticalmente */
+    z-index: 10000; /* Capa superior */
+}
+
+.spinner {
+    width: 50px; /* Ancho del spinner */
+    height: 50px; /* Altura del spinner */
+    border: 5px solid rgba(11, 110, 36, 0.2); /* Borde del spinner */
+    border-radius: 50%; /* Forma circular */
+    border-top-color: var(--primary); /* Color del borde superior */
+    animation: spin 1s ease-in-out infinite; /* Animación de giro */
+    margin-bottom: 15px; /* Margen inferior */
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); } /* Giro completo */
+}
+
+.loading-text {
+    color: var(--primary); /* Color del texto */
+    font-weight: 600; /* Grosor de la fuente */
+}
+
+/* ---------- ESTILOS DE INFORMACIÓN DE CUENTA ---------- */
+.account-info-card, 
+.client-info-card {
+    background-color: var(--white); /* Fondo blanco */
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 15px; /* Relleno interno */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* Sombra suave */
+    margin-bottom: 15px; /* Margen inferior */
+    border-top: 3px solid var(--primary); /* Borde superior */
+    animation: fadeIn 0.5s ease; /* Animación de entrada */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; } /* Inicio de la animación */
+    to { opacity: 1; } /* Fin de la animación */
+}
+
+.info-card-title {
+    color: var(--primary); /* Color del título */
+    font-size: 18px; /* Tamaño de la fuente */
+    margin-bottom: 15px; /* Margen inferior */
+    padding-bottom: 8px; /* Relleno inferior */
+    border-bottom: 1px solid #eee; /* Borde inferior */
+    display: flex; /* Flexbox para alinear elementos */
+    align-items: center; /* Centrar verticalmente */
+}
+
+.info-card-title i {
+    margin-right: 10px; /* Margen derecho para el ícono */
+}
+
+.balance-text {
+    color: var(--primary); /* Color del texto */
+    font-size: 18px; /* Tamaño de la fuente */
+    font-weight: 600; /* Grosor de la fuente */
+}
+
+/* ---------- ESTILOS ESPECÍFICOS PARA DEPÓSITOS ---------- */
+.deposit-icon {
+    color: var(--success); /* Color del ícono */
+}
+
+/* ---------- AJUSTES RESPONSIVOS ---------- */
+@media (max-width: 768px) {
+    .help-card {
+        flex: 1 0 100%; /* Tarjetas ocupan el 100% del ancho */
+    }
+    
+    .account-card {
+        flex: 1 0 100%; /* Tarjetas ocupan el 100% del ancho */
+    }
+}

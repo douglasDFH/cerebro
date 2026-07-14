@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>DISMATEC</title>
+
+    <base href="/" />
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/app.css" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="favion.jpg" />
+    <link href="BlazorEcommerce.Client.styles.css" rel="stylesheet" />
+    <link href="css/camera-styles.css" rel="stylesheet" />
+    <!-- Leaflet CSS (incluye solo una vez) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin="" />
+    <!-- Estilos adicionales para el mapa -->
+    <style>
+        /* Asegurar que el mapa sea visible */
+        #leaflet-map {
+            height: 400px;
+            width: 100%;
+            z-index: 1000;
+        }
+        /* Estilos para el modal del mapa */
+        .modal.show {
+            display: block;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <svg class="loading-progress">
+            <circle r="40%" cx="50%" cy="50%" />
+            <circle r="40%" cx="50%" cy="50%" />
+        </svg>
+        <div class="loading-progress-text"></div>
+    </div>
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+
+    <!-- Scripts al final del body para mejor rendimiento -->
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script src="_content/CurrieTechnologies.Razor.SweetAlert2/sweetAlert2.min.js"></script>
+
+    <!-- Leaflet JS (incluye solo una vez) -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+
+    <!-- Scripts personalizados -->
+    <script src="js/checkout.js"></script>
+    <script src="js/camera.js"></script>
+    <!-- Solo incluir un archivo de mapa - map.js -->
+    <script src="js/map.js"></script>
+
+    <!-- Eliminar o comentar esta línea si existe -->
+    <!-- <script src="js/map-ubicacion.js"></script> -->
+</body>
+</html>

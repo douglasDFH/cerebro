@@ -1,0 +1,455 @@
+﻿@page "/usuario"
+@page "/usuario/{Id:int}"
+@inject IPersonaServicio _personaServicio
+@inject NavigationManager _navServicio
+@inject IToastService toastService
+@attribute [Authorize(Roles = "Usuario")]
+
+<div class="row justify-content-center mt-3">
+    <p class="col-sm-12 col-md-8 col-xl-10 h4 mt-2">@titulo</p>
+</div>
+<div class="row justify-content-center mt-3">
+    <div class="col-sm-12 col-md-8 col-xl-10">
+        <EditForm Model="modelo" OnValidSubmit="GuardarCambios">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="inputNombre" type="text"
+                               placeholder="Nombre" @bind="modelo.Nombre" />
+                        <label for="inputNombre">Nombre*</label>
+                        <ValidationMessage For="@(() => modelo.Nombre)" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="inputApellido" type="text"
+                               placeholder="Apellido" @bind="modelo.ApellidoPaterno" />
+                        <label for="inputApellido">Apellido Paterno*</label>
+                        <ValidationMessage For="@(() => modelo.ApellidoPaterno)" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Agrega la sección de carga de imagen -->
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="input-group mb-3">
+                        <label class="input-group-text bg-light">Imagen</label>
+                        <InputFile class="form-control" accept="image/png, image/gif, image/jpeg" OnChange="OnFileChange"></InputFile>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="text-center">
+                        @if (!string.IsNullOrEmpty(modelo.Imagen))
+                        {
+                            <img src="@modelo.Imagen" class="img-thumbnail" style="max-height: 100px;" alt="Imagen de perfil" />
+                        }
+                        else
+                        {
+                            <i class="oi oi-person" style="font-size:50px"></i>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- NUEVA SECCIÓN: Campos de Dirección -->
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <div class="form-floating mb-3">
+                        <textarea class="form-control" id="inputDireccion" style="height: 100px;"
+                                  placeholder="Dirección" @bind="modelo.Direccion"></textarea>
+                        <label for="inputDireccion">Dirección*</label>
+                        <ValidationMessage For="@(() => modelo.Direccion)" />
+                        <small class="text-muted">Ingrese su dirección completa</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="inputCiudad" type="text"
+                               placeholder="Ciudad" @bind="modelo.Ciudad" />
+                        <label for="inputCiudad">Ciudad@(esPantallaUsuario ? "*" : "")</label>
+                        <ValidationMessage For="@(() => modelo.Ciudad)" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="inputPais" type="text"
+                               placeholder="País" @bind="modelo.Pais" />
+                        <label for="inputPais">País@(esPantallaUsuario ? "*" : "")</label>
+                        <ValidationMessage For="@(() => modelo.Pais)" />
+                        <small class="text-muted">@(esPantallaUsuario ? "Campo obligatorio" : "Campo opcional")</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Resto del formulario sin cambios -->
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="inputTipoDocumento" @bind="modelo.TipoDocumento">
+                            <option value="">Seleccione tipo...</option>
+                            <option value="CI">Carnet de Identidad</option>
+                            <option value="Pasaporte">Pasaporte</option>
+                            <option value="NIT">NIT</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                        <label for="inputTipoDocumento">Tipo de Documento*</label>
+                        <ValidationMessage For="@(() => modelo.TipoDocumento)" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="inputNumeroDocumento" type="text"
+                               placeholder="Número de Documento" @bind="modelo.NumeroDocumento" />
+                        <label for="inputNumeroDocumento">Número de Documento*</label>
+                        <ValidationMessage For="@(() => modelo.NumeroDocumento)" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <!-- Modificado - campo de teléfono con prefijo -->
+                <div class="col-md-6">
+                    <div class="input-group mb-3">
+                        <div class="form-floating" style="width: 40%;">
+                            <select class="form-select" id="inputPrefijoPais" @bind="prefijoPais" @bind:after="ActualizarTelefono">
+                                @foreach (var prefijo in prefijosPaises)
+                                {
+                                    <option value="@prefijo">@prefijo</option>
+                                }
+                            </select>
+                            <label for="inputPrefijoPais">Prefijo*</label>
+                        </div>
+                        <div class="form-floating" style="width: 60%;">
+                            <input class="form-control" id="inputTelefono" type="tel"
+                                   placeholder="Teléfono/Celular" @bind="telefonoSinPrefijo" @bind:after="ActualizarTelefono" />
+                            <label for="inputTelefono">Teléfono/Celular*</label>
+                        </div>
+                    </div>
+                    <!-- Campo oculto para almacenar el teléfono completo para validación -->
+                    <InputText id="telefonoCompleto" @bind-Value="modelo.Telefono" style="display: none;" />
+                    <ValidationMessage For="@(() => modelo.Telefono)" class="text-danger d-block mt-1" />
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="inputCorreo" type="email"
+                               placeholder="Correo" @bind="modelo.Correo" />
+                        <label for="inputCorreo">Correo Electrónico*</label>
+                        <ValidationMessage For="@(() => modelo.Correo)" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="inputPassword" type="password"
+                               placeholder="Contraseña" @bind="modelo.Clave" />
+                        <label for="inputPassword">Contraseña*</label>
+                        <ValidationMessage For="@(() => modelo.Clave)" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="inputConfirmPassword" type="password"
+                               placeholder="Confirmar Contraseña" @bind="modelo.ConfirmarClave" />
+                        <label for="inputConfirmPassword">Confirmar Contraseña*</label>
+                        <ValidationMessage For="@(() => modelo.ConfirmarClave)" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- CAPTCHA Solo para nuevos registros -->
+            @if (Id == 0)
+            {
+                <div class="mb-4">
+                    <div class="captcha-container bg-light p-3 text-center mb-2 rounded">
+                        <div class="captcha-text">@captchaValue</div>
+                        <button type="button" class="btn btn-sm btn-link mt-2" @onclick="GenerarNuevoCaptcha">
+                            <i class="oi oi-reload"></i> Generar nuevo código
+                        </button>
+                    </div>
+                    <div class="form-floating">
+                        <input class="form-control" @bind="captchaInput"
+                               placeholder="Ingrese el código mostrado" />
+                        <label>Ingrese el código mostrado*</label>
+                    </div>
+                    @if (!string.IsNullOrEmpty(captchaInput))
+                    {
+                        <div class="mt-2">
+                            @if (captchaValidado)
+                            {
+                                <span class="text-success"><i class="oi oi-check"></i> Código correcto</span>
+                            }
+                            else
+                            {
+                                <span class="text-danger"><i class="oi oi-warning"></i> Código incorrecto</span>
+                            }
+                        </div>
+                    }
+                </div>
+            }
+
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary" style="width:130px"
+                        disabled="@(!captchaValidado && Id == 0)">
+                    @boton
+                </button>
+                <a href="/usuarios" class="btn btn-secondary" style="width:130px">Volver</a>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+<style>
+    .captcha-container {
+        font-family: 'Courier New', monospace;
+        font-size: 28px;
+        font-weight: bold;
+        letter-spacing: 5px;
+        color: #2c3e50;
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        user-select: none;
+    }
+
+    .captcha-text {
+        transform: rotate(-2deg);
+        display: inline-block;
+        padding: 5px 15px;
+        background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+        border-radius: 4px;
+    }
+</style>
+
+@code {
+    [Parameter] public int Id { get; set; }
+    private string titulo = "Nuevo Usuario";
+    private string boton = "Crear";
+    private PersonaDTO modelo = new PersonaDTO();
+    private string captchaValue = "";
+    private string captchaInput = "";
+    private bool captchaValidado => captchaInput.Equals(captchaValue, StringComparison.OrdinalIgnoreCase);
+
+    // Variable para determinar si se accede desde la pantalla de usuario
+    private bool esPantallaUsuario => true;
+
+    // Variables para manejar el prefijo telefónico
+    private string prefijoPais = "+591"; // Prefijo por defecto (Bolivia)
+    private string telefonoSinPrefijo = "";
+
+    // Lista de prefijos telefónicos comunes
+    private List<string> prefijosPaises = new List<string>
+    {
+        "+591", // Bolivia
+        "+54",  // Argentina
+        "+55",  // Brasil
+        "+56",  // Chile
+        "+57",  // Colombia
+        "+593", // Ecuador
+        "+52",  // México
+        "+51",
+        "+598", // Uruguay,
+        "+58",   //Venezuela,
+        "+34",   //España,
+        "+1",   //Estados Unidos/Canadá,
+        "+44",   //Reino Unido,
+        "+33",   //Francia,
+        "+49",   //Alemania,
+        "+39",   //Italia,
+    };
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Inicializar el teléfono con un valor por defecto para evitar errores de validación
+        if (Id == 0)
+        {
+            modelo.Telefono = prefijoPais;
+        }
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Id != 0)
+        {
+            titulo = "Editar Usuario";
+            boton = "Actualizar";
+
+            var response = await _personaServicio.Obtener(Id);
+            if (response.EsCorrecto)
+            {
+                modelo = (PersonaDTO)response.Resultado!;
+                modelo.ConfirmarClave = modelo.Clave;
+
+                // Procesar el teléfono para separar prefijo y número
+                SepararTelefono(modelo.Telefono);
+            }
+            else
+            {
+                toastService.ShowWarning(response.Mensaje!);
+            }
+        }
+        else
+        {
+            GenerarNuevoCaptcha();
+            // Asegurarse de que el modelo tenga un teléfono inicializado
+            if (string.IsNullOrEmpty(modelo.Telefono))
+            {
+                modelo.Telefono = prefijoPais;
+            }
+        }
+    }
+
+    // Método para actualizar el teléfono cuando cambia el prefijo o el número
+    private void ActualizarTelefono()
+    {
+        // Garantizar que telefonoSinPrefijo no sea null
+        telefonoSinPrefijo = telefonoSinPrefijo ?? "";
+
+        // Actualizar el modelo con el teléfono completo
+        modelo.Telefono = $"{prefijoPais}{telefonoSinPrefijo}";
+    }
+
+    // Método para separar el prefijo del número de teléfono
+    private void SepararTelefono(string telefono)
+    {
+        if (string.IsNullOrEmpty(telefono))
+        {
+            telefonoSinPrefijo = "";
+            modelo.Telefono = prefijoPais;
+            return;
+        }
+
+        // Intentar encontrar un prefijo conocido
+        bool prefijoEncontrado = false;
+        foreach (var prefijo in prefijosPaises)
+        {
+            if (telefono.StartsWith(prefijo))
+            {
+                prefijoPais = prefijo;
+                telefonoSinPrefijo = telefono.Substring(prefijo.Length);
+                prefijoEncontrado = true;
+                break;
+            }
+        }
+
+        // Si no se encuentra un prefijo conocido
+        if (!prefijoEncontrado)
+        {
+            telefonoSinPrefijo = telefono;
+            modelo.Telefono = $"{prefijoPais}{telefonoSinPrefijo}";
+        }
+    }
+
+    private void GenerarNuevoCaptcha()
+    {
+        var random = new Random();
+        const string chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+        captchaValue = new string(Enumerable.Repeat(chars, 5)
+            .Select(s => s[random.Next(s.Length)]).ToArray());
+        captchaInput = "";
+    }
+
+    // Método para procesar la imagen seleccionada
+    private async Task OnFileChange(InputFileChangeEventArgs e)
+    {
+        FileInfo fileInfo = new FileInfo(e.File.Name);
+        if (fileInfo.Extension.ToLower().Contains(".jpg") ||
+            fileInfo.Extension.ToLower().Contains(".jpeg") ||
+            fileInfo.Extension.ToLower().Contains(".png"))
+        {
+            var format = fileInfo.Extension.ToLower().Contains(".jpg") || fileInfo.Extension.ToLower().Contains(".jpeg")
+                ? "image/jpeg"
+                : "image/png";
+
+            var resizeImage = await e.File.RequestImageFileAsync(format, 450, 300);
+            var buffer = new byte[resizeImage.Size];
+            await resizeImage.OpenReadStream().ReadAsync(buffer);
+            var imageData = $"data:{format};base64,{Convert.ToBase64String(buffer)}";
+            modelo.Imagen = imageData;
+        }
+        else
+        {
+            toastService.ShowWarning("Por favor, seleccione una imagen en formato JPG o PNG.");
+        }
+    }
+
+    private async Task GuardarCambios()
+    {
+        // Asegúrarse de que el teléfono está actualizado con el prefijo y número
+        ActualizarTelefono();
+
+        // Validar CAPTCHA solo para nuevos registros
+        if (Id == 0 && !captchaValidado)
+        {
+            toastService.ShowWarning("Por favor, ingrese correctamente el código de verificación");
+            GenerarNuevoCaptcha();
+            return;
+        }
+
+        if (modelo.Clave != modelo.ConfirmarClave)
+        {
+            toastService.ShowWarning("Las contraseñas no coinciden");
+            return;
+        }
+
+        // Validar que la dirección no esté vacía (siempre obligatorio)
+        if (string.IsNullOrWhiteSpace(modelo.Direccion))
+        {
+            toastService.ShowWarning("La dirección es obligatoria");
+            return;
+        }
+
+        // Validar campos obligatorios solo si estamos en la pantalla de usuario
+        if (esPantallaUsuario)
+        {
+            if (string.IsNullOrWhiteSpace(modelo.Ciudad))
+            {
+                toastService.ShowWarning("La ciudad es obligatoria");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(modelo.Pais))
+            {
+                toastService.ShowWarning("El país es obligatorio");
+                return;
+            }
+        }
+
+        // IMPORTANTE: Asignar el valor al NombreCompleto antes de guardar
+        modelo.NombreCompleto = $"{modelo.Nombre} {modelo.ApellidoPaterno} {modelo.ApellidoMaterno ?? ""}".Trim();
+
+        bool respuesta;
+        string mensaje;
+
+        if (Id != 0)
+        {
+            var response = await _personaServicio.Editar(modelo);
+            respuesta = response.EsCorrecto;
+            mensaje = respuesta ? "Usuario modificado correctamente" : response.Mensaje ?? "Error al editar usuario";
+        }
+        else
+        {
+            modelo.Rol = "Usuario";
+            var response = await _personaServicio.Crear(modelo);
+            respuesta = response.EsCorrecto;
+            mensaje = respuesta ? "Usuario creado correctamente" : response.Mensaje ?? "Error al crear usuario";
+        }
+
+        if (respuesta)
+        {
+            toastService.ShowSuccess(mensaje);
+            _navServicio.NavigateTo("/usuarios");
+        }
+        else
+        {
+            toastService.ShowError(mensaje);
+        }
+    }
+}

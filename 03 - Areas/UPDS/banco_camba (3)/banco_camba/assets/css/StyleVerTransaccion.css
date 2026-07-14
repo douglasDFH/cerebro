@@ -1,0 +1,370 @@
+/* Estilos base para ver transacción */
+.content-wrapper {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fff;
+}
+
+/* Encabezado */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #0a6c0a;
+    padding: 15px 20px;
+    border-bottom: 3px solid #ffd700;
+}
+
+.page-title {
+    color: white;
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin: 0;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.page-title:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 60px;
+    height: 3px;
+    background-color: #ffd700;
+}
+
+/* Modo visualización con ojos */
+.mode-visualizacion {
+    display: flex;
+    align-items: center;
+    background-color: #ffd700;
+    color: #0a6c0a;
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.mode-icon {
+    margin-right: 6px;
+    font-size: 1.1rem;
+}
+
+/* Resumen de transacción */
+.transaction-summary {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: #f5f9f5;
+    border-bottom: 1px solid #e0e7e0;
+}
+
+.transaction-icon-box {
+    margin-right: 20px;
+}
+
+.transaction-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.8rem;
+    border: 3px solid #ffd700;
+}
+
+.withdraw-icon {
+    background-color: #fd7e14;
+}
+
+.deposit-icon {
+    background-color: #28a745;
+}
+
+.transfer-in-icon {
+    background-color: #17a2b8;
+}
+
+.transfer-out-icon {
+    background-color: #0d6efd;
+}
+
+.other-icon {
+    background-color: #6c757d;
+}
+
+.transaction-info {
+    flex: 1;
+}
+
+.transaction-id {
+    margin: 0 0 5px 0;
+    color: #0a6c0a;
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+.transaction-type {
+    margin: 0;
+    color: #555;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.transaction-amount-box {
+    text-align: right;
+}
+
+.transaction-amount {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.transaction-amount.positive {
+    color: #28a745;
+}
+
+.transaction-amount.negative {
+    color: #dc3545;
+}
+
+.transaction-date-time {
+    color: #666;
+    font-size: 1rem;
+}
+
+/* Contenedor de detalles */
+.details-container {
+    display: flex;
+    padding: 20px;
+    background-color: #fff;
+    gap: 20px;
+}
+
+.details-column {
+    flex: 1;
+}
+
+.details-section-title {
+    color: #0a6c0a;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 0 0 15px 0;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #ffd700;
+}
+
+.details-box {
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    padding: 15px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e7e0;
+}
+
+.details-row {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.details-row:last-child {
+    margin-bottom: 0;
+}
+
+.details-cell {
+    flex: 1;
+    padding: 0 10px;
+}
+
+.details-cell:first-child {
+    padding-left: 0;
+}
+
+.details-cell:last-child {
+    padding-right: 0;
+}
+
+.details-cell.full-width {
+    flex: 0 0 100%;
+}
+
+.detail-label {
+    display: block;
+    font-weight: 600;
+    color: #0a6c0a;
+    margin-bottom: 8px;
+    font-size: 1rem;
+}
+
+.detail-value {
+    background-color: #fff;
+    border: 1px solid #e9ecef;
+    border-left: 4px solid #0a6c0a;
+    padding: 12px 15px;
+    border-radius: 4px;
+    color: #333;
+    font-size: 1.1rem;
+    min-height: 25px;
+}
+
+.highlight-value {
+    font-weight: 600;
+    color: #0a6c0a;
+    font-size: 1.2rem;
+}
+
+.account-number {
+    font-family: monospace;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Badges para tipos de transacción */
+.transaction-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.transaction-badge.withdrawal {
+    background-color: rgba(255, 193, 7, 0.1);
+    color: #fd7e14;
+    border: 1px solid rgba(255, 193, 7, 0.2);
+}
+
+.transaction-badge.deposit {
+    background-color: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+    border: 1px solid rgba(40, 167, 69, 0.2);
+}
+
+.transaction-badge.transfer-in {
+    background-color: rgba(23, 162, 184, 0.1);
+    color: #17a2b8;
+    border: 1px solid rgba(23, 162, 184, 0.2);
+}
+
+.transaction-badge.transfer-out {
+    background-color: rgba(13, 110, 253, 0.1);
+    color: #0d6efd;
+    border: 1px solid rgba(13, 110, 253, 0.2);
+}
+
+.transaction-badge.other {
+    background-color: rgba(108, 117, 125, 0.1);
+    color: #6c757d;
+    border: 1px solid rgba(108, 117, 125, 0.2);
+}
+
+/* Botones de acción */
+.actions-container {
+    display: flex;
+    gap: 15px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+}
+
+.action-main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 25px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+    min-width: 200px;
+}
+
+.action-main:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.action-main i {
+    margin-right: 8px;
+}
+
+.print-btn {
+    background-color: #0a6c0a;
+    color: white;
+}
+
+.back-btn {
+    background-color: #6c757d;
+    color: white;
+}
+
+/* Media queries para responsividad */
+@media (max-width: 992px) {
+    .details-container {
+        flex-direction: column;
+    }
+    
+    .transaction-summary {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .transaction-icon-box {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+    
+    .transaction-info {
+        margin-bottom: 15px;
+    }
+    
+    .transaction-amount-box {
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .details-row {
+        flex-direction: column;
+    }
+    
+    .details-cell {
+        padding: 0 0 15px 0;
+    }
+    
+    .details-cell:last-child {
+        padding-bottom: 0;
+    }
+    
+    .actions-container {
+        flex-direction: column;
+    }
+    
+    .action-main {
+        width: 100%;
+    }
+    
+    .header-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .page-title {
+        text-align: center;
+    }
+    
+    .page-title:after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}

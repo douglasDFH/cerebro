@@ -1,0 +1,5 @@
+Creacion de un ejemplo de prueba
+Para el empleo de un archivo de texto
+En este caso se buscando lineas que contengan una palabra determinada
+La palabra se en el textBox a tales efectos
+Las lineas que contengan la palabra archivo se pasan a otro archivo

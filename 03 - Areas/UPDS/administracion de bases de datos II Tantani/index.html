@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DER - Sistema de Autobuses Urbanos</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .title {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 50px;
+            font-size: 32px;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+        
+        .diagram-container {
+            position: relative;
+            width: 100%;
+            height: 1200px;
+            background: #f8fafc;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 2px solid #e2e8f0;
+            margin-bottom: 30px;
+        }
+        
+        .entity {
+            position: absolute;
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            width: 220px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+            border-top: 5px solid;
+        }
+        
+        .entity:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+        }
+        
+        .entity.main { 
+            border-top-color: #3498db; 
+        }
+        
+        .entity.football { 
+            border-top-color: #27ae60;
+            background: #f8fff9;
+        }
+        
+        .entity-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin: 0 0 20px 0;
+            text-align: center;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #ecf0f1;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .attribute-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .attribute {
+            padding: 8px 0;
+            font-size: 15px;
+            color: #34495e;
+            border-bottom: 1px solid #f8f9fa;
+        }
+        
+        .attribute:last-child {
+            border-bottom: none;
+        }
+        
+        .pk {
+            font-weight: 700;
+            color: #e74c3c;
+            background: #fdf2f2;
+            padding: 8px 10px;
+            border-radius: 5px;
+            margin: 5px 0;
+        }
+        
+        .pk::before {
+            content: "🔑 ";
+            margin-right: 8px;
+        }
+        
+        .football-attr {
+            color: #27ae60;
+            font-style: italic;
+            font-weight: 600;
+        }
+        
+        .football-attr::before {
+            content: "⚽ ";
+            margin-right: 8px;
+        }
+        
+        .relationship {
+            position: absolute;
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+            white-space: nowrap;
+            z-index: 10;
+        }
+        
+        .connection-line {
+            position: absolute;
+            background: linear-gradient(45deg, #95a5a6, #7f8c8d);
+            border-radius: 3px;
+            z-index: 5;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .connection-line.horizontal {
+            height: 4px;
+        }
+        
+        .connection-line.vertical {
+            width: 4px;
+        }
+        
+        .legend {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .legend-section {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 6px solid #3498db;
+        }
+        
+        .legend-section.football {
+            border-left-color: #27ae60;
+        }
+        
+        .legend-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 12px 0;
+            font-size: 15px;
+            color: #34495e;
+        }
+        
+        .legend-icon {
+            margin-right: 15px;
+            font-size: 18px;
+        }
+        
+        .constraints {
+            margin-top: 30px;
+            background: #fff8e1;
+            border: 2px solid #ffc107;
+            border-radius: 15px;
+            padding: 25px;
+        }
+        
+        .constraints h4 {
+            color: #f57f17;
+            margin-top: 0;
+            font-size: 18px;
+        }
+        
+        .constraints ul {
+            color: #ef6c00;
+        }
+        
+        .constraints li {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Diagrama Entidad-Relación: Sistema de Autobuses Urbanos</h1>
+        
+        <div class="diagram-container">
+            <!-- FILA SUPERIOR: Muy separados -->
+            <div class="entity main" style="top: 80px; left: 150px;">
+                <h3 class="entity-title">AUTOBUS</h3>
+                <ul class="attribute-list">
+                    <li class="attribute pk">numero_identificacion</li>
+                    <li class="attribute">numero_asientos</li>
+                    <li class="attribute">modelo</li>
+                    <li class="attribute">año_fabricacion</li>
+                    <li class="attribute football-attr">equipo_patrocinador</li>
+                </ul>
+            </div>
+
+            <div class="entity main" style="top: 80px; left: 700px;">
+                <h3 class="entity-title">LINEA</h3>
+                <ul class="attribute-list">
+                    <li class="attribute pk">numero_linea</li>
+                    <li class="attribute">nombre_linea</li>
+                    <li class="attribute">descripcion_recorrido</li>
+                    <li class="attribute football-attr">pasa_por_estadio</li>
+                </ul>
+            </div>
+
+            <!-- FILA MEDIA: Tres entidades bien separadas -->
+            <div class="entity main" style="top: 350px; left: 50px;">
+                <h3 class="entity-title">CONDUCTOR</h3>
+                <ul class="attribute-list">
+                    <li class="attribute pk">dni</li>
+                    <li class="attribute">nombre</li>
+                    <li class="attribute">primer_apellido</li>
+                    <li class="attribute">años_experiencia</li>
+                    <li class="attribute football-attr">equipo_favorito</li>
+                    <li class="attribute">licencia_activa</li>
+                </ul>
+            </div>
+
+            <div class="entity main" style="top: 350px; left: 450px;">
+                <h3 class="entity-title">HORARIO</h3>
+                <ul class="attribute-list">
+                    <li class="attribute pk">id_horario</li>
+                    <li class="attribute">fecha</li>
+                    <li class="attribute">hora_inicio</li>
+                    <li class="attribute">hora_fin</li>
+                    <li class="attribute">turno</li>
+                </ul>
+            </div>
+
+            <div class="entity main" style="top: 350px; left: 850px;">
+                <h3 class="entity-title">PARADA</h3>
+                <ul class="attribute-list">
+                    <li class="attribute pk">id_parada</li>
+                    <li class="attribute">direccion</li>
+                    <li class="attribute">tiene_marquesina</li>
+                    <li class="attribute">primera_hora_llegada</li>
+                    <li class="attribute">frecuencia_minutos</li>
+                    <li class="attribute football-attr">estadio_cercano</li>
+                </ul>
+            </div>
+
+            <!-- FILA INFERIOR: Entidades de fútbol muy separadas -->
+            <div class="entity football" style="top: 700px; left: 200px;">
+                <h3 class="entity-title">PARTIDO_FUTBOL</h3>
+                <ul class="attribute-list">
+                    <li class="attribute pk">id_partido</li>
+                    <li class="attribute">equipo_local</li>
+                    <li class="attribute">equipo_visitante</li>
+                    <li class="attribute">fecha_partido</li>
+                    <li class="attribute">hora_partido</li>
+                    <li class="attribute">estadio</li>
+                    <li class="attribute">transporte_especial</li>
+                </ul>
+            </div>
+
+            <div class="entity football" style="top: 700px; left: 650px;">
+                <h3 class="entity-title">RUTA_ESPECIAL</h3>
+                <ul class="attribute-list">
+                    <li class="attribute pk">id_ruta_especial</li>
+                    <li class="attribute">motivo</li>
+                    <li class="attribute">fecha_vigencia</li>
+                    <li class="attribute">descripcion</li>
+                    <li class="attribute">capacidad_extra</li>
+                </ul>
+            </div>
+
+            <!-- RELACIONES CON MEJOR POSICIONAMIENTO -->
+            <div class="relationship" style="top: 150px; left: 450px;">Cubre (1:1)</div>
+            <div class="relationship" style="top: 280px; left: 200px;">Conduce (N:1)</div>
+            <div class="relationship" style="top: 420px; left: 320px;">Tiene Horario (1:N)</div>
+            <div class="relationship" style="top: 280px; left: 750px;">Realiza Paradas (1:N)</div>
+            <div class="relationship" style="top: 600px; left: 350px;">Genera Ruta (1:N)</div>
+            <div class="relationship" style="top: 600px; left: 800px;">Parada Estadio (N:M)</div>
+
+            <!-- LÍNEAS DE CONEXIÓN MÁS VISIBLES -->
+            <!-- Autobús - Línea -->
+            <div class="connection-line horizontal" style="top: 162px; left: 400px; width: 270px;"></div>
+            
+            <!-- Conductor - Autobús -->
+            <div class="connection-line horizontal" style="top: 292px; left: 170px; width: 120px;"></div>
+            <div class="connection-line vertical" style="top: 230px; left: 260px; height: 140px;"></div>
+            
+            <!-- Conductor - Horario -->
+            <div class="connection-line horizontal" style="top: 432px; left: 300px; width: 120px;"></div>
+            
+            <!-- Línea - Parada -->
+            <div class="connection-line horizontal" style="top: 292px; left: 750px; width: 130px;"></div>
+            <div class="connection-line vertical" style="top: 230px; left: 810px; height: 140px;"></div>
+            
+            <!-- Partido - Ruta Especial -->
+            <div class="connection-line horizontal" style="top: 612px; left: 450px; width: 170px;"></div>
+            
+            <!-- Parada - Partido (vertical) -->
+            <div class="connection-line vertical" style="top: 540px; left: 950px; height: 180px;"></div>
+            <div class="connection-line horizontal" style="top: 720px; left: 450px; width: 500px;"></div>
+        </div>
+
+        <div class="legend">
+            <div class="legend-section">
+                <div class="legend-title">🏢 Sistema Principal de Autobuses</div>
+                <div class="legend-item">
+                    <span class="legend-icon">🚌</span>
+                    Gestión integral de flotas urbanas
+                </div>
+                <div class="legend-item">
+                    <span class="legend-icon">🛣️</span>
+                    Control de rutas, líneas y paradas
+                </div>
+                <div class="legend-item">
+                    <span class="legend-icon">👨‍💼</span>
+                    Administración de conductores y horarios
+                </div>
+                <div class="legend-item">
+                    <span class="legend-icon">⏰</span>
+                    Programación de servicios diarios
+                </div>
+            </div>
+            
+            <div class="legend-section football">
+                <div class="legend-title">⚽ Módulo Deportivo Integrado</div>
+                <div class="legend-item">
+                    <span class="legend-icon">🏟️</span>
+                    Servicios especiales para eventos deportivos
+                </div>
+                <div class="legend-item">
+                    <span class="legend-icon">🎫</span>
+                    Rutas optimizadas hacia estadios
+                </div>
+                <div class="legend-item">
+                    <span class="legend-icon">🤝</span>
+                    Sistema de patrocinios deportivos
+                </div>
+                <div class="legend-item">
+                    <span class="legend-icon">📅</span>
+                    Planificación automática para partidos
+                </div>
+            </div>
+        </div>
+
+        <div class="constraints">
+            <h4>📋 Reglas de Negocio y Restricciones del Sistema</h4>
+            <ul>
+                <li><strong>Relación Única:</strong> Cada línea de autobús es operada exclusivamente por un solo vehículo (1:1)</li>
+                <li><strong>Cobertura de Personal:</strong> Todo autobús debe contar con mínimo 2 conductores certificados por día</li>
+                <li><strong>Especialización por Línea:</strong> Los conductores están asignados a una línea específica y no pueden operar otras rutas</li>
+                <li><strong>Identificación Correlativa:</strong> El número de identificación del autobús corresponde exactamente al número de su línea asignada</li>
+                <li><strong>Activación Automática:</strong> Las rutas especiales se generan automáticamente cuando hay eventos deportivos programados</li>
+                <li><strong>Gestión de Capacidad:</strong> El sistema ajusta la frecuencia y capacidad según la demanda de eventos especiales</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

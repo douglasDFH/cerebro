@@ -1,0 +1,468 @@
+/* ---------- VARIABLES GLOBALES ---------- */
+:root {
+    --primary: #0B6E24; /* Color primario */
+    --primary-dark: #075019; /* Color primario oscuro */
+    --primary-light: #f0f7f2; /* Color primario claro */
+    --secondary: #FAD02C; /* Color secundario */
+    --text-color: #333333; /* Color de texto principal */
+    --text-muted: #6c757d; /* Color de texto atenuado */
+    --border-color: #ced4da; /* Color de borde */
+    --white: #ffffff; /* Color blanco */
+}
+
+/* ---------- ESTILOS GENERALES DEL BODY ---------- */
+body {
+    font-family: Arial, sans-serif; /* Fuente principal */
+    background-color: #f5f5f5; /* Color de fondo */
+    color: var(--text-color); /* Color de texto */
+    padding: 0;
+    margin: 0;
+}
+
+/* ---------- ESTILOS PARA EL ENCABEZADO DE LA PÁGINA ---------- */
+.page-header {
+    background-color: var(--primary); /* Fondo del encabezado */
+    color: var(--white); /* Color de texto */
+    padding: 15px; /* Espaciado interno */
+    margin-bottom: 20px; /* Margen inferior */
+    position: relative; /* Posición relativa */
+}
+
+.page-header h2 {
+    font-size: 20px; /* Tamaño de fuente */
+    margin: 0; /* Margen */
+    font-weight: 600; /* Grosor de fuente */
+    display: flex; /* Flexbox */
+    align-items: center; /* Alineación vertical */
+}
+
+.page-header h2 i {
+    margin-right: 10px; /* Margen derecho */
+    animation: pulse 2s infinite; /* Animación de pulso */
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.page-header::after {
+    content: ''; /* Contenido vacío */
+    position: absolute; /* Posición absoluta */
+    bottom: 0; /* Posición inferior */
+    left: 0; /* Posición izquierda */
+    width: 100%; /* Ancho completo */
+    height: 3px; /* Altura */
+    background-color: var(--secondary); /* Color de fondo */
+}
+
+/* ---------- ESTILOS PARA LA CAJA DE ALERTA ---------- */
+.alert-box {
+    padding: 15px; /* Espaciado interno */
+    margin: 0 20px 20px 20px; /* Margen */
+    border-left: 4px solid; /* Borde izquierdo */
+    background-color: #f8f9fa; /* Color de fondo */
+    border-radius: 4px; /* Borde redondeado */
+    animation: fadeInLeft 0.5s ease; /* Animación de entrada */
+}
+
+@keyframes fadeInLeft {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.alert-info {
+    border-color: var(--primary); /* Color del borde */
+}
+
+.alert-box i {
+    margin-right: 10px; /* Margen derecho */
+    color: var(--primary); /* Color del icono */
+}
+
+/* ---------- ESTILOS PARA EL FORMULARIO ---------- */
+.form-container {
+    background-color: var(--white); /* Fondo del contenedor */
+    border: 1px solid #ddd; /* Borde */
+    margin: 0 20px 20px 20px; /* Margen */
+    border-radius: 8px; /* Borde redondeado */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05); /* Sombra */
+}
+
+.form-section {
+    padding: 25px; /* Espaciado interno */
+}
+
+.form-label {
+    font-weight: 600; /* Grosor de fuente */
+    color: var(--text-color); /* Color de texto */
+    margin-bottom: 10px; /* Margen inferior */
+    display: block; /* Mostrar como bloque */
+    font-size: 16px; /* Tamaño de fuente */
+}
+
+.form-label .required {
+    color: #dc3545; /* Color de texto */
+    margin-left: 3px; /* Margen izquierdo */
+}
+
+.form-control {
+    border: 2px solid var(--border-color); /* Borde */
+    border-radius: 8px; /* Borde redondeado */
+    padding: 15px 15px 15px 50px; /* Espaciado interno */
+    width: 100%; /* Ancho completo */
+    font-size: 18px; /* Tamaño de fuente */
+    letter-spacing: 1px; /* Espaciado entre letras */
+    transition: all 0.3s; /* Transición */
+}
+
+.form-control:focus {
+    border-color: var(--primary); /* Color del borde al enfocar */
+    box-shadow: 0 0 0 0.2rem rgba(11, 110, 36, 0.25); /* Sombra al enfocar */
+    outline: none; /* Sin contorno */
+}
+
+.form-control::placeholder {
+    color: #adb5bd; /* Color del placeholder */
+    font-size: 16px; /* Tamaño de fuente */
+}
+
+.input-group {
+    position: relative; /* Posición relativa */
+    margin-bottom: 25px; /* Margen inferior */
+}
+
+.input-icon {
+    position: absolute; /* Posición absoluta */
+    left: 15px; /* Posición izquierda */
+    top: 50%; /* Posición superior */
+    transform: translateY(-50%); /* Transformación */
+    color: var(--primary); /* Color del icono */
+    font-size: 20px; /* Tamaño de fuente */
+    z-index: 5; /* Índice Z */
+}
+
+/* ---------- ESTILOS PARA LOS BOTONES ---------- */
+.btn {
+    padding: 12px 25px; /* Espaciado interno */
+    border-radius: 6px; /* Borde redondeado */
+    font-weight: 600; /* Grosor de fuente */
+    font-size: 16px; /* Tamaño de fuente */
+    cursor: pointer; /* Cursor */
+    border: none; /* Sin borde */
+    transition: all 0.3s; /* Transición */
+}
+
+.btn-primary {
+    background-color: var(--primary); /* Fondo del botón */
+    color: var(--white); /* Color de texto */
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark); /* Fondo al pasar el ratón */
+    transform: translateY(-2px); /* Transformación */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra */
+}
+
+.btn-secondary {
+    background-color: #6c757d; /* Fondo del botón */
+    color: var(--white); /* Color de texto */
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268; /* Fondo al pasar el ratón */
+    transform: translateY(-2px); /* Transformación */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra */
+}
+
+.btn-warning {
+    background-color: var(--secondary); /* Fondo del botón */
+    color: #333; /* Color de texto */
+}
+
+.btn-warning:hover {
+    background-color: #e5c129; /* Fondo al pasar el ratón */
+    transform: translateY(-2px); /* Transformación */
+    box-shadow: 0 4px 8px rgba(229, 193, 41, 0.3); /* Sombra */
+}
+
+.btn i {
+    margin-right: 8px; /* Margen derecho */
+}
+
+.form-actions {
+    display: flex; /* Flexbox */
+    gap: 15px; /* Espacio entre elementos */
+    margin-top: 10px; /* Margen superior */
+}
+
+/* ---------- ESTILOS PARA LAS TARJETAS DE AYUDA ---------- */
+.help-cards {
+    margin: 0 20px; /* Margen */
+    display: flex; /* Flexbox */
+    flex-wrap: wrap; /* Envoltura flexible */
+    gap: 15px; /* Espacio entre elementos */
+}
+
+.help-card {
+    flex: 1 0 calc(50% - 15px); /* Flexibilidad */
+    min-width: 250px; /* Ancho mínimo */
+    background-color: var(--white); /* Fondo */
+    border-radius: 8px; /* Borde redondeado */
+    padding: 15px; /* Espaciado interno */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* Sombra */
+    border-top: 3px solid var(--primary); /* Borde superior */
+    cursor: pointer; /* Cursor */
+    transition: all 0.3s; /* Transición */
+    opacity: 0; /* Opacidad inicial */
+    animation: fadeInUp 0.5s ease forwards; /* Animación de entrada */
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.help-card:nth-child(1) { animation-delay: 0.1s; }
+.help-card:nth-child(2) { animation-delay: 0.2s; }
+.help-card:nth-child(3) { animation-delay: 0.3s; }
+.help-card:nth-child(4) { animation-delay: 0.4s; }
+
+.help-card:hover {
+    transform: translateY(-5px); /* Transformación al pasar el ratón */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Sombra */
+}
+
+.help-card-icon {
+    font-size: 24px; /* Tamaño de fuente */
+    color: var(--primary); /* Color del icono */
+    margin-bottom: 10px; /* Margen inferior */
+    display: inline-block; /* Mostrar como bloque en línea */
+}
+
+.help-card-title {
+    font-weight: 600; /* Grosor de fuente */
+    margin-bottom: 5px; /* Margen inferior */
+    color: var(--primary); /* Color de texto */
+}
+
+.help-card-text {
+    color: var(--text-muted); /* Color de texto */
+    font-size: 14px; /* Tamaño de fuente */
+    line-height: 1.4; /* Altura de línea */
+}
+        
+
+/* ---------- EJEMPLO DE SECCIÓN DE CUENTAS ---------- */
+.example-accounts {
+    margin: 30px 20px; /* Margen */
+    background-color: var(--white); /* Fondo */
+    border-radius: 8px; /* Borde redondeado */
+    padding: 20px; /* Espaciado interno */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* Sombra */
+}
+
+.accounts-title {
+    font-size: 18px; /* Tamaño de fuente */
+    color: var(--primary); /* Color de texto */
+    margin-bottom: 15px; /* Margen inferior */
+    font-weight: 600; /* Grosor de fuente */
+    display: flex; /* Flexbox */
+    align-items: center; /* Alineación vertical */
+}
+
+.accounts-title i {
+    margin-right: 10px; /* Margen derecho */
+}
+
+/* ---------- TARJETAS DE CUENTAS ---------- */
+.account-cards {
+    display: flex; /* Flexbox */
+    flex-wrap: wrap; /* Envoltura flexible */
+    gap: 15px; /* Espacio entre elementos */
+    margin-top: 15px; /* Margen superior */
+}
+
+.account-card {
+    flex: 1 0 calc(33.33% - 15px); /* Flexibilidad */
+    min-width: 200px; /* Ancho mínimo */
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); /* Fondo degradado */
+    color: white; /* Color de texto */
+    border-radius: 10px; /* Borde redondeado */
+    padding: 15px; /* Espaciado interno */
+    position: relative; /* Posición relativa */
+    overflow: hidden; /* Ocultar desbordamiento */
+    cursor: pointer; /* Cursor */
+    transition: all 0.3s; /* Transición */
+    opacity: 0; /* Opacidad inicial */
+    animation: fadeInUp 0.5s ease forwards; /* Animación de entrada */
+    animation-delay: 0.5s; /* Retardo de animación */
+}
+
+.account-card:nth-child(2) { animation-delay: 0.6s; }
+.account-card:nth-child(3) { animation-delay: 0.7s; }
+
+.account-card:hover {
+    transform: translateY(-5px) scale(1.02); /* Transformación al pasar el ratón */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15); /* Sombra */
+}
+
+.account-card-chip {
+    width: 30px; /* Ancho */
+    height: 20px; /* Altura */
+    background: var(--secondary); /* Fondo */
+    border-radius: 3px; /* Borde redondeado */
+    margin-bottom: 15px; /* Margen inferior */
+}
+
+.account-card-type {
+    position: absolute; /* Posición absoluta */
+    top: 15px; /* Posición superior */
+    right: 15px; /* Posición derecha */
+    font-size: 12px; /* Tamaño de fuente */
+    background: rgba(255,255,255,0.2); /* Fondo */
+    padding: 3px 8px; /* Espaciado interno */
+    border-radius: 3px; /* Borde redondeado */
+}
+
+.account-card-number {
+    font-family: monospace; /* Fuente monoespaciada */
+    font-size: 16px; /* Tamaño de fuente */
+    letter-spacing: 2px; /* Espaciado entre letras */
+    margin-bottom: 15px; /* Margen inferior */
+}
+
+.account-card-name {
+    font-size: 12px; /* Tamaño de fuente */
+    text-transform: uppercase; /* Texto en mayúsculas */
+    opacity: 0.8; /* Opacidad */
+}
+
+/* ---------- ANIMACIÓN DE ESCANEO ---------- */
+.scan-animation {
+    position: absolute; /* Posición absoluta */
+    width: 100%; /* Ancho completo */
+    height: 2px; /* Altura */
+    background: var(--secondary); /* Fondo */
+    top: 0; /* Posición superior */
+    left: 0; /* Posición izquierda */
+    opacity: 0; /* Opacidad inicial */
+    animation: scanLine 2s infinite; /* Animación de escaneo */
+    pointer-events: none; /* Sin eventos de puntero */
+}
+
+@keyframes scanLine {
+    0%, 100% { top: 0; opacity: 0; }
+    50% { top: 100%; opacity: 1; }
+}
+
+/* ---------- ANIMACIONES PERSONALIZADAS ---------- */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.shake {
+    animation: shake 0.5s; /* Animación de sacudida */
+}
+
+/* ---------- NOTIFICACIÓN TOAST ---------- */
+.toast-notification {
+    position: fixed; /* Posición fija */
+    bottom: 20px; /* Posición inferior */
+    left: 50%; /* Posición izquierda */
+    transform: translateX(-50%); /* Transformación */
+    background-color: rgba(0,0,0,0.8); /* Fondo */
+    color: white; /* Color de texto */
+    padding: 12px 20px; /* Espaciado interno */
+    border-radius: 6px; /* Borde redondeado */
+    z-index: 9999; /* Índice Z */
+    max-width: 80%; /* Ancho máximo */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* Sombra */
+    font-size: 14px; /* Tamaño de fuente */
+    animation: fadeInUp 0.3s ease; /* Animación de entrada */
+}
+
+/* ---------- ANIMACIÓN DE CARGA ---------- */
+.loading-overlay {
+    position: fixed; /* Posición fija */
+    top: 0; /* Posición superior */
+    left: 0; /* Posición izquierda */
+    width: 100%; /* Ancho completo */
+    height: 100%; /* Altura completa */
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo */
+    display: flex; /* Flexbox */
+    flex-direction: column; /* Dirección de columna */
+    align-items: center; /* Alineación horizontal */
+    justify-content: center; /* Alineación vertical */
+    z-index: 10000; /* Índice Z */
+}
+
+.spinner {
+    width: 50px; /* Ancho */
+    height: 50px; /* Altura */
+    border: 5px solid rgba(11, 110, 36, 0.2); /* Borde */
+    border-radius: 50%; /* Borde redondeado */
+    border-top-color: var(--primary); /* Color del borde superior */
+    animation: spin 1s ease-in-out infinite; /* Animación de giro */
+    margin-bottom: 15px; /* Margen inferior */
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading-text {
+    color: var(--primary); /* Color de texto */
+    font-weight: 600; /* Grosor de fuente */
+}
+
+/* ---------- ESTILOS DE INFORMACIÓN DE CUENTA ---------- */
+.account-info-card, 
+.client-info-card {
+    background-color: var(--white); /* Fondo */
+    border-radius: 8px; /* Borde redondeado */
+    padding: 15px; /* Espaciado interno */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* Sombra */
+    margin-bottom: 15px; /* Margen inferior */
+    border-top: 3px solid var(--primary); /* Borde superior */
+    animation: fadeIn 0.5s ease; /* Animación de entrada */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.info-card-title {
+    color: var(--primary); /* Color de texto */
+    font-size: 18px; /* Tamaño de fuente */
+    margin-bottom: 15px; /* Margen inferior */
+    padding-bottom: 8px; /* Espaciado inferior */
+    border-bottom: 1px solid #eee; /* Borde inferior */
+    display: flex; /* Flexbox */
+    align-items: center; /* Alineación vertical */
+}
+
+.info-card-title i {
+    margin-right: 10px; /* Margen derecho */
+}
+
+.balance-text {
+    color: var(--primary); /* Color de texto */
+    font-size: 18px; /* Tamaño de fuente */
+    font-weight: 600; /* Grosor de fuente */
+}
+
+/* ---------- AJUSTES RESPONSIVOS ---------- */
+@media (max-width: 768px) {
+    .help-card {
+        flex: 1 0 100%; /* Flexibilidad */
+    }
+    
+    .account-card {
+        flex: 1 0 100%; /* Flexibilidad */
+    }
+}

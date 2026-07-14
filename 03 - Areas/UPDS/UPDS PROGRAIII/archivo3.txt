@@ -1,0 +1,2748 @@
+/**
+ * @file Logger.h
+ * @brief Sistema de logging para la aplicación
+ * @author Sistema de Biblioteca
+ * @date 2024
+ * 
+ * SINGLETON: Instancia única de logger
+ * ENCAPSULAMIENTO: Oculta complejidad de logging
+ * RAII: Gestión automática de archivos
+ */
+
+#ifndef LOGGER_H
+#define LOGGER_H
+
+#include <string>
+#include <fstream>
+#include <mutex>
+#include <memory>
+
+/**
+ * @brief Niveles de logging
+ */
+enum class LogLevel {
+    DEBUG,
+    INFO,
+    WARNING,
+    ERROR,
+    CRITICAL
+};
+
+/**
+ * @class Logger
+ * @brief Sistema de logging thread-safe con diferentes niveles
+ * 
+ * SINGLETON: Una sola instancia de logger
+ * THREAD-SAFE: Operaciones seguras en entornos concurrentes
+ * RAII: Gestión automática de recursos de archivo
+ */
+class Logger {
+private:
+    static std::unique_ptr<Logger> instance_;
+    static std::mutex mutex_;
+    
+    std::ofstream log_file_;
+    std::string filename_;
+    LogLevel min_level_;
+    bool console_output_;
+    bool file_output_;
+    mutable std::mutex write_mutex_;
+
+public:
+    /**
+     * @brief Constructor que abre archivo de log
+     * @param filename Nombre del archivo de log
+     * @param min_level Nivel mínimo de logging
+     * @param console_output Si mostrar en consola
+     * @param file_output Si escribir a archivo
+     */
+    explicit Logger(const std::string& filename, 
+                   LogLevel min_level = LogLevel::INFO,
+                   bool console_output = true,
+                   bool file_output = true);
+
+    /**
+     * @brief Destructor que cierra archivo
+     */
+    ~Logger();
+
+    // Eliminar copia y asignación
+    Logger(const Logger&) = delete;
+    Logger& operator=(const Logger&) = delete;
+
+    /**
+     * @brief Obtiene instancia única del logger
+     * @return Referencia al logger
+     */
+    static Logger& getInstance();
+
+    /**
+     * @brief Inicializa el logger con configuración específica
+     * @param filename Archivo de log
+     * @param min_level Nivel mínimo
+     * @param console_output Salida a consola
+     * @param file_output Salida a archivo
+     */
+    static void initialize(const std::string& filename,
+                          LogLevel min_level = LogLevel::INFO,
+                          bool console_output = true,
+                          bool file_output = true);
+
+    /**
+     * @brief Destruye la instancia del logger
+     */
+    static void destroy();
+
+    // Métodos de logging por nivel
+    /**
+     * @brief Log nivel DEBUG
+     * @param message Mensaje a registrar
+     */
+    void debug(const std::string& message);
+
+    /**
+     * @brief Log nivel INFO
+     * @param message Mensaje a registrar
+     */
+    void info(const std::string& message);
+
+    /**
+     * @brief Log nivel WARNING
+     * @param message Mensaje a registrar
+     */
+    void warning(const std::string& message);
+
+    /**
+     * @brief Log nivel ERROR
+     * @param message Mensaje a registrar
+     */
+    void error(const std::string& message);
+
+    /**
+     * @brief Log nivel CRITICAL
+     * @param message Mensaje a registrar
+     */
+    void critical(const std::string& message);
+
+    /**
+     * @brief Log genérico con nivel específico
+     * @param level Nivel del mensaje
+     * @param message Mensaje a registrar
+     */
+    void log(LogLevel level, const std::string& message);
+
+    /**
+     * @brief Configura nivel mínimo de logging
+     * @param level Nuevo nivel mínimo
+     */
+    void setMinLevel(LogLevel level);
+
+    /**
+     * @brief Habilita/deshabilita salida a consola
+     * @param enabled true para habilitar
+     */
+    void setConsoleOutput(bool enabled);
+
+    /**
+     * @brief Habilita/deshabilita salida a archivo
+     * @param enabled true para habilitar
+     */
+    void setFileOutput(bool enabled);
+
+    /**
+     * @brief Fuerza escritura inmediata del buffer
+     */
+    void flush();
+
+    /**
+     * @brief Obtiene el nombre del archivo de log actual
+     * @return Nombre del archivo
+     */
+    std::string getFilename() const;
+
+    /**
+     * @brief Convierte nivel a string
+     * @param level Nivel a convertir
+     * @return String del nivel
+     */
+    static std::string levelToString(LogLevel level);
+
+    /**
+     * @brief Obtiene timestamp actual formateado
+     * @return Timestamp como string
+     */
+    static std::string getCurrentTimestamp();
+
+private:
+    /**
+     * @brief Escribe mensaje al log
+     * @param level Nivel del mensaje
+     * @param message Mensaje a escribir
+     */
+    void writeLog(LogLevel level, const std::string& message);
+
+    /**
+     * @brief Formatea mensaje de log
+     * @param level Nivel del mensaje
+     * @param message Mensaje original
+     * @return Mensaje formateado
+     */
+    std::string formatMessage(LogLevel level, const std::string& message);
+
+    /**
+     * @brief Valida si se debe registrar el mensaje según el nivel
+     * @param level Nivel del mensaje
+     * @return true si se debe registrar
+     */
+    bool shouldLog(LogLevel level) const;
+};
+
+/**
+ * @file Validadores.h
+ * @brief Clase de utilidades para validación de datos
+ */
+
+#ifndef VALIDADORES_H
+#define VALIDADORES_H
+
+#include <string>
+#include <regex>
+#include <vector>
+
+/**
+ * @class Validadores
+ * @brief Clase con métodos estáticos para validación de datos
+ * 
+ * RESPONSABILIDAD ÚNICA: Solo validación de datos
+ * MÉTODOS ESTÁTICOS: No requiere instanciación
+ */
+class Validadores {
+public:
+    // Validaciones de formato
+    /**
+     * @brief Valida formato de email
+     * @param email Email a validar
+     * @return true si es válido
+     */
+    static bool validarEmail(const std::string& email);
+
+    /**
+     * @brief Valida formato de ISBN (10 o 13 dígitos)
+     * @param isbn ISBN a validar
+     * @return true si es válido
+     */
+    static bool validarISBN(const std::string& isbn);
+
+    /**
+     * @brief Valida formato de fecha YYYY-MM-DD
+     * @param fecha Fecha a validar
+     * @return true si es válido
+     */
+    static bool validarFecha(const std::string& fecha);
+
+    /**
+     * @brief Valida formato de teléfono
+     * @param telefono Teléfono a validar
+     * @return true si es válido
+     */
+    static bool validarTelefono(const std::string& telefono);
+
+    // Validaciones de contenido
+    /**
+     * @brief Valida que el texto no esté vacío y tenga longitud mínima
+     * @param texto Texto a validar
+     * @param longitud_minima Longitud mínima requerida
+     * @param longitud_maxima Longitud máxima permitida
+     * @return true si es válido
+     */
+    static bool validarTexto(const std::string& texto, 
+                           size_t longitud_minima = 1, 
+                           size_t longitud_maxima = 255);
+
+    /**
+     * @brief Valida nombre (solo letras y espacios)
+     * @param nombre Nombre a validar
+     * @return true si es válido
+     */
+    static bool validarNombre(const std::string& nombre);
+
+    /**
+     * @brief Valida que un número esté en un rango
+     * @param numero Número a validar
+     * @param minimo Valor mínimo
+     * @param maximo Valor máximo
+     * @return true si está en el rango
+     */
+    static bool validarRango(double numero, double minimo, double maximo);
+
+    /**
+     * @brief Valida número entero en rango
+     * @param numero Número a validar
+     * @param minimo Valor mínimo
+     * @param maximo Valor máximo
+     * @return true si está en el rango
+     */
+    static bool validarRango(int numero, int minimo, int maximo);
+
+    // Validaciones específicas del dominio
+    /**
+     * @brief Valida número de socio (formato específico)
+     * @param numero_socio Número a validar
+     * @return true si es válido
+     */
+    static bool validarNumeroSocio(const std::string& numero_socio);
+
+    /**
+     * @brief Valida monto monetario
+     * @param monto Monto a validar
+     * @return true si es válido (no negativo, máximo 2 decimales)
+     */
+    static bool validarMonto(double monto);
+
+    /**
+     * @brief Valida código Dewey para categorías
+     * @param codigo Código a validar
+     * @return true si es válido
+     */
+    static bool validarCodigoDewey(const std::string& codigo);
+
+    // Utilidades de limpieza y normalización
+    /**
+     * @brief Limpia espacios en blanco al inicio y final
+     * @param texto Texto a limpiar
+     * @return Texto limpio
+     */
+    static std::string limpiarTexto(const std::string& texto);
+
+    /**
+     * @brief Normaliza texto (elimina acentos, convierte a minúsculas)
+     * @param texto Texto a normalizar
+     * @return Texto normalizado
+     */
+    static std::string normalizarTexto(const std::string& texto);
+
+    /**
+     * @brief Valida que una cadena contenga solo números
+     * @param cadena Cadena a validar
+     * @return true si contiene solo números
+     */
+    static bool esNumerico(const std::string& cadena);
+
+    /**
+     * @brief Valida que una cadena contenga solo letras
+     * @param cadena Cadena a validar
+     * @return true si contiene solo letras
+     */
+    static bool esAlfabetico(const std::string& cadena);
+
+    /**
+     * @brief Valida que una cadena contenga solo letras y números
+     * @param cadena Cadena a validar
+     * @return true si contiene solo letras y números
+     */
+    static bool esAlfanumerico(const std::string& cadena);
+
+private:
+    // Patrones regex reutilizables
+    static const std::regex PATRON_EMAIL;
+    static const std::regex PATRON_ISBN_10;
+    static const std::regex PATRON_ISBN_13;
+    static const std::regex PATRON_FECHA;
+    static const std::regex PATRON_TELEFONO;
+    static const std::regex PATRON_NUMERO_SOCIO;
+    static const std::regex PATRON_CODIGO_DEWEY;
+
+    /**
+     * @brief Calcula dígito verificador de ISBN-10
+     * @param isbn ISBN sin dígito verificador
+     * @return Dígito verificador calculado
+     */
+    static char calcularDigitoISBN10(const std::string& isbn);
+
+    /**
+     * @brief Valida dígito verificador de ISBN-13
+     * @param isbn ISBN completo
+     * @return true si el dígito verificador es correcto
+     */
+    static bool validarDigitoISBN13(const std::string& isbn);
+};
+
+/**
+ * @file Excepciones.h
+ * @brief Clases de excepción personalizadas
+ */
+
+#ifndef EXCEPCIONES_H
+#define EXCEPCIONES_H
+
+#include <stdexcept>
+#include <string>
+
+/**
+ * @class BibliotecaException
+ * @brief Excepción base para el sistema de biblioteca
+ * 
+ * HERENCIA: Clase base para excepciones específicas
+ */
+class BibliotecaException : public std::runtime_error {
+public:
+    explicit BibliotecaException(const std::string& message) 
+        : std::runtime_error(message) {}
+};
+
+/**
+ * @class DatabaseException
+ * @brief Excepción para errores de base de datos
+ * 
+ * HERENCIA: DatabaseException ES UNA BibliotecaException
+ */
+class DatabaseException : public BibliotecaException {
+private:
+    int error_code_;
+
+public:
+    explicit DatabaseException(const std::string& message, int error_code = 0)
+        : BibliotecaException("DB Error: " + message), error_code_(error_code) {}
+
+    int getErrorCode() const { return error_code_; }
+};
+
+/**
+ * @class ValidationException
+ * @brief Excepción para errores de validación
+ */
+class ValidationException : public BibliotecaException {
+private:
+    std::string field_name_;
+
+public:
+    explicit ValidationException(const std::string& message, 
+                               const std::string& field_name = "")
+        : BibliotecaException("Validation Error: " + message), 
+          field_name_(field_name) {}
+
+    const std::string& getFieldName() const { return field_name_; }
+};
+
+/**
+ * @class BusinessLogicException
+ * @brief Excepción para violaciones de reglas de negocio
+ */
+class BusinessLogicException : public BibliotecaException {
+public:
+    explicit BusinessLogicException(const std::string& message)
+        : BibliotecaException("Business Logic Error: " + message) {}
+};
+
+/**
+ * @class SystemException
+ * @brief Excepción para errores del sistema
+ */
+class SystemException : public BibliotecaException {
+public:
+    explicit SystemException(const std::string& message)
+        : BibliotecaException("System Error: " + message) {}
+};
+
+/**
+ * @class UserNotFoundException
+ * @brief Excepción específica cuando no se encuentra un usuario
+ */
+class UserNotFoundException : public BibliotecaException {
+private:
+    int user_id_;
+
+public:
+    explicit UserNotFoundException(int user_id)
+        : BibliotecaException("Usuario no encontrado con ID: " + std::to_string(user_id)),
+          user_id_(user_id) {}
+
+    explicit UserNotFoundException(const std::string& email)
+        : BibliotecaException("Usuario no encontrado con email: " + email),
+          user_id_(-1) {}
+
+    int getUserId() const { return user_id_; }
+};
+
+/**
+ * @class BookNotFoundException
+ * @brief Excepción específica cuando no se encuentra un libro
+ */
+class BookNotFoundException : public BibliotecaException {
+private:
+    std::string isbn_;
+
+public:
+    explicit BookNotFoundException(const std::string& isbn)
+        : BibliotecaException("Libro no encontrado con ISBN: " + isbn),
+          isbn_(isbn) {}
+
+    const std::string& getISBN() const { return isbn_; }
+};
+
+/**
+ * @class LoanException
+ * @brief Excepción específica para problemas con préstamos
+ */
+class LoanException : public BibliotecaException {
+public:
+    explicit LoanException(const std::string& message)
+        : BibliotecaException("Loan Error: " + message) {}
+};
+
+#endif // EXCEPCIONES_H
+
+// =================================================================================
+// IMPLEMENTACIONES
+// =================================================================================
+
+/**
+ * @file Logger.cpp
+ * @brief Implementación del sistema de logging
+ */
+
+#include "../include/utils/Logger.h"
+#include <iostream>
+#include <iomanip>
+#include <sstream>
+#include <chrono>
+#include <ctime>
+
+// Inicialización de variables estáticas
+std::unique_ptr<Logger> Logger::instance_ = nullptr;
+std::mutex Logger::mutex_;
+
+Logger::Logger(const std::string& filename, LogLevel min_level,
+               bool console_output, bool file_output)
+    : filename_(filename),
+      min_level_(min_level),
+      console_output_(console_output),
+      file_output_(file_output) {
+
+    if (file_output_) {
+        log_file_.open(filename_, std::ios::app);
+        if (!log_file_.is_open()) {
+            std::cerr << "Error: No se pudo abrir el archivo de log: " << filename_ << std::endl;
+            file_output_ = false;
+        } else {
+            // Escribir marca de inicio de sesión
+            writeLog(LogLevel::INFO, "=== INICIO DE SESIÓN DE LOG ===");
+        }
+    }
+}
+
+Logger::~Logger() {
+    if (log_file_.is_open()) {
+        writeLog(LogLevel::INFO, "=== FIN DE SESIÓN DE LOG ===");
+        log_file_.close();
+    }
+}
+
+Logger& Logger::getInstance() {
+    if (instance_ == nullptr) {
+        std::lock_guard<std::mutex> lock(mutex_);
+        if (instance_ == nullptr) {
+            instance_ = std::make_unique<Logger>("biblioteca.log");
+        }
+    }
+    return *instance_;
+}
+
+void Logger::initialize(const std::string& filename, LogLevel min_level,
+                       bool console_output, bool file_output) {
+    std::lock_guard<std::mutex> lock(mutex_);
+    instance_ = std::make_unique<Logger>(filename, min_level, console_output, file_output);
+}
+
+void Logger::destroy() {
+    std::lock_guard<std::mutex> lock(mutex_);
+    instance_.reset();
+}
+
+// Métodos de logging por nivel
+void Logger::debug(const std::string& message) {
+    log(LogLevel::DEBUG, message);
+}
+
+void Logger::info(const std::string& message) {
+    log(LogLevel::INFO, message);
+}
+
+void Logger::warning(const std::string& message) {
+    log(LogLevel::WARNING, message);
+}
+
+void Logger::error(const std::string& message) {
+    log(LogLevel::ERROR, message);
+}
+
+void Logger::critical(const std::string& message) {
+    log(LogLevel::CRITICAL, message);
+}
+
+void Logger::log(LogLevel level, const std::string& message) {
+    if (shouldLog(level)) {
+        writeLog(level, message);
+    }
+}
+
+void Logger::setMinLevel(LogLevel level) {
+    std::lock_guard<std::mutex> lock(write_mutex_);
+    min_level_ = level;
+}
+
+void Logger::setConsoleOutput(bool enabled) {
+    std::lock_guard<std::mutex> lock(write_mutex_);
+    console_output_ = enabled;
+}
+
+void Logger::setFileOutput(bool enabled) {
+    std::lock_guard<std::mutex> lock(write_mutex_);
+    file_output_ = enabled;
+}
+
+void Logger::flush() {
+    std::lock_guard<std::mutex> lock(write_mutex_);
+    if (log_file_.is_open()) {
+        log_file_.flush();
+    }
+    std::cout.flush();
+}
+
+std::string Logger::getFilename() const {
+    return filename_;
+}
+
+std::string Logger::levelToString(LogLevel level) {
+    switch (level) {
+        case LogLevel::DEBUG: return "DEBUG";
+        case LogLevel::INFO: return "INFO";
+        case LogLevel::WARNING: return "WARNING";
+        case LogLevel::ERROR: return "ERROR";
+        case LogLevel::CRITICAL: return "CRITICAL";
+        default: return "UNKNOWN";
+    }
+}
+
+std::string Logger::getCurrentTimestamp() {
+    auto now = std::chrono::system_clock::now();
+    auto time_t = std::chrono::system_clock::to_time_t(now);
+    auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(
+        now.time_since_epoch()) % 1000;
+
+    std::stringstream ss;
+    ss << std::put_time(std::localtime(&time_t), "%Y-%m-%d %H:%M:%S");
+    ss << "." << std::setfill('0') << std::setw(3) << ms.count();
+    return ss.str();
+}
+
+// Métodos privados
+void Logger::writeLog(LogLevel level, const std::string& message) {
+    std::lock_guard<std::mutex> lock(write_mutex_);
+    
+    std::string formatted_message = formatMessage(level, message);
+    
+    // Escribir a consola si está habilitado
+    if (console_output_) {
+        if (level == LogLevel::ERROR || level == LogLevel::CRITICAL) {
+            std::cerr << formatted_message << std::endl;
+        } else {
+            std::cout << formatted_message << std::endl;
+        }
+    }
+    
+    // Escribir a archivo si está habilitado
+    if (file_output_ && log_file_.is_open()) {
+        log_file_ << formatted_message << std::endl;
+        log_file_.flush(); // Asegurar escritura inmediata
+    }
+}
+
+std::string Logger::formatMessage(LogLevel level, const std::string& message) {
+    std::stringstream ss;
+    ss << "[" << getCurrentTimestamp() << "] "
+       << "[" << levelToString(level) << "] "
+       << message;
+    return ss.str();
+}
+
+bool Logger::shouldLog(LogLevel level) const {
+    return static_cast<int>(level) >= static_cast<int>(min_level_);
+}
+
+/**
+ * @file Validadores.cpp
+ * @brief Implementación de validadores
+ */
+
+#include "../include/utils/Validadores.h"
+#include <algorithm>
+#include <cctype>
+#include <sstream>
+
+// Definición de patrones regex estáticos
+const std::regex Validadores::PATRON_EMAIL(
+    R"(^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$)"
+);
+
+const std::regex Validadores::PATRON_ISBN_10(
+    R"(^(?:\d{9}[\dX]|\d{10})$)"
+);
+
+const std::regex Validadores::PATRON_ISBN_13(
+    R"(^(?:978|979)\d{10}$)"
+);
+
+const std::regex Validadores::PATRON_FECHA(
+    R"(^\d{4}-\d{2}-\d{2}$)"
+);
+
+const std::regex Validadores::PATRON_TELEFONO(
+    R"(^[\+]?[\d\s\-\(\)]{7,15}$)"
+);
+
+const std::regex Validadores::PATRON_NUMERO_SOCIO(
+    R"(^SOC-\d{4}-\d{3}$)"
+);
+
+const std::regex Validadores::PATRON_CODIGO_DEWEY(
+    R"(^\d{3}(?:\.\d{1,3})?$)"
+);
+
+// Implementación de métodos de validación
+bool Validadores::validarEmail(const std::string& email) {
+    if (email.empty() || email.length() > 254) {
+        return false;
+    }
+    return std::regex_match(email, PATRON_EMAIL);
+}
+
+bool Validadores::validarISBN(const std::string& isbn) {
+    std::string isbn_limpio = limpiarTexto(isbn);
+    
+    // Eliminar guiones y espacios
+    isbn_limpio.erase(std::remove(isbn_limpio.begin(), isbn_limpio.end(), '-'), 
+                     isbn_limpio.end());
+    isbn_limpio.erase(std::remove(isbn_limpio.begin(), isbn_limpio.end(), ' '), 
+                     isbn_limpio.end());
+    
+    if (isbn_limpio.length() == 10) {
+        if (!std::regex_match(isbn_limpio, PATRON_ISBN_10)) {
+            return false;
+        }
+        // Validar dígito verificador para ISBN-10
+        char digito_calculado = calcularDigitoISBN10(isbn_limpio.substr(0, 9));
+        return digito_calculado == isbn_limpio[9];
+    } else if (isbn_limpio.length() == 13) {
+        if (!std::regex_match(isbn_limpio, PATRON_ISBN_13)) {
+            return false;
+        }
+        // Validar dígito verificador para ISBN-13
+        return validarDigitoISBN13(isbn_limpio);
+    }
+    
+    return false;
+}
+
+bool Validadores::validarFecha(const std::string& fecha) {
+    if (!std::regex_match(fecha, PATRON_FECHA)) {
+        return false;
+    }
+    
+    // Extraer año, mes, día
+    int year = std::stoi(fecha.substr(0, 4));
+    int month = std::stoi(fecha.substr(5, 2));
+    int day = std::stoi(fecha.substr(8, 2));
+    
+    // Validaciones básicas
+    if (year < 1900 || year > 2100) return false;
+    if (month < 1 || month > 12) return false;
+    if (day < 1 || day > 31) return false;
+    
+    // Validación de días por mes (simplificada)
+    if (month == 2) {
+        bool es_bisiesto = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+        if (day > (es_bisiesto ? 29 : 28)) return false;
+    } else if (month == 4 || month == 6 || month == 9 || month == 11) {
+        if (day > 30) return false;
+    }
+    
+    return true;
+}
+
+bool Validadores::validarTelefono(const std::string& telefono) {
+    if (telefono.empty()) return true; // Teléfono opcional
+    return std::regex_match(telefono, PATRON_TELEFONO);
+}
+
+bool Validadores::validarTexto(const std::string& texto, 
+                              size_t longitud_minima, 
+                              size_t longitud_maxima) {
+    std::string texto_limpio = limpiarTexto(texto);
+    return texto_limpio.length() >= longitud_minima && 
+           texto_limpio.length() <= longitud_maxima;
+}
+
+bool Validadores::validarNombre(const std::string& nombre) {
+    if (!validarTexto(nombre, 2, 100)) {
+        return false;
+    }
+    
+    // Verificar que contenga solo letras, espacios y algunos caracteres especiales
+    for (char c : nombre) {
+        if (!std::isalpha(c) && c != ' ' && c != '\'' && c != '-' && c != '.') {
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+bool Validadores::validarRango(double numero, double minimo, double maximo) {
+    return numero >= minimo && numero <= maximo;
+}
+
+bool Validadores::validarRango(int numero, int minimo, int maximo) {
+    return numero >= minimo && numero <= maximo;
+}
+
+bool Validadores::validarNumeroSocio(const std::string& numero_socio) {
+    return std::regex_match(numero_socio, PATRON_NUMERO_SOCIO);
+}
+
+bool Validadores::validarMonto(double monto) {
+    if (monto < 0) return false;
+    
+    // Verificar que no tenga más de 2 decimales
+    double truncated = static_cast<int>(monto * 100) / 100.0;
+    return std::abs(monto - truncated) < 0.001;
+}
+
+bool Validadores::validarCodigoDewey(const std::string& codigo) {
+    return std::regex_match(codigo, PATRON_CODIGO_DEWEY);
+}
+
+std::string Validadores::limpiarTexto(const std::string& texto) {
+    std::string resultado = texto;
+    
+    // Eliminar espacios al inicio
+    resultado.erase(resultado.begin(), 
+                   std::find_if(resultado.begin(), resultado.end(), 
+                               [](unsigned char ch) { return !std::isspace(ch); }));
+    
+    // Eliminar espacios al final
+    resultado.erase(std::find_if(resultado.rbegin(), resultado.rend(), 
+                                [](unsigned char ch) { return !std::isspace(ch); }).base(), 
+                   resultado.end());
+    
+    return resultado;
+}
+
+std::string Validadores::normalizarTexto(const std::string& texto) {
+    std::string resultado = limpiarTexto(texto);
+    
+    // Convertir a minúsculas
+    std::transform(resultado.begin(), resultado.end(), resultado.begin(), ::tolower);
+    
+    // Aquí se podrían añadir más normalizaciones como eliminar acentos
+    return resultado;
+}
+
+bool Validadores::esNumerico(const std::string& cadena) {
+    if (cadena.empty()) return false;
+    return std::all_of(cadena.begin(), cadena.end(), ::isdigit);
+}
+
+bool Validadores::esAlfabetico(const std::string& cadena) {
+    if (cadena.empty()) return false;
+    return std::all_of(cadena.begin(), cadena.end(), 
+                      [](char c) { return std::isalpha(c) || std::isspace(c); });
+}
+
+bool Validadores::esAlfanumerico(const std::string& cadena) {
+    if (cadena.empty()) return false;
+    return std::all_of(cadena.begin(), cadena.end(), ::isalnum);
+}
+
+// Métodos privados
+char Validadores::calcularDigitoISBN10(const std::string& isbn) {
+    int suma = 0;
+    for (int i = 0; i < 9; ++i) {
+        suma += (isbn[i] - '0') * (10 - i);
+    }
+    
+    int resto = suma % 11;
+    int digito = 11 - resto;
+    
+    if (digito == 10) return 'X';
+    if (digito == 11) return '0';
+    return '0' + digito;
+}
+
+bool Validadores::validarDigitoISBN13(const std::string& isbn) {
+    int suma = 0;
+    for (int i = 0; i < 12; ++i) {
+        int digito = isbn[i] - '0';
+        suma += (i % 2 == 0) ? digito : digito * 3;
+    }
+    
+    int digito_verificador = (10 - (suma % 10)) % 10;
+    return digito_verificador == (isbn[12] - '0');
+}
+
+/*
+DEMOSTRACIÓN COMPLETA DE UTILIDADES POO:
+
+1. LOGGER (SINGLETON):
+   - Instancia única para todo el sistema
+   - Thread-safe con mutex
+   - RAII para gestión de archivos
+   - Diferentes niveles de logging
+
+2. VALIDADORES (MÉTODOS ESTÁTICOS):
+   - Responsabilidad única: solo validación
+   - Reutilizable en todo el sistema
+   - Patrones regex centralizados
+   - Validaciones específicas del dominio
+
+3. EXCEPCIONES (HERENCIA):
+   - Jerarquía de excepciones específicas
+   - BibliotecaException como base
+   - Especialización por tipo de error
+   - Información contextual en excepciones
+
+4. ENCAPSULAMIENTO:
+   - Lógica interna oculta en métodos privados
+   - Interfaces públicas simples y claras
+
+5. ABSTRACCIÓN:
+   - Validaciones complejas en métodos simples
+   - Logging abstracto de detalles de archivo
+
+6. REUTILIZACIÓN:
+   - Utilidades comunes para todo el sistema
+   - Código DRY (Don't Repeat Yourself)
+*/
+/**
+ * @file PrestamoDAO.h
+ * @brief DAO para gestión de préstamos - Herencia y Composición
+ * @author Sistema de Biblioteca
+ * @date 2024
+ * 
+ * HERENCIA: PrestamoDAO ES UN DAO<Prestamo>
+ * COMPOSICIÓN: Maneja relaciones con Libro y Socio
+ */
+
+#ifndef PRESTAMO_DAO_H
+#define PRESTAMO_DAO_H
+
+#include "DAO.h"
+#include "../models/Prestamo.h"
+#include "../models/Reserva.h"
+#include "../models/Multa.h"
+#include <vector>
+#include <optional>
+#include <map>
+
+/**
+ * @class PrestamoDAO
+ * @brief DAO específico para préstamos - Herencia de DAO<Prestamo>
+ * 
+ * HERENCIA: PrestamoDAO ES UN DAO<Prestamo>
+ * COMPOSICIÓN: Gestiona relaciones complejas entre entidades
+ */
+class PrestamoDAO : public DAO<Prestamo> {
+public:
+    /**
+     * @brief Constructor
+     */
+    PrestamoDAO();
+
+    /**
+     * @brief Destructor
+     */
+    virtual ~PrestamoDAO() = default;
+
+    // HERENCIA: Implementación de métodos virtuales puros
+    virtual int create(const Prestamo& prestamo) override;
+    virtual std::optional<Prestamo> findById(int id) override;
+    virtual std::vector<Prestamo> findAll() override;
+    virtual bool update(const Prestamo& prestamo) override;
+    virtual bool deleteById(int id) override;
+    virtual int count() override;
+
+    // Métodos específicos para préstamos
+    /**
+     * @brief Busca préstamos por ID de socio
+     * @param socio_id ID del socio
+     * @return Vector con préstamos del socio
+     */
+    std::vector<Prestamo> findBySocio(int socio_id);
+
+    /**
+     * @brief Busca préstamos por ID de libro
+     * @param libro_id ID del libro
+     * @return Vector con préstamos del libro
+     */
+    std::vector<Prestamo> findByLibro(int libro_id);
+
+    /**
+     * @brief Obtiene préstamos activos
+     * @return Vector con préstamos activos
+     */
+    std::vector<Prestamo> findActivos();
+
+    /**
+     * @brief Obtiene préstamos vencidos
+     * @return Vector con préstamos vencidos
+     */
+    std::vector<Prestamo> findVencidos();
+
+    /**
+     * @brief Busca préstamos por rango de fechas
+     * @param fecha_inicio Fecha de inicio
+     * @param fecha_fin Fecha de fin
+     * @return Vector con préstamos en el rango
+     */
+    std::vector<Prestamo> findByFechas(const std::string& fecha_inicio, 
+                                      const std::string& fecha_fin);
+
+    /**
+     * @brief Obtiene préstamos de un bibliotecario
+     * @param bibliotecario_id ID del bibliotecario
+     * @return Vector con préstamos gestionados
+     */
+    std::vector<Prestamo> findByBibliotecario(int bibliotecario_id);
+
+    /**
+     * @brief Procesa un nuevo préstamo
+     * @param id_libro ID del libro
+     * @param id_socio ID del socio
+     * @param id_bibliotecario ID del bibliotecario
+     * @param dias_prestamo Duración del préstamo
+     * @return ID del préstamo creado o -1 si hay error
+     */
+    int procesarNuevoPrestamo(int id_libro, int id_socio, int id_bibliotecario, 
+                             int dias_prestamo = 15);
+
+    /**
+     * @brief Procesa la devolución de un préstamo
+     * @param prestamo_id ID del préstamo
+     * @param fecha_devolucion Fecha de devolución (opcional)
+     * @return true si se procesó correctamente
+     */
+    bool procesarDevolucion(int prestamo_id, const std::string& fecha_devolucion = "");
+
+    /**
+     * @brief Renueva un préstamo existente
+     * @param prestamo_id ID del préstamo
+     * @param dias_adicionales Días adicionales
+     * @return true si se renovó correctamente
+     */
+    bool renovarPrestamo(int prestamo_id, int dias_adicionales = 15);
+
+    /**
+     * @brief Marca préstamos como vencidos
+     * @return Número de préstamos marcados como vencidos
+     */
+    int marcarPrestamosVencidos();
+
+    /**
+     * @brief Calcula multas para préstamos vencidos
+     * @return Número de multas generadas
+     */
+    int calcularMultasPendientes();
+
+    // Métodos para reportes y estadísticas
+    /**
+     * @brief Obtiene estadísticas de préstamos por estado
+     * @return Mapa con conteos por estado
+     */
+    std::map<EstadoPrestamo, int> obtenerEstadisticasPorEstado();
+
+    /**
+     * @brief Obtiene estadísticas de préstamos por mes
+     * @param year Año para el reporte
+     * @return Mapa con conteos por mes
+     */
+    std::map<int, int> obtenerEstadisticasPorMes(int year);
+
+    /**
+     * @brief Genera reporte de préstamos
+     * @param incluir_historicos Incluir préstamos históricos
+     * @return String con el reporte
+     */
+    std::string generarReportePrestamos(bool incluir_historicos = false);
+
+    // Gestión de reservas
+    /**
+     * @brief Crea una nueva reserva
+     * @param reserva Reserva a crear
+     * @return ID de la reserva creada
+     */
+    int createReserva(const Reserva& reserva);
+
+    /**
+     * @brief Busca reservas por socio
+     * @param socio_id ID del socio
+     * @return Vector con reservas del socio
+     */
+    std::vector<Reserva> findReservasBySocio(int socio_id);
+
+    /**
+     * @brief Busca reservas activas por libro
+     * @param libro_id ID del libro
+     * @return Vector con reservas activas
+     */
+    std::vector<Reserva> findReservasActivasByLibro(int libro_id);
+
+    /**
+     * @brief Procesa una reserva cuando el libro está disponible
+     * @param reserva_id ID de la reserva
+     * @return ID del préstamo creado o -1 si hay error
+     */
+    int procesarReserva(int reserva_id);
+
+    // Gestión de multas
+    /**
+     * @brief Crea una nueva multa
+     * @param multa Multa a crear
+     * @return ID de la multa creada
+     */
+    int createMulta(const Multa& multa);
+
+    /**
+     * @brief Busca multas por socio
+     * @param socio_id ID del socio
+     * @return Vector con multas del socio
+     */
+    std::vector<Multa> findMultasBySocio(int socio_id);
+
+    /**
+     * @brief Obtiene multas pendientes
+     * @return Vector con multas pendientes
+     */
+    std::vector<Multa> findMultasPendientes();
+
+    /**
+     * @brief Procesa el pago de una multa
+     * @param multa_id ID de la multa
+     * @param monto_pagado Monto pagado
+     * @return true si se procesó el pago
+     */
+    bool procesarPagoMulta(int multa_id, double monto_pagado);
+
+private:
+    /**
+     * @brief Construye objeto Prestamo desde ResultSet
+     * @param rs ResultSet con datos del préstamo
+     * @return Prestamo construido
+     */
+    Prestamo buildPrestamoFromResultSet(sql::ResultSet* rs);
+
+    /**
+     * @brief Construye objeto Reserva desde ResultSet
+     * @param rs ResultSet con datos de la reserva
+     * @return Reserva construida
+     */
+    Reserva buildReservaFromResultSet(sql::ResultSet* rs);
+
+    /**
+     * @brief Construye objeto Multa desde ResultSet
+     * @param rs ResultSet con datos de la multa
+     * @return Multa construida
+     */
+    Multa buildMultaFromResultSet(sql::ResultSet* rs);
+
+    /**
+     * @brief Convierte EstadoPrestamo a string
+     * @param estado Enum EstadoPrestamo
+     * @return String para BD
+     */
+    std::string estadoPrestamoToString(EstadoPrestamo estado);
+
+    /**
+     * @brief Convierte string a EstadoPrestamo
+     * @param estado_str String desde BD
+     * @return Enum EstadoPrestamo
+     */
+    EstadoPrestamo stringToEstadoPrestamo(const std::string& estado_str);
+
+    /**
+     * @brief Valida que un libro esté disponible para préstamo
+     * @param libro_id ID del libro
+     * @return true si está disponible
+     */
+    bool validarLibroDisponible(int libro_id);
+
+    /**
+     * @brief Valida que un socio pueda tomar libros prestados
+     * @param socio_id ID del socio
+     * @return true si puede tomar prestado
+     */
+    bool validarSocioPuedePedir(int socio_id);
+
+    /**
+     * @brief Actualiza el estado del libro después de un préstamo
+     * @param libro_id ID del libro
+     * @param estado Nuevo estado
+     * @return true si se actualizó
+     */
+    bool actualizarEstadoLibro(int libro_id, const std::string& estado);
+};
+
+/**
+ * @file PrestamoController.h
+ * @brief Controlador para gestión de préstamos
+ */
+
+#ifndef PRESTAMO_CONTROLLER_H
+#define PRESTAMO_CONTROLLER_H
+
+#include "../database/PrestamoDAO.h"
+#include "../database/LibroDAO.h"
+#include "../database/UsuarioDAO.h"
+#include "../models/Prestamo.h"
+#include "../models/Reserva.h"
+#include "../models/Multa.h"
+#include "../utils/Validadores.h"
+#include "../utils/Logger.h"
+#include <memory>
+#include <vector>
+#include <optional>
+
+/**
+ * @class PrestamoController
+ * @brief Controlador especializado para operaciones de préstamos
+ * 
+ * RESPONSABILIDAD ÚNICA: Solo gestiona préstamos, reservas y multas
+ * COMPOSICIÓN: TIENE DAOs para acceso a datos
+ */
+class PrestamoController {
+private:
+    std::unique_ptr<PrestamoDAO> prestamo_dao_;
+    std::unique_ptr<LibroDAO> libro_dao_;
+    std::unique_ptr<UsuarioDAO> usuario_dao_;
+    std::unique_ptr<Validadores> validadores_;
+    Logger& logger_;
+
+public:
+    /**
+     * @brief Constructor
+     */
+    PrestamoController();
+
+    /**
+     * @brief Destructor
+     */
+    ~PrestamoController();
+
+    // Operaciones CRUD para préstamos
+    /**
+     * @brief Procesa un nuevo préstamo
+     * @param isbn_libro ISBN del libro a prestar
+     * @param numero_socio Número del socio solicitante
+     * @param id_bibliotecario ID del bibliotecario que autoriza
+     * @param dias_prestamo Duración del préstamo
+     * @return ID del préstamo creado o -1 si hay error
+     */
+    int procesarNuevoPrestamo(const std::string& isbn_libro, 
+                             const std::string& numero_socio,
+                             int id_bibliotecario, 
+                             int dias_prestamo = 15);
+
+    /**
+     * @brief Procesa la devolución de un libro
+     * @param prestamo_id ID del préstamo
+     * @param fecha_devolucion Fecha de devolución (opcional)
+     * @return true si se procesó correctamente
+     */
+    bool procesarDevolucion(int prestamo_id, const std::string& fecha_devolucion = "");
+
+    /**
+     * @brief Renueva un préstamo existente
+     * @param prestamo_id ID del préstamo
+     * @param dias_adicionales Días adicionales
+     * @return true si se renovó correctamente
+     */
+    bool renovarPrestamo(int prestamo_id, int dias_adicionales = 15);
+
+    /**
+     * @brief Cancela un préstamo
+     * @param prestamo_id ID del préstamo
+     * @param motivo Motivo de cancelación
+     * @return true si se canceló correctamente
+     */
+    bool cancelarPrestamo(int prestamo_id, const std::string& motivo);
+
+    // Consultas de préstamos
+    /**
+     * @brief Busca un préstamo por ID
+     * @param prestamo_id ID del préstamo
+     * @return Optional con el préstamo si existe
+     */
+    std::optional<Prestamo> buscarPrestamoPorId(int prestamo_id);
+
+    /**
+     * @brief Obtiene préstamos de un socio
+     * @param numero_socio Número del socio
+     * @return Vector con préstamos del socio
+     */
+    std::vector<Prestamo> obtenerPrestamosDeSocio(const std::string& numero_socio);
+
+    /**
+     * @brief Obtiene préstamos activos
+     * @return Vector con préstamos activos
+     */
+    std::vector<Prestamo> obtenerPrestamosActivos();
+
+    /**
+     * @brief Obtiene préstamos vencidos
+     * @return Vector con préstamos vencidos
+     */
+    std::vector<Prestamo> obtenerPrestamosVencidos();
+
+    /**
+     * @brief Obtiene historial de préstamos de un libro
+     * @param isbn_libro ISBN del libro
+     * @return Vector con historial de préstamos
+     */
+    std::vector<Prestamo> obtenerHistorialLibro(const std::string& isbn_libro);
+
+    // Gestión de reservas
+    /**
+     * @brief Procesa una nueva reserva
+     * @param isbn_libro ISBN del libro a reservar
+     * @param numero_socio Número del socio
+     * @return ID de la reserva creada o -1 si hay error
+     */
+    int procesarNuevaReserva(const std::string& isbn_libro, 
+                            const std::string& numero_socio);
+
+    /**
+     * @brief Cancela una reserva
+     * @param reserva_id ID de la reserva
+     * @param motivo Motivo de cancelación
+     * @return true si se canceló
+     */
+    bool cancelarReserva(int reserva_id, const std::string& motivo);
+
+    /**
+     * @brief Obtiene reservas de un socio
+     * @param numero_socio Número del socio
+     * @return Vector con reservas del socio
+     */
+    std::vector<Reserva> obtenerReservasDeSocio(const std::string& numero_socio);
+
+    /**
+     * @brief Obtiene reservas activas de un libro
+     * @param isbn_libro ISBN del libro
+     * @return Vector con reservas activas
+     */
+    std::vector<Reserva> obtenerReservasDeLibro(const std::string& isbn_libro);
+
+    /**
+     * @brief Procesa reservas cuando un libro es devuelto
+     * @param libro_id ID del libro devuelto
+     * @return ID del préstamo creado si hay reservas, -1 si no
+     */
+    int procesarReservasPendientes(int libro_id);
+
+    // Gestión de multas
+    /**
+     * @brief Calcula multas para préstamos vencidos
+     * @return Número de multas generadas
+     */
+    int calcularMultasPendientes();
+
+    /**
+     * @brief Obtiene multas de un socio
+     * @param numero_socio Número del socio
+     * @return Vector con multas del socio
+     */
+    std::vector<Multa> obtenerMultasDeSocio(const std::string& numero_socio);
+
+    /**
+     * @brief Procesa el pago de una multa
+     * @param multa_id ID de la multa
+     * @param monto_pagado Monto pagado
+     * @return true si se procesó el pago
+     */
+    bool procesarPagoMulta(int multa_id, double monto_pagado);
+
+    /**
+     * @brief Condona una multa
+     * @param multa_id ID de la multa
+     * @param motivo Motivo de condonación
+     * @return true si se condonó
+     */
+    bool condonarMulta(int multa_id, const std::string& motivo);
+
+    // Validaciones
+    /**
+     * @brief Valida si un libro puede ser prestado
+     * @param isbn_libro ISBN del libro
+     * @return true si puede ser prestado
+     */
+    bool validarLibroPrestable(const std::string& isbn_libro);
+
+    /**
+     * @brief Valida si un socio puede tomar libros prestados
+     * @param numero_socio Número del socio
+     * @return true si puede tomar prestado
+     */
+    bool validarSocioPuedePedir(const std::string& numero_socio);
+
+    /**
+     * @brief Valida si un préstamo puede ser renovado
+     * @param prestamo_id ID del préstamo
+     * @return true si puede renovarse
+     */
+    bool validarPrestamoRenovable(int prestamo_id);
+
+    // Tareas de mantenimiento
+    /**
+     * @brief Ejecuta tareas diarias de mantenimiento
+     * @return true si se ejecutaron correctamente
+     */
+    bool ejecutarMantenimientoDiario();
+
+    /**
+     * @brief Marca préstamos vencidos
+     * @return Número de préstamos marcados
+     */
+    int marcarPrestamosVencidos();
+
+    /**
+     * @brief Marca reservas vencidas
+     * @return Número de reservas marcadas
+     */
+    int marcarReservasVencidas();
+
+    // Reportes y estadísticas
+    /**
+     * @brief Genera reporte de préstamos
+     * @param incluir_historicos Incluir datos históricos
+     * @return String con el reporte
+     */
+    std::string generarReportePrestamos(bool incluir_historicos = false);
+
+    /**
+     * @brief Obtiene estadísticas de préstamos
+     * @return Mapa con estadísticas
+     */
+    std::map<std::string, int> obtenerEstadisticasPrestamos();
+
+    /**
+     * @brief Obtiene top libros más prestados
+     * @param limite Número de libros a retornar
+     * @return Vector con ISBNs y conteos
+     */
+    std::vector<std::pair<std::string, int>> obtenerTopLibrosPrestados(int limite = 10);
+
+    /**
+     * @brief Obtiene socios más activos
+     * @param limite Número de socios a retornar
+     * @return Vector con números de socio y conteos
+     */
+    std::vector<std::pair<std::string, int>> obtenerSociosMasActivos(int limite = 10);
+
+private:
+    /**
+     * @brief Valida parámetros de préstamo
+     * @param isbn_libro ISBN del libro
+     * @param numero_socio Número del socio
+     * @param dias_prestamo Días del préstamo
+     * @return true si los parámetros son válidos
+     */
+    bool validarParametrosPrestamo(const std::string& isbn_libro,
+                                  const std::string& numero_socio,
+                                  int dias_prestamo);
+
+    /**
+     * @brief Registra actividad en el log
+     * @param operacion Operación realizada
+     * @param detalles Detalles de la operación
+     */
+    void registrarActividad(const std::string& operacion, const std::string& detalles);
+
+    /**
+     * @brief Notifica al socio sobre eventos (préstamo, vencimiento, etc.)
+     * @param socio_id ID del socio
+     * @param evento Tipo de evento
+     * @param mensaje Mensaje de notificación
+     */
+    void notificarSocio(int socio_id, const std::string& evento, 
+                       const std::string& mensaje);
+};
+
+#endif // PRESTAMO_CONTROLLER_H
+
+// =================================================================================
+// IMPLEMENTACIONES PRINCIPALES
+// =================================================================================
+
+/**
+ * @file PrestamoDAO.cpp
+ * @brief Implementación del DAO de préstamos
+ */
+
+#include "../include/database/PrestamoDAO.h"
+#include "../include/utils/Excepciones.h"
+#include <iostream>
+#include <sstream>
+#include <iomanip>
+
+PrestamoDAO::PrestamoDAO() {
+    std::cout << "PrestamoDAO: Constructor inicializado" << std::endl;
+}
+
+int PrestamoDAO::create(const Prestamo& prestamo) {
+    ensureConnection();
+    
+    try {
+        std::string query = R"(
+            INSERT INTO prestamos (id_libro, id_socio, id_bibliotecario, 
+                                 fecha_prestamo, fecha_vencimiento, estado, 
+                                 multa_generada, observaciones)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        )";
+        
+        auto pstmt = db_connection_.prepareStatement(query);
+        pstmt->setInt(1, prestamo.getIdLibro());
+        pstmt->setInt(2, prestamo.getIdSocio());
+        pstmt->setInt(3, prestamo.getIdBibliotecario());
+        pstmt->setString(4, prestamo.getFechaPrestamo());
+        pstmt->setString(5, prestamo.getFechaVencimiento());
+        pstmt->setString(6, estadoPrestamoToString(prestamo.getEstado()));
+        pstmt->setDouble(7, prestamo.getMultaGenerada());
+        pstmt->setString(8, prestamo.getObservaciones());
+        
+        pstmt->executeUpdate();
+        
+        // Obtener ID generado
+        auto stmt = db_connection_.createStatement();
+        auto rs = stmt->executeQuery("SELECT LAST_INSERT_ID() as id");
+        
+        if (rs->next()) {
+            int prestamo_id = rs->getInt("id");
+            
+            // Actualizar estado del libro a 'prestado'
+            actualizarEstadoLibro(prestamo.getIdLibro(), "prestado");
+            
+            return prestamo_id;
+        }
+        
+        return -1;
+        
+    } catch (const sql::SQLException& e) {
+        std::cerr << "Error SQL en create préstamo: " << e.what() << std::endl;
+        return -1;
+    }
+}
+
+std::optional<Prestamo> PrestamoDAO::findById(int id) {
+    ensureConnection();
+    
+    try {
+        std::string query = R"(
+            SELECT p.*, l.titulo, l.isbn, u.nombre as socio_nombre, u.apellido as socio_apellido
+            FROM prestamos p
+            LEFT JOIN libros l ON p.id_libro = l.id_libro
+            LEFT JOIN socios s ON p.id_socio = s.id_socio
+            LEFT JOIN usuarios u ON s.id_usuario = u.id_usuario
+            WHERE p.id_prestamo = ?
+        )";
+        
+        auto pstmt = db_connection_.prepareStatement(query);
+        pstmt->setInt(1, id);
+        auto rs = pstmt->executeQuery();
+        
+        if (rs->next()) {
+            return buildPrestamoFromResultSet(rs.get());
+        }
+        
+        return std::nullopt;
+        
+    } catch (const sql::SQLException& e) {
+        std::cerr << "Error SQL en findById préstamo: " << e.what() << std::endl;
+        return std::nullopt;
+    }
+}
+
+std::vector<Prestamo> PrestamoDAO::findActivos() {
+    ensureConnection();
+    std::vector<Prestamo> prestamos;
+    
+    try {
+        std::string query = R"(
+            SELECT p.*, l.titulo, l.isbn, u.nombre as socio_nombre, u.apellido as socio_apellido
+            FROM prestamos p
+            LEFT JOIN libros l ON p.id_libro = l.id_libro
+            LEFT JOIN socios s ON p.id_socio = s.id_socio
+            LEFT JOIN usuarios u ON s.id_usuario = u.id_usuario
+            WHERE p.estado IN ('activo', 'renovado')
+            ORDER BY p.fecha_vencimiento ASC
+        )";
+        
+        auto stmt = db_connection_.createStatement();
+        auto rs = stmt->executeQuery(query);
+        
+        while (rs->next()) {
+            prestamos.push_back(buildPrestamoFromResultSet(rs.get()));
+        }
+        
+    } catch (const sql::SQLException& e) {
+        std::cerr << "Error SQL en findActivos: " << e.what() << std::endl;
+    }
+    
+    return prestamos;
+}
+
+std::vector<Prestamo> PrestamoDAO::findVencidos() {
+    ensureConnection();
+    std::vector<Prestamo> prestamos;
+    
+    try {
+        std::string query = R"(
+            SELECT p.*, l.titulo, l.isbn, u.nombre as socio_nombre, u.apellido as socio_apellido
+            FROM prestamos p
+            LEFT JOIN libros l ON p.id_libro = l.id_libro
+            LEFT JOIN socios s ON p.id_socio = s.id_socio
+            LEFT JOIN usuarios u ON s.id_usuario = u.id_usuario
+            WHERE p.estado IN ('activo', 'renovado', 'vencido') 
+            AND p.fecha_vencimiento < CURDATE()
+            ORDER BY p.fecha_vencimiento ASC
+        )";
+        
+        auto stmt = db_connection_.createStatement();
+        auto rs = stmt->executeQuery(query);
+        
+        while (rs->next()) {
+            prestamos.push_back(buildPrestamoFromResultSet(rs.get()));
+        }
+        
+    } catch (const sql::SQLException& e) {
+        std::cerr << "Error SQL en findVencidos: " << e.what() << std::endl;
+    }
+    
+    return prestamos;
+}
+
+int PrestamoDAO::procesarNuevoPrestamo(int id_libro, int id_socio, int id_bibliotecario, 
+                                      int dias_prestamo) {
+    ensureConnection();
+    
+    try {
+        // Validar que el libro esté disponible
+        if (!validarLibroDisponible(id_libro)) {
+            std::cout << "Error: El libro no está disponible para préstamo" << std::endl;
+            return -1;
+        }
+        
+        // Validar que el socio pueda pedir libros
+        if (!validarSocioPuedePedir(id_socio)) {
+            std::cout << "Error: El socio no puede tomar libros prestados" << std::endl;
+            return -1;
+        }
+        
+        // Iniciar transacción
+        db_connection_.beginTransaction();
+        
+        try {
+            // Crear el préstamo
+            std::string fecha_prestamo = Prestamo::obtenerFechaActual();
+            std::string fecha_vencimiento = Prestamo::calcularFechaVencimiento(
+                fecha_prestamo, dias_prestamo);
+            
+            Prestamo nuevo_prestamo(id_libro, id_socio, id_bibliotecario, 
+                                   fecha_prestamo, fecha_vencimiento);
+            
+            int prestamo_id = create(nuevo_prestamo);
+            
+            if (prestamo_id > 0) {
+                // Actualizar estado del libro
+                actualizarEstadoLibro(id_libro, "prestado");
+                
+                // Registrar el préstamo en el historial del socio
+                std::string update_socio = R"(
+                    UPDATE socios 
+                    SET fecha_ultimo_prestamo = CURDATE() 
+                    WHERE id_socio = ?
+                )";
+                
+                auto pstmt = db_connection_.prepareStatement(update_socio);
+                pstmt->setInt(1, id_socio);
+                pstmt->executeUpdate();
+                
+                db_connection_.commit();
+                
+                std::cout << "Préstamo procesado exitosamente. ID: " << prestamo_id << std::endl;
+                return prestamo_id;
+            } else {
+                db_connection_.rollback();
+                return -1;
+            }
+            
+        } catch (const std::exception& e) {
+            db_connection_.rollback();
+            std::cerr << "Error en transacción de préstamo: " << e.what() << std::endl;
+            return -1;
+        }
+        
+    } catch (const sql::SQLException& e) {
+        std::cerr << "Error SQL en procesarNuevoPrestamo: " << e.what() << std::endl;
+        return -1;
+    }
+}
+
+bool PrestamoDAO::procesarDevolucion(int prestamo_id, const std::string& fecha_devolucion) {
+    ensureConnection();
+    
+    try {
+        // Buscar el préstamo
+        auto prestamo_opt = findById(prestamo_id);
+        if (!prestamo_opt.has_value()) {
+            std::cout << "Error: Préstamo no encontrado" << std::endl;
+            return false;
+        }
+        
+        Prestamo prestamo = prestamo_opt.value();
+        
+        if (prestamo.getEstado() == EstadoPrestamo::DEVUELTO) {
+            std::cout << "Error: El préstamo ya fue devuelto" << std::endl;
+            return false;
+        }
+        
+        // Iniciar transacción
+        db_connection_.beginTransaction();
+        
+        try {
+            std::string fecha_dev = fecha_devolucion.empty() ? 
+                                   Prestamo::obtenerFechaActual() : fecha_devolucion;
+            
+            // Calcular multa si hay retraso
+            double multa = 0.0;
+            if (Prestamo::compararFechas(fecha_dev, prestamo.getFechaVencimiento()) > 0) {
+                int dias_retraso = Prestamo::compararFechas(fecha_dev, prestamo.getFechaVencimiento());
+                multa = dias_retraso * 0.50; // $0.50 por día
+                
+                if (multa > 0) {
+                    // Crear multa
+                    Multa nueva_multa(prestamo.getIdSocio(), prestamo_id, multa, 
+                                     "Retraso en devolución (" + std::to_string(dias_retraso) + " días)");
+                    createMulta(nueva_multa);
+                }
+            }
+            
+            // Actualizar el préstamo
+            std::string update_prestamo = R"(
+                UPDATE prestamos 
+                SET fecha_devolucion = ?, estado = 'devuelto', multa_generada = ?
+                WHERE id_prestamo = ?
+            )";
+            
+            auto pstmt = db_connection_.prepareStatement(update_prestamo);
+            pstmt->setString(1, fecha_dev);
+            pstmt->setDouble(2, multa);
+            pstmt->setInt(3, prestamo_id);
+            pstmt->executeUpdate();
+            
+            // Actualizar estado del libro a disponible
+            actualizarEstadoLibro(prestamo.getIdLibro(), "disponible");
+            
+            db_connection_.commit();
+            
+            std::cout << "Devolución procesada exitosamente" << std::endl;
+            if (multa > 0) {
+                std::cout << "Multa generada: $" << std::fixed << std::setprecision(2) 
+                          << multa << std::endl;
+            }
+            
+            return true;
+            
+        } catch (const std::exception& e) {
+            db_connection_.rollback();
+            std::cerr << "Error en transacción de devolución: " << e.what() << std::endl;
+            return false;
+        }
+        
+    } catch (const sql::SQLException& e) {
+        std::cerr << "Error SQL en procesarDevolucion: " << e.what() << std::endl;
+        return false;
+    }
+}
+
+int PrestamoDAO::marcarPrestamosVencidos() {
+    ensureConnection();
+    
+    try {
+        std::string query = R"(
+            UPDATE prestamos 
+            SET estado = 'vencido' 
+            WHERE estado IN ('activo', 'renovado') 
+            AND fecha_vencimiento < CURDATE()
+        )";
+        
+        auto stmt = db_connection_.createStatement();
+        int count = stmt->executeUpdate(query);
+        
+        std::cout << "Préstamos marcados como vencidos: " << count << std::endl;
+        return count;
+        
+    } catch (const sql::SQLException& e) {
+        std::cerr << "Error SQL en marcarPrestamosVencidos: " << e.what() << std::endl;
+        return 0;
+    }
+}
+
+// Métodos privados
+Prestamo PrestamoDAO::buildPrestamoFromResultSet(sql::ResultSet* rs) {
+    Prestamo prestamo;
+    
+    prestamo.setId(rs->getInt("id_prestamo"));
+    prestamo.setIdLibro(rs->getInt("id_libro"));
+    prestamo.setIdSocio(rs->getInt("id_socio"));
+    prestamo.setIdBibliotecario(rs->getInt("id_bibliotecario"));
+    prestamo.setFechaPrestamo(rs->getString("fecha_prestamo"));
+    prestamo.setFechaVencimiento(rs->getString("fecha_vencimiento"));
+    
+    if (!rs->isNull("fecha_devolucion")) {
+        prestamo.setFechaDevolucion(rs->getString("fecha_devolucion"));
+    }
+    
+    prestamo.setEstado(stringToEstadoPrestamo(rs->getString("estado")));
+    prestamo.setMultaGenerada(rs->getDouble("multa_generada"));
+    prestamo.setObservaciones(rs->getString("observaciones"));
+    
+    return prestamo;
+}
+
+std::string PrestamoDAO::estadoPrestamoToString(EstadoPrestamo estado) {
+    switch (estado) {
+        case EstadoPrestamo::ACTIVO: return "activo";
+        case EstadoPrestamo::DEVUELTO: return "devuelto";
+        case EstadoPrestamo::VENCIDO: return "vencido";
+        case EstadoPrestamo::RENOVADO: return "renovado";
+        case EstadoPrestamo::CANCELADO: return "cancelado";
+        default: return "activo";
+    }
+}
+
+EstadoPrestamo PrestamoDAO::stringToEstadoPrestamo(const std::string& estado_str) {
+    if (estado_str == "activo") return EstadoPrestamo::ACTIVO;
+    if (estado_str == "devuelto") return EstadoPrestamo::DEVUELTO;
+    if (estado_str == "vencido") return EstadoPrestamo::VENCIDO;
+    if (estado_str == "renovado") return EstadoPrestamo::RENOVADO;
+    if (estado_str == "cancelado") return EstadoPrestamo::CANCELADO;
+    
+    return EstadoPrestamo::ACTIVO;
+}
+
+bool PrestamoDAO::validarLibroDisponible(int libro_id) {
+    try {
+        std::string query = "SELECT estado FROM libros WHERE id_libro = ?";
+        auto pstmt = db_connection_.prepareStatement(query);
+        pstmt->setInt(1, libro_id);
+        auto rs = pstmt->executeQuery();
+        
+        if (rs->next()) {
+            std::string estado = rs->getString("estado");
+            return estado == "disponible";
+        }
+        
+        return false;
+        
+    } catch (const sql::SQLException& e) {
+        std::cerr << "Error validando libro disponible: " << e.what() << std::endl;
+        return false;
+    }
+}
+
+bool PrestamoDAO::validarSocioPuedePedir(int socio_id) {
+    try {
+        // Verificar estado del socio y límite de préstamos
+        std::string query = R"(
+            SELECT s.limite_prestamos, s.multa_acumulada, u.estado,
+                   (SELECT COUNT(*) FROM prestamos WHERE id_socio = ? AND estado IN ('activo', 'renovado')) as prestamos_activos
+            FROM socios s
+            JOIN usuarios u ON s.id_usuario = u.id_usuario
+            WHERE s.id_socio = ?
+        )";
+        
+        auto pstmt = db_connection_.prepareStatement(query);
+        pstmt->setInt(1, socio_id);
+        pstmt->setInt(2, socio_id);
+        auto rs = pstmt->executeQuery();
+        
+        if (rs->next()) {
+            std::string estado = rs->getString("estado");
+            int limite_prestamos = rs->getInt("limite_prestamos");
+            int prestamos_activos = rs->getInt("prestamos_activos");
+            double multa_acumulada = rs->getDouble("multa_acumulada");
+            
+            // Validaciones
+            if (estado != "activo") {
+                std::cout << "Error: El socio no está activo" << std::endl;
+                return false;
+            }
+            
+            if (prestamos_activos >= limite_prestamos) {
+                std::cout << "Error: El socio ha alcanzado su límite de préstamos" << std::endl;
+                return false;
+            }
+            
+            if (multa_acumulada > 50.0) { // Límite de multa
+                std::cout << "Error: El socio tiene multas pendientes superiores al límite" << std::endl;
+                return false;
+            }
+            
+            return true;
+        }
+        
+        return false;
+        
+    } catch (const sql::SQLException& e) {
+        std::cerr << "Error validando socio: " << e.what() << std::endl;
+        return false;
+    }
+}
+
+bool PrestamoDAO::actualizarEstadoLibro(int libro_id, const std::string& estado) {
+    try {
+        std::string query = "UPDATE libros SET estado = ? WHERE id_libro = ?";
+        auto pstmt = db_connection_.prepareStatement(query);
+        pstmt->setString(1, estado);
+        pstmt->setInt(2, libro_id);
+        
+        return pstmt->executeUpdate() > 0;
+        
+    } catch (const sql::SQLException& e) {
+        std::cerr << "Error actualizando estado libro: " << e.what() << std::endl;
+        return false;
+    }
+}
+
+/*
+DEMOSTRACIÓN COMPLETA DE PRÉSTAMOS POO:
+
+1. HERENCIA:
+   - PrestamoDAO hereda de DAO<Prestamo>
+   - Implementa métodos virtuales puros
+
+2. COMPOSICIÓN:
+   - PrestamoController TIENE múltiples DAOs
+   - Préstamo TIENE referencias a Libro y Socio
+
+3. TRANSACCIONES:
+   - Operaciones atómicas para consistencia
+   - Rollback automático en caso de error
+
+4. VALIDACIONES DE NEGOCIO:
+   - Reglas complejas encapsuladas
+   - Validaciones en múltiples niveles
+
+5. MANEJO DE ERRORES:
+   - Excepciones específicas por contexto
+   - Logging detallado de operaciones
+
+6. ABSTRACCIÓN:
+   - Interfaz simple para operaciones complejas
+   - Ocultación de detalles de implementación
+
+7. RESPONSABILIDAD ÚNICA:
+   - Cada clase tiene una responsabilidad específica
+   - Separación clara de concerns
+*/
+
+/**
+ * @file main.cpp
+ * @brief Punto de entrada principal del Sistema de Gestión de Biblioteca
+ * @author Sistema de Biblioteca
+ * @date 2024
+ * 
+ * APLICACIÓN DE TODOS LOS CONCEPTOS POO:
+ * - HERENCIA: Jerarquía de usuarios (Admin, Bibliotecario, Socio)
+ * - ENCAPSULAMIENTO: Datos privados con getters/setters
+ * - ABSTRACCIÓN: Interfaces simples para operaciones complejas  
+ * - POLIMORFISMO: Comportamiento específico por tipo de usuario
+ * - COMPOSICIÓN: Objetos que contienen otros objetos
+ * - SINGLETON: Instancias únicas (DB, Sistema, Logger)
+ * - PATRÓN MVC: Separación Modelo-Vista-Controlador
+ * - PATRÓN DAO: Acceso abstracto a datos
+ * - RAII: Gestión automática de recursos
+ */
+
+#include <iostream>
+#include <memory>
+#include <exception>
+#include <csignal>
+
+// Controladores principales
+#include "include/controllers/SistemaController.h"
+
+// Vistas principales  
+#include "include/views/MenuPrincipal.h"
+
+// Utilidades
+#include "include/utils/Logger.h"
+#include "include/utils/Excepciones.h"
+
+// Base de datos
+#include "include/database/DatabaseConnection.h"
+
+/**
+ * @brief Manejador de señales para cierre elegante del sistema
+ * @param signal Señal recibida
+ */
+void signal_handler(int signal) {
+    std::cout << "\n\n=== SEÑAL DE INTERRUPCIÓN RECIBIDA ===" << std::endl;
+    
+    try {
+        // Obtener logger si existe
+        Logger& logger = Logger::getInstance();
+        logger.warning("Señal de interrupción recibida: " + std::to_string(signal));
+        
+        // Finalizar sistema de forma ordenada
+        std::cout << "Finalizando sistema de forma ordenada..." << std::endl;
+        
+        SistemaController& sistema = SistemaController::getInstance();
+        sistema.finalizarSistema();
+        
+        // Cerrar conexión DB
+        DatabaseConnection::getInstance().disconnect();
+        
+        // Destruir instancias singleton
+        SistemaController::destroyInstance();
+        DatabaseConnection::destroyInstance();
+        Logger::destroy();
+        
+        logger.info("Sistema finalizado por señal de interrupción");
+        
+    } catch (const std::exception& e) {
+        std::cerr << "Error durante el cierre del sistema: " << e.what() << std::endl;
+    }
+    
+    std::cout << "✓ Sistema cerrado correctamente" << std::endl;
+    exit(signal);
+}
+
+/**
+ * @brief Configura manejadores de señales
+ */
+void configurar_signal_handlers() {
+    signal(SIGINT, signal_handler);   // Ctrl+C
+    signal(SIGTERM, signal_handler);  // Terminación
+    
+#ifndef _WIN32
+    signal(SIGHUP, signal_handler);   // Hang up (Unix)
+    signal(SIGQUIT, signal_handler);  // Quit (Unix)
+#endif
+}
+
+/**
+ * @brief Muestra información de bienvenida del sistema
+ */
+void mostrar_banner_sistema() {
+    std::cout << R"(
+╔══════════════════════════════════════════════════════════════════════════╗
+║                                                                          ║
+║    🏛️  SISTEMA DE GESTIÓN DE BIBLIOTECA - PROGRAMACIÓN ORIENTADA A OBJETOS  ║
+║                                                                          ║
+║                          📚 Versión 1.0 - 2024 📚                        ║
+║                                                                          ║
+║    Aplicando todos los conceptos de POO:                                ║
+║    ✓ Herencia (Usuario → Admin/Bibliotecario/Socio)                     ║
+║    ✓ Encapsulamiento (Datos privados + Getters/Setters)                 ║
+║    ✓ Abstracción (Interfaces simples para lógica compleja)              ║
+║    ✓ Polimorfismo (Comportamiento específico por tipo)                  ║
+║    ✓ Composición (Libro TIENE Editorial, Préstamo TIENE Socio)          ║
+║    ✓ Patrones de Diseño (Singleton, DAO, MVC, RAII)                     ║
+║                                                                          ║
+║    Arquitectura MVC + MySQL + C++17                                     ║
+║                                                                          ║
+╚══════════════════════════════════════════════════════════════════════════╝
+    )" << std::endl;
+}
+
+/**
+ * @brief Valida requisitos del sistema antes de iniciar
+ * @return true si todos los requisitos se cumplen
+ */
+bool validar_requisitos_sistema() {
+    std::cout << "\n=== VALIDANDO REQUISITOS DEL SISTEMA ===" << std::endl;
+    
+    try {
+        // Verificar conexión a base de datos
+        std::cout << "• Verificando conexión a MySQL..." << std::endl;
+        DatabaseConnection& db = DatabaseConnection::getInstance();
+        
+        // Configuración por defecto
+        db.configure("localhost", "biblioteca_sistema", "root", "", 3306);
+        
+        if (!db.connect()) {
+            std::cerr << "❌ Error: No se pudo conectar a la base de datos" << std::endl;
+            std::cerr << "   Verifique que MySQL esté ejecutándose y que la BD 'biblioteca_sistema' exista" << std::endl;
+            return false;
+        }
+        
+        if (!db.testConnection()) {
+            std::cerr << "❌ Error: Conexión a BD inestable" << std::endl;
+            return false;
+        }
+        
+        std::cout << "✓ Conexión a MySQL establecida" << std::endl;
+        
+        // Verificar que las tablas principales existan
+        std::cout << "• Verificando estructura de base de datos..." << std::endl;
+        auto stmt = db.createStatement();
+        
+        std::vector<std::string> tablas_requeridas = {
+            "usuarios", "administradores", "bibliotecarios", "socios",
+            "libros", "editoriales", "categorias", "autores", 
+            "prestamos", "reservas", "multas"
+        };
+        
+        for (const auto& tabla : tablas_requeridas) {
+            auto rs = stmt->executeQuery("SHOW TABLES LIKE '" + tabla + "'");
+            if (!rs->next()) {
+                std::cerr << "❌ Error: Tabla '" << tabla << "' no encontrada" << std::endl;
+                std::cerr << "   Ejecute los scripts SQL de creación de base de datos" << std::endl;
+                return false;
+            }
+        }
+        
+        std::cout << "✓ Estructura de base de datos verificada" << std::endl;
+        
+        // Verificar permisos de escritura para logs
+        std::cout << "• Verificando permisos de escritura..." << std::endl;
+        std::ofstream test_file("test_permissions.tmp");
+        if (!test_file.is_open()) {
+            std::cerr << "❌ Error: Sin permisos de escritura en directorio actual" << std::endl;
+            return false;
+        }
+        test_file.close();
+        std::remove("test_permissions.tmp");
+        
+        std::cout << "✓ Permisos de escritura verificados" << std::endl;
+        std::cout << "✓ Todos los requisitos del sistema se cumplen" << std::endl;
+        
+        return true;
+        
+    } catch (const std::exception& e) {
+        std::cerr << "❌ Error validando requisitos: " << e.what() << std::endl;
+        return false;
+    }
+}
+
+/**
+ * @brief Función principal del sistema
+ * @param argc Número de argumentos de línea de comandos
+ * @param argv Argumentos de línea de comandos
+ * @return Código de salida del programa
+ */
+int main(int argc, char* argv[]) {
+    try {
+        // Configurar manejadores de señales para cierre elegante
+        configurar_signal_handlers();
+        
+        // Mostrar banner del sistema
+        mostrar_banner_sistema();
+        
+        // Validar requisitos del sistema
+        if (!validar_requisitos_sistema()) {
+            std::cerr << "\n❌ ERROR CRÍTICO: Los requisitos del sistema no se cumplen" << std::endl;
+            std::cerr << "No se puede iniciar el sistema." << std::endl;
+            return 1;
+        }
+        
+        // Inicializar logger del sistema
+        std::cout << "\n=== INICIALIZANDO SISTEMA ===" << std::endl;
+        std::cout << "• Inicializando sistema de logging..." << std::endl;
+        
+        Logger::initialize("logs/biblioteca_sistema.log", 
+                          LogLevel::INFO, 
+                          true,  // console output
+                          true); // file output
+        
+        Logger& logger = Logger::getInstance();
+        logger.info("=== INICIO DEL SISTEMA DE BIBLIOTECA ===");
+        logger.info("Versión: 1.0");
+        logger.info("Fecha de compilación: " + std::string(__DATE__) + " " + __TIME__);
+        
+        // Procesar argumentos de línea de comandos
+        bool modo_debug = false;
+        bool skip_validation = false;
+        
+        for (int i = 1; i < argc; ++i) {
+            std::string arg = argv[i];
+            
+            if (arg == "--debug" || arg == "-d") {
+                modo_debug = true;
+                Logger::getInstance().setMinLevel(LogLevel::DEBUG);
+                std::cout << "• Modo debug habilitado" << std::endl;
+            } else if (arg == "--skip-validation" || arg == "-s") {
+                skip_validation = true;
+                std::cout << "• Validaciones adicionales omitidas" << std::endl;
+            } else if (arg == "--help" || arg == "-h") {
+                std::cout << "\nUso: " << argv[0] << " [opciones]" << std::endl;
+                std::cout << "Opciones:" << std::endl;
+                std::cout << "  --debug, -d          Habilitar modo debug" << std::endl;
+                std::cout << "  --skip-validation, -s Omitir validaciones adicionales" << std::endl;
+                std::cout << "  --help, -h           Mostrar esta ayuda" << std::endl;
+                return 0;
+            } else {
+                std::cout << "• Argumento desconocido: " << arg << std::endl;
+            }
+        }
+        
+        logger.info("Argumentos procesados. Modo debug: " + 
+                   std::string(modo_debug ? "ON" : "OFF"));
+        
+        // Obtener instancia del controlador principal (SINGLETON)
+        std::cout << "• Inicializando controlador principal..." << std::endl;
+        SistemaController& sistema_controller = SistemaController::getInstance();
+        
+        // Inicializar el sistema completo
+        if (!sistema_controller.inicializarSistema()) {
+            logger.critical("Error crítico: No se pudo inicializar el sistema");
+            std::cerr << "\n❌ ERROR CRÍTICO: No se pudo inicializar el sistema" << std::endl;
+            return 1;
+        }
+        
+        logger.info("Sistema inicializado correctamente");
+        std::cout << "✓ Sistema inicializado correctamente" << std::endl;
+        
+        // Crear y ejecutar menú principal (PATRÓN MVC - VISTA)
+        std::cout << "\n=== INICIANDO INTERFAZ DE USUARIO ===" << std::endl;
+        logger.info("Iniciando interfaz de usuario");
+        
+        {
+            // RAII: MenuPrincipal se destruye automáticamente al salir del scope
+            MenuPrincipal menu_principal;
+            
+            // Ejecutar bucle principal del sistema
+            // ABSTRACCIÓN: Toda la complejidad está oculta en ejecutar()
+            menu_principal.ejecutar();
+        }
+        
+        // Finalización normal del sistema
+        logger.info("Finalizando sistema normalmente");
+        std::cout << "\n=== FINALIZANDO SISTEMA ===" << std::endl;
+        
+        // Finalizar sistema de forma ordenada
+        sistema_controller.finalizarSistema();
+        
+        // Destruir instancias singleton (SINGLETON cleanup)
+        SistemaController::destroyInstance();
+        DatabaseConnection::destroyInstance();
+        
+        logger.info("=== SISTEMA FINALIZADO CORRECTAMENTE ===");
+        Logger::destroy();
+        
+        std::cout << "✓ Sistema finalizado correctamente" << std::endl;
+        std::cout << "\n¡Gracias por usar el Sistema de Gestión de Biblioteca!" << std::endl;
+        
+        return 0;
+        
+    } catch (const DatabaseException& e) {
+        std::cerr << "\n❌ ERROR DE BASE DE DATOS: " << e.what() << std::endl;
+        std::cerr << "Código de error: " << e.getErrorCode() << std::endl;
+        
+        if (Logger::getInstance().getFilename() != "") {
+            Logger::getInstance().critical("Error de BD: " + std::string(e.what()));
+        }
+        
+        return 2;
+        
+    } catch (const SystemException& e) {
+        std::cerr << "\n❌ ERROR DEL SISTEMA: " << e.what() << std::endl;
+        
+        if (Logger::getInstance().getFilename() != "") {
+            Logger::getInstance().critical("Error del sistema: " + std::string(e.what()));
+        }
+        
+        return 3;
+        
+    } catch (const BibliotecaException& e) {
+        std::cerr << "\n❌ ERROR DE LA APLICACIÓN: " << e.what() << std::endl;
+        
+        if (Logger::getInstance().getFilename() != "") {
+            Logger::getInstance().error("Error de aplicación: " + std::string(e.what()));
+        }
+        
+        return 4;
+        
+    } catch (const std::exception& e) {
+        std::cerr << "\n❌ ERROR INESPERADO: " << e.what() << std::endl;
+        
+        try {
+            Logger::getInstance().critical("Error inesperado: " + std::string(e.what()));
+        } catch (...) {
+            // Error también en el logger, no hacer nada más
+        }
+        
+        return 5;
+        
+    } catch (...) {
+        std::cerr << "\n❌ ERROR DESCONOCIDO" << std::endl;
+        
+        try {
+            Logger::getInstance().critical("Error desconocido capturado");
+        } catch (...) {
+            // Error también en el logger, no hacer nada más
+        }
+        
+        return 6;
+    }
+}
+
+/*
+DEMOSTRACIÓN COMPLETA DE TODOS LOS CONCEPTOS POO EN MAIN:
+
+1. SINGLETON:
+   - SistemaController::getInstance()
+   - DatabaseConnection::getInstance()
+   - Logger::getInstance()
+
+2. RAII:
+   - MenuPrincipal se destruye automáticamente
+   - Destructores manejan limpieza de recursos
+
+3. ABSTRACCIÓN:
+   - main() oculta toda la complejidad del sistema
+   - menu_principal.ejecutar() encapsula toda la UI
+
+4. ENCAPSULAMIENTO:
+   - Manejo de errores estructurado
+   - Validaciones encapsuladas en funciones
+
+5. MANEJO DE EXCEPCIONES:
+   - Jerarquía de excepciones específicas
+   - Cleanup automático en casos de error
+
+6. PATRÓN MVC:
+   - main() coordina entre Controladores y Vistas
+   - Separación clara de responsabilidades
+
+7. COMPOSICIÓN:
+   - main TIENE referencias a controladores
+   - Sistema TIENE todos los componentes
+
+8. POLIMORFISMO:
+   - Diferentes tipos de excepciones manejadas uniformemente
+   - Comportamiento específico según tipo de error
+*/
+
+// =================================================================================
+// MAKEFILE COMPLETO PARA COMPILACIÓN
+// =================================================================================
+
+# Archivo: Makefile
+# Sistema de Gestión de Biblioteca - Makefile completo
+# Aplicando conceptos POO y buenas prácticas de C++
+
+# =================================================================================
+# CONFIGURACIÓN DEL COMPILADOR Y FLAGS
+# =================================================================================
+
+# Compilador
+CXX = g++
+
+# Versión de C++ (C++17 para usar características modernas)
+CXXSTD = -std=c++17
+
+# Flags de compilación básicos
+CXXFLAGS = $(CXXSTD) -Wall -Wextra -Wpedantic -O2
+
+# Flags para debug
+DEBUG_FLAGS = $(CXXSTD) -Wall -Wextra -Wpedantic -g -O0 -DDEBUG
+
+# Flags para release optimizado
+RELEASE_FLAGS = $(CXXSTD) -Wall -Wextra -Wpedantic -O3 -DNDEBUG
+
+# Directorios
+SRCDIR = src
+INCDIR = include
+OBJDIR = obj
+BINDIR = bin
+LIBDIR = libs
+TESTDIR = tests
+DOCSDIR = docs
+LOGSDIR = logs
+
+# Archivos fuente principales
+SOURCES = $(shell find $(SRCDIR) -name '*.cpp')
+OBJECTS = $(SOURCES:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
+
+# Archivos de test
+TEST_SOURCES = $(shell find $(TESTDIR) -name '*.cpp')
+TEST_OBJECTS = $(TEST_SOURCES:$(TESTDIR)/%.cpp=$(OBJDIR)/tests/%.o)
+
+# Ejecutables
+TARGET = $(BINDIR)/biblioteca_sistema
+TEST_TARGET = $(BINDIR)/tests
+
+# Librerías necesarias
+MYSQL_FLAGS = $(shell mysql_config --cflags 2>/dev/null || echo "-I/usr/include/mysql")
+MYSQL_LIBS = $(shell mysql_config --libs 2>/dev/null || echo "-lmysqlclient")
+
+# Librerías adicionales
+LIBS = $(MYSQL_LIBS) -lmysqlcppconn -lpthread
+
+# Includes
+INCLUDES = -I$(INCDIR) $(MYSQL_FLAGS)
+
+# =================================================================================
+# REGLAS PRINCIPALES
+# =================================================================================
+
+# Regla por defecto
+.PHONY: all
+all: directories $(TARGET)
+
+# Compilación en modo debug
+.PHONY: debug
+debug: CXXFLAGS = $(DEBUG_FLAGS)
+debug: directories $(TARGET)
+	@echo "✓ Compilación DEBUG completada"
+	@echo "  Ejecutable: $(TARGET)"
+	@echo "  Para ejecutar: ./$(TARGET) --debug"
+
+# Compilación en modo release
+.PHONY: release
+release: CXXFLAGS = $(RELEASE_FLAGS)
+release: directories $(TARGET)
+	@echo "✓ Compilación RELEASE completada"
+	@echo "  Ejecutable: $(TARGET)"
+	@echo "  Para ejecutar: ./$(TARGET)"
+
+# Crear directorios necesarios
+.PHONY: directories
+directories:
+	@mkdir -p $(OBJDIR)
+	@mkdir -p $(OBJDIR)/models
+	@mkdir -p $(OBJDIR)/controllers
+	@mkdir -p $(OBJDIR)/views
+	@mkdir -p $(OBJDIR)/database
+	@mkdir -p $(OBJDIR)/utils
+	@mkdir -p $(OBJDIR)/tests
+	@mkdir -p $(BINDIR)
+	@mkdir -p $(LOGSDIR)
+	@mkdir -p $(DOCSDIR)
+
+# Compilar ejecutable principal
+$(TARGET): $(OBJECTS)
+	@echo "🔗 Enlazando ejecutable principal..."
+	$(CXX) $(OBJECTS) -o $@ $(LIBS)
+	@echo "✓ Ejecutable creado: $@"
+
+# Regla para compilar archivos objeto
+$(OBJDIR)/%.o: $(SRCDIR)/%.cpp
+	@echo "🔨 Compilando: $<"
+	@mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
+
+# =================================================================================
+# TESTS UNITARIOS
+# =================================================================================
+
+# Compilar y ejecutar tests
+.PHONY: test
+test: directories $(TEST_TARGET)
+	@echo "🧪 Ejecutando tests unitarios..."
+	./$(TEST_TARGET)
+
+# Compilar ejecutable de tests
+$(TEST_TARGET): $(filter-out $(OBJDIR)/main.o, $(OBJECTS)) $(TEST_OBJECTS)
+	@echo "🔗 Enlazando ejecutable de tests..."
+	$(CXX) $^ -o $@ $(LIBS)
+	@echo "✓ Ejecutable de tests creado: $@"
+
+# Regla para compilar archivos objeto de tests
+$(OBJDIR)/tests/%.o: $(TESTDIR)/%.cpp
+	@echo "🔨 Compilando test: $<"
+	@mkdir -p $(dir $@)
+	$(CXX) $(DEBUG_FLAGS) $(INCLUDES) -c $< -o $@
+
+# =================================================================================
+# DOCUMENTACIÓN
+# =================================================================================
+
+# Generar documentación con Doxygen
+.PHONY: docs
+docs:
+	@echo "📚 Generando documentación con Doxygen..."
+	@if command -v doxygen >/dev/null 2>&1; then \
+		doxygen $(DOCSDIR)/Doxyfile; \
+		echo "✓ Documentación generada en $(DOCSDIR)/html/"; \
+	else \
+		echo "❌ Error: Doxygen no está instalado"; \
+		echo "   Instale con: sudo apt-get install doxygen"; \
+	fi
+
+# =================================================================================
+# INSTALACIÓN Y DISTRIBUCIÓN
+# =================================================================================
+
+# Instalar el sistema
+.PHONY: install
+install: release
+	@echo "📦 Instalando Sistema de Biblioteca..."
+	sudo mkdir -p /opt/biblioteca_sistema
+	sudo cp $(TARGET) /opt/biblioteca_sistema/
+	sudo cp -r config /opt/biblioteca_sistema/
+	sudo chmod +x /opt/biblioteca_sistema/biblioteca_sistema
+	sudo ln -sf /opt/biblioteca_sistema/biblioteca_sistema /usr/local/bin/biblioteca_sistema
+	@echo "✓ Sistema instalado en /opt/biblioteca_sistema"
+	@echo "✓ Ejecutable disponible como: biblioteca_sistema"
+
+# Desinstalar el sistema
+.PHONY: uninstall
+uninstall:
+	@echo "🗑️  Desinstalando Sistema de Biblioteca..."
+	sudo rm -f /usr/local/bin/biblioteca_sistema
+	sudo rm -rf /opt/biblioteca_sistema
+	@echo "✓ Sistema desinstalado"
+
+# Crear paquete de distribución
+.PHONY: package
+package: release docs
+	@echo "📦 Creando paquete de distribución..."
+	mkdir -p dist/biblioteca_sistema-1.0
+	cp $(TARGET) dist/biblioteca_sistema-1.0/
+	cp -r config dist/biblioteca_sistema-1.0/
+	cp -r $(DOCSDIR)/html dist/biblioteca_sistema-1.0/docs
+	cp README.md dist/biblioteca_sistema-1.0/
+	cp LICENSE dist/biblioteca_sistema-1.0/
+	cd dist && tar -czf biblioteca_sistema-1.0.tar.gz biblioteca_sistema-1.0/
+	@echo "✓ Paquete creado: dist/biblioteca_sistema-1.0.tar.gz"
+
+# =================================================================================
+# LIMPIEZA Y MANTENIMIENTO
+# =================================================================================
+
+# Limpiar archivos compilados
+.PHONY: clean
+clean:
+	@echo "🧹 Limpiando archivos compilados..."
+	rm -rf $(OBJDIR)
+	rm -rf $(BINDIR)
+	@echo "✓ Limpieza completada"
+
+# Limpieza profunda (incluye logs y docs)
+.PHONY: distclean
+distclean: clean
+	@echo "🧹 Limpieza profunda..."
+	rm -rf $(DOCSDIR)/html
+	rm -rf $(LOGSDIR)/*.log
+	rm -rf dist
+	@echo "✓ Limpieza profunda completada"
+
+# =================================================================================
+# UTILIDADES DE DESARROLLO
+# =================================================================================
+
+# Verificar sintaxis sin compilar
+.PHONY: check
+check:
+	@echo "🔍 Verificando sintaxis..."
+	@for file in $(SOURCES); do \
+		echo "Verificando: $$file"; \
+		$(CXX) $(CXXFLAGS) $(INCLUDES) -fsyntax-only $$file; \
+	done
+	@echo "✓ Verificación de sintaxis completada"
+
+# Análisis estático con cppcheck
+.PHONY: static-analysis
+static-analysis:
+	@echo "🔬 Ejecutando análisis estático..."
+	@if command -v cppcheck >/dev/null 2>&1; then \
+		cppcheck --enable=all --inconclusive --std=c++17 \
+			--suppress=missingIncludeSystem \
+			--suppress=unusedFunction \
+			$(SRCDIR) $(INCDIR); \
+		echo "✓ Análisis estático completado"; \
+	else \
+		echo "❌ Error: cppcheck no está instalado"; \
+		echo "   Instale con: sudo apt-get install cppcheck"; \
+	fi
+
+# Formatear código con clang-format
+.PHONY: format
+format:
+	@echo "✨ Formateando código..."
+	@if command -v clang-format >/dev/null 2>&1; then \
+		find $(SRCDIR) $(INCDIR) -name '*.cpp' -o -name '*.h' | \
+		xargs clang-format -i -style=Google; \
+		echo "✓ Código formateado"; \
+	else \
+		echo "❌ Error: clang-format no está instalado"; \
+		echo "   Instale con: sudo apt-get install clang-format"; \
+	fi
+
+# Ejecutar con Valgrind para detectar memory leaks
+.PHONY: valgrind
+valgrind: debug
+	@echo "🔍 Ejecutando análisis de memoria con Valgrind..."
+	@if command -v valgrind >/dev/null 2>&1; then \
+		valgrind --tool=memcheck --leak-check=full \
+			--show-leak-kinds=all --track-origins=yes \
+			./$(TARGET); \
+	else \
+		echo "❌ Error: Valgrind no está instalado"; \
+		echo "   Instale con: sudo apt-get install valgrind"; \
+	fi
+
+# =================================================================================
+# INFORMACIÓN Y AYUDA
+# =================================================================================
+
+# Mostrar información del proyecto
+.PHONY: info
+info:
+	@echo "📋 INFORMACIÓN DEL PROYECTO"
+	@echo "=============================="
+	@echo "Nombre: Sistema de Gestión de Biblioteca"
+	@echo "Versión: 1.0"
+	@echo "Lenguaje: C++17"
+	@echo "Base de datos: MySQL 8.0+"
+	@echo "Arquitectura: MVC + POO"
+	@echo ""
+	@echo "📁 ESTRUCTURA:"
+	@echo "  $(SRCDIR)/     - Código fuente (.cpp)"
+	@echo "  $(INCDIR)/     - Archivos de cabecera (.h)"
+	@echo "  $(OBJDIR)/     - Archivos objeto (.o)"
+	@echo "  $(BINDIR)/     - Ejecutables"
+	@echo "  $(TESTDIR)/    - Tests unitarios"
+	@echo "  $(DOCSDIR)/    - Documentación"
+	@echo "  config/       - Archivos de configuración"
+	@echo ""
+	@echo "🔧 COMPILADOR:"
+	@echo "  $(CXX) $(CXXSTD)"
+	@echo ""
+	@echo "📚 LIBRERÍAS:"
+	@echo "  MySQL Connector/C++"
+	@echo "  pthread"
+
+# Ayuda con todos los comandos disponibles
+.PHONY: help
+help:
+	@echo "🆘 AYUDA DEL MAKEFILE"
+	@echo "======================"
+	@echo ""
+	@echo "📦 COMPILACIÓN:"
+	@echo "  make          - Compilación normal"
+	@echo "  make debug    - Compilación con símbolos de debug"
+	@echo "  make release  - Compilación optimizada para producción"
+	@echo ""
+	@echo "🧪 TESTING:"
+	@echo "  make test     - Compilar y ejecutar tests unitarios"
+	@echo ""
+	@echo "📚 DOCUMENTACIÓN:"
+	@echo "  make docs     - Generar documentación con Doxygen"
+	@echo ""
+	@echo "🧹 LIMPIEZA:"
+	@echo "  make clean    - Limpiar archivos compilados"
+	@echo "  make distclean- Limpieza profunda (incluye docs y logs)"
+	@echo ""
+	@echo "📦 INSTALACIÓN:"
+	@echo "  make install  - Instalar en el sistema"
+	@echo "  make uninstall- Desinstalar del sistema"
+	@echo "  make package  - Crear paquete de distribución"
+	@echo ""
+	@echo "🔧 DESARROLLO:"
+	@echo "  make check    - Verificar sintaxis"
+	@echo "  make static-analysis - Análisis estático con cppcheck"
+	@echo "  make format   - Formatear código con clang-format"
+	@echo "  make valgrind - Análisis de memoria con Valgrind"
+	@echo ""
+	@echo "ℹ️  INFORMACIÓN:"
+	@echo "  make info     - Información del proyecto"
+	@echo "  make help     - Esta ayuda"
+
+# =================================================================================
+# CONFIGURACIÓN AVANZADA
+# =================================================================================
+
+# Detectar número de cores para compilación paralela
+NPROCS := $(shell nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || echo 1)
+
+# Regla para compilación paralela
+.PHONY: parallel
+parallel:
+	@echo "🚀 Compilación paralela usando $(NPROCS) cores..."
+	$(MAKE) -j$(NPROCS) all
+
+# Variables para diferentes configuraciones
+ifdef MYSQL_DIR
+    MYSQL_FLAGS = -I$(MYSQL_DIR)/include
+    MYSQL_LIBS = -L$(MYSQL_DIR)/lib -lmysqlclient
+endif
+
+ifdef CUSTOM_CXXFLAGS
+    CXXFLAGS += $(CUSTOM_CXXFLAGS)
+endif
+
+# =================================================================================
+# CONFIGURACIÓN DE DEPENDENCIAS
+# =================================================================================
+
+# Generar archivos de dependencias automáticamente
+DEPDIR = .deps
+DEPFLAGS = -MT $@ -MMD -MP -MF $(DEPDIR)/$*.d
+
+# Incluir archivos de dependencias
+-include $(patsubst $(SRCDIR)/%.cpp,$(DEPDIR)/%.d,$(SOURCES))
+
+# Crear directorio de dependencias
+$(DEPDIR):
+	@mkdir -p $@
+
+# Modificar regla de compilación para incluir dependencias
+$(OBJDIR)/%.o: $(SRCDIR)/%.cpp $(DEPDIR)/%.d | $(DEPDIR)
+	@echo "🔨 Compilando: $<"
+	@mkdir -p $(dir $@) $(dir $(DEPDIR)/$*.d)
+	$(CXX) $(DEPFLAGS) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
+
+# Regla vacía para archivos de dependencias
+$(DEPDIR)/%.d: ;
+
+.PRECIOUS: $(DEPDIR)/%.d
+
+# Regla por defecto al final
+.DEFAULT_GOAL := all
+
+/*
+EXPLICACIÓN DEL MAKEFILE:
+
+1. ORGANIZACIÓN MODULAR:
+   - Separación clara de directorios
+   - Compilación incremental eficiente
+   - Soporte para debug y release
+
+2. DETECCIÓN AUTOMÁTICA:
+   - Encuentra todos los archivos .cpp automáticamente
+   - Detecta número de cores para compilación paralela
+   - Genera dependencias automáticamente
+
+3. HERRAMIENTAS DE DESARROLLO:
+   - Tests unitarios integrados
+   - Análisis estático con cppcheck
+   - Formateo automático de código
+   - Análisis de memoria con Valgrind
+
+4. DOCUMENTACIÓN:
+   - Generación automática con Doxygen
+   - Ayuda integrada con make help
+   - Información del proyecto
+
+5. DISTRIBUCIÓN:
+   - Instalación en el sistema
+   - Creación de paquetes
+   - Limpieza automática
+
+El Makefile sigue las mejores prácticas y permite
+un desarrollo profesional del proyecto POO.
+*/
+

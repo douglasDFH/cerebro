@@ -1,0 +1,219 @@
+/* CSS para el encabezado y el menú */
+.container1 {
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.menu {
+  position: fixed;
+  top: 0;
+  left: 50%; /* Centrar horizontalmente */
+  transform: translateX(-50%); /* Centrar horizontalmente */
+  display: flex;
+  justify-content: center;
+  z-index: 1000;
+  background-color: #000; /* Fondo del menú */
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+}
+
+.menu .navbar ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+}
+
+.menu .navbar ul li a:hover {
+  color: #db241b;
+}
+
+.menu .navbar ul li {
+  position: relative;
+  float: left;
+}
+
+.menu .navbar ul li a {
+  font-size: 18px;
+  padding: 20px;
+  color: #ffffff;
+  display: block;
+  text-decoration: none;
+}
+
+/* CSS para el contenido principal */
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
+  background-color: #000;
+  color: #fff;
+}
+
+.logo-title-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 100px; /* Ajustar margen superior para dejar espacio al menú */
+  margin-bottom: 10px;
+}
+
+.logo-title-container img {
+  width: 80px;
+  height: 70px;
+  margin-bottom: 10px;
+} 
+
+/* Estilos para las tarjetas del catálogo de pizzas */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: auto;
+}
+
+.container .card {
+  width: 300px;
+  height: auto;
+  border-radius: 8px;
+  border: 2px solid #db241b;
+  overflow: hidden;
+  margin: 20px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: #000;
+  color: #fff;
+}
+
+.container .card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.container .card img {
+  width: 200px;
+  height: auto;
+  object-fit: cover;
+  border-bottom: 1px solid #db241b;
+}
+
+.container .card h4 {
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.container .card p {
+  padding: 0 20px;
+  font-size: 16px;
+  font-weight: 300;
+  margin-bottom: 20px;
+}
+
+.container .card a {
+  font-weight: 500;
+  text-decoration: none;
+  color: #fff;
+}
+
+.container .card .boton,
+.container .card .boton2 {
+  padding: 10px 20px;
+  border: 2px solid #db241b;
+  border-radius: 20px;
+  width: 100px;
+  display: inline-block;
+  margin-right: 10px;
+  text-align: center;
+}
+
+
+
+.equipo{
+  text-align: center;
+  padding: 10px;
+  color: #fff;
+}
+.descripcion{
+  text-align: center;
+  padding: 5px 25px;
+  color: #fff;
+}
+
+.cardf{
+  width: 100%;
+  display: flex;
+  gap: 50px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 30px;
+}
+.card__perfil{
+  width: 200px; /* Reducido el ancho */
+  padding: 10px; /* Ajustado el padding */
+  box-shadow: 1px 1px 5px rgb(201, 201, 201);
+  border: solid rgba(3, 133, 255, 0) 2px;
+  border-radius: 10px;
+}
+
+.card__perfil:hover{
+  border: solid rgb(3, 133, 255) 2px;
+}
+.card__perfil:hover img{
+  transform: rotate(0);
+}
+img{
+  width: 140px;
+  border-radius: 50%;
+  box-shadow: 2px 2px 5px rgb(216, 216, 216);
+  transition: all .3s;
+}
+.card__nombre{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+hr{
+  width: 100%;
+  height: 4px;
+  background: rgb(223, 221, 221);
+  margin: 20px 5px;
+}
+.card__button{
+  text-align: center;
+}
+
+/* Estilos para la lista de enlaces superiores */
+.enlaces-superiores {
+  list-style-type: none; /* Quita los puntos de la lista */
+  padding: 0; /* Elimina el espacio interno de la lista */
+  margin: 0; /* Elimina el margen exterior de la lista */
+  text-align: center; /* Centra los enlaces */
+  background-color: #000; /* Color de fondo */
+  padding: 10px 0; /* Espaciado interno superior e inferior */
+}
+
+/* Estilos para los elementos de la lista */
+.enlaces-superiores li {
+  display: inline; /* Muestra los elementos de la lista en línea */
+}
+
+/* Estilos para los enlaces */
+.enlaces-superiores li a {
+  text-decoration: none; /* Quita la subrayado de los enlaces */
+  color: #fff; /* Color del texto */
+  padding: 10px 20px; /* Espaciado interno izquierdo y derecho */
+}
+
+/* Estilos para los enlaces al pasar el cursor */
+.enlaces-superiores li a:hover {
+  background-color:blue; /* Cambia el color de fondo al pasar el cursor */
+  border-radius: 5px; /* Agrega bordes redondeados */
+  border: 2px solid #db241b;
+}

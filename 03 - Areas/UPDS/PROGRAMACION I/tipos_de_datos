@@ -1,0 +1,12 @@
+#include <iostrean>
+using namespace std;
+
+int main ()
+{
+      short int numero_entero_p;
+     int numero_entero;
+     float numero_decimal;
+	 double Numero_decimal_g;
+	// asignando valores de limites de datos
+	numero_entero_p = 32767;
+	cout <<"numero entero pequeño"<<numero_entero_p;

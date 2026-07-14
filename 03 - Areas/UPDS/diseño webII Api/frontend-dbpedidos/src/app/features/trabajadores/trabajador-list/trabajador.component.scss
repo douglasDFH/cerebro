@@ -1,0 +1,160 @@
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 1rem;
+}
+
+.title {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.toolbar {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+
+  input, select, button {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  button {
+    background-color: #1976d2;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s ease;
+
+    &:hover {
+      background-color: #125ca1;
+    }
+  }
+
+  input::placeholder {
+    color: #aaa;
+  }
+}
+
+.formulario {
+  margin-bottom: 1.5rem;
+  background-color: #f9f9f9;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+
+  h3 {
+    grid-column: span 2;
+    margin-bottom: 0.5rem;
+  }
+
+  form {
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+
+    label {
+      display: flex;
+      flex-direction: column;
+      font-weight: 500;
+    }
+
+    input, select {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      grid-column: span 2;
+      padding: 0.6rem;
+      background-color: #1976d2;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+
+      &:hover {
+        background-color: #125ca1;
+      }
+    }
+  }
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  overflow: hidden;
+
+  th {
+    background-color: #f0f0f0;
+    padding: 0.6rem;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    border-bottom: 1px solid #ccc;
+  }
+
+  td {
+    padding: 0.5rem;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+  }
+
+  tr:nth-child(even) {
+    background-color: #fcfcfc;
+  }
+
+  tr:hover {
+    background-color: #eef6ff;
+  }
+
+  button {
+    padding: 0.3rem 0.6rem;
+    margin: 0 2px;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 4px;
+    background-color: #1976d2;
+    color: white;
+    cursor: pointer;
+    transition: background 0.2s ease;
+
+    &:hover {
+      background-color: #125ca1;
+    }
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+
+  button {
+    margin: 0 0.5rem;
+    padding: 0.4rem 1rem;
+    background-color: #1976d2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:disabled {
+      background-color: #aaa;
+      cursor: default;
+    }
+
+    &:hover:not(:disabled) {
+      background-color: #125ca1;
+    }
+  }
+}

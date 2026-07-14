@@ -1,0 +1,1583 @@
+-- Crear la base de datos
+CREATE DATABASE Bike_Store;
+GO
+
+-- Usar la base de datos
+USE Bike_Store;
+GO
+
+-- Crear tabla categories
+CREATE TABLE categories (
+    category_id INT PRIMARY KEY IDENTITY(1,1),
+    category_name NVARCHAR(100) NOT NULL
+);
+GO
+
+-- Crear tabla products
+CREATE TABLE products (
+    product_id INT PRIMARY KEY IDENTITY(1,1),
+    product_name NVARCHAR(100) NOT NULL,
+    model_year INT NOT NULL,
+    price DECIMAL(10,2) NOT NULL,
+    category_id INT NOT NULL,
+    CONSTRAINT FK_products_categories FOREIGN KEY (category_id) REFERENCES categories(category_id)
+);
+GO
+
+-- Crear tabla stores
+CREATE TABLE stores (
+    store_id INT PRIMARY KEY IDENTITY(1,1),
+    store_name NVARCHAR(100) NOT NULL,
+    phone NVARCHAR(20),
+    email NVARCHAR(100),
+    street NVARCHAR(200),
+    city NVARCHAR(100),
+    state NVARCHAR(50),
+    zip_code NVARCHAR(10)
+);
+GO
+
+-- Crear tabla staffs
+CREATE TABLE staffs (
+    staff_id INT PRIMARY KEY IDENTITY(1,1),
+    first_name NVARCHAR(50) NOT NULL,
+    last_name NVARCHAR(50) NOT NULL,
+    email NVARCHAR(100),
+    phone NVARCHAR(20),
+    active BIT NOT NULL,
+    store_id INT NOT NULL,
+    manager_id INT NULL,
+    CONSTRAINT FK_staffs_stores FOREIGN KEY (store_id) REFERENCES stores(store_id),
+    CONSTRAINT FK_staffs_manager FOREIGN KEY (manager_id) REFERENCES staffs(staff_id)
+);
+GO
+
+-- Crear tabla customers
+CREATE TABLE customers (
+    customer_id INT PRIMARY KEY IDENTITY(1,1),
+    first_name NVARCHAR(50) NOT NULL,
+    last_name NVARCHAR(50) NOT NULL,
+    phone NVARCHAR(20),
+    email NVARCHAR(100),
+    street NVARCHAR(200),
+    city NVARCHAR(100),
+    state NVARCHAR(50),
+    zip_code NVARCHAR(10)
+);
+GO
+
+-- Crear tabla orders
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY IDENTITY(1,1),
+    customer_id INT NOT NULL,
+    order_date DATE NOT NULL,
+    CONSTRAINT FK_orders_customers FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+);
+GO
+
+-- Crear tabla order_items
+CREATE TABLE order_items (
+    order_item_id INT PRIMARY KEY IDENTITY(1,1),
+    order_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    price DECIMAL(10,2) NOT NULL,
+    discount DECIMAL(5,2) NOT NULL,
+    CONSTRAINT FK_order_items_orders FOREIGN KEY (order_id) REFERENCES orders(order_id),
+    CONSTRAINT FK_order_items_products FOREIGN KEY (product_id) REFERENCES products(product_id)
+);
+GO
+
+-- Crear tabla stocks
+CREATE TABLE stocks (
+    store_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    CONSTRAINT PK_stocks PRIMARY KEY (store_id, product_id),
+    CONSTRAINT FK_stocks_stores FOREIGN KEY (store_id) REFERENCES stores(store_id),
+    CONSTRAINT FK_stocks_products FOREIGN KEY (product_id) REFERENCES products(product_id)
+);
+GO
+------------FIN DE LA BASE DE DATOS------------
+
+----------------------------------------------------------------------------------------
+
+USE Bike_Store;
+GO
+
+-- ============================================
+-- Procedimiento para insertar un producto
+-- ============================================
+CREATE PROCEDURE spinsertar_products
+    @product_id INT OUTPUT,
+    @product_name VARCHAR(200),
+    @model_year SMALLINT,
+    @price DECIMAL(10,2),
+    @imagen IMAGE,
+    @category_id INT
+AS
+BEGIN
+    INSERT INTO products(product_name, model_year, price, imagen, category_id)
+    VALUES (@product_name, @model_year, @price, @imagen, @category_id);
+
+    SET @product_id = SCOPE_IDENTITY();
+END;
+GO
+
+-- ============================================
+-- Procedimiento para actualizar un producto
+-- ============================================
+CREATE PROCEDURE speditar_products
+    @product_id INT,
+    @product_name VARCHAR(200),
+    @model_year SMALLINT,
+    @price DECIMAL(10,2),
+    @imagen IMAGE,
+    @category_id INT
+AS
+BEGIN
+    UPDATE products 
+    SET product_name = @product_name,
+        model_year = @model_year,
+        price = @price,
+        imagen = @imagen,
+        category_id = @category_id
+    WHERE product_id = @product_id;
+END;
+GO
+
+-- ============================================
+-- Procedimiento para eliminar un producto
+-- ============================================
+CREATE PROCEDURE speliminar_products
+    @product_id INT
+AS
+BEGIN
+    DELETE FROM products WHERE product_id = @product_id;
+END;
+GO
+
+-- ============================================
+-- Procedimiento para mostrar todos los productos con su categoría
+-- ============================================
+CREATE PROCEDURE spmostrar_products
+AS
+BEGIN
+    SELECT p.product_id, p.product_name, p.model_year, p.price, p.imagen,
+           p.category_id, c.category_name AS Category
+    FROM products p
+    INNER JOIN categories c ON p.category_id = c.category_id
+    ORDER BY p.product_id DESC;
+END;
+GO
+
+-- ============================================
+-- Procedimiento para buscar productos por nombre
+-- ============================================
+CREATE PROCEDURE spbuscar_product_name
+    @textbuscar VARCHAR(50)
+AS
+BEGIN
+    SELECT p.product_id, p.product_name, p.model_year, p.price, p.imagen,
+           p.category_id, c.category_name AS Category
+    FROM products p
+    INNER JOIN categories c ON p.category_id = c.category_id
+    WHERE p.product_name LIKE '%' + @textbuscar + '%'
+    ORDER BY p.product_id DESC;
+END;
+GO
+
+-- ============================================
+-- Procedimiento para insertar una categoría
+-- ============================================
+CREATE PROCEDURE spinsertar_categories
+    @category_id INT OUTPUT,
+    @category_name VARCHAR(255)
+AS
+BEGIN
+    INSERT INTO categories(category_name) VALUES (@category_name);
+    SET @category_id = SCOPE_IDENTITY();
+END;
+GO
+
+-- ============================================
+-- Procedimiento para actualizar una categoría
+-- ============================================
+CREATE PROCEDURE speditar_categories
+    @category_id INT,
+    @category_name VARCHAR(255)
+AS
+BEGIN
+    UPDATE categories SET category_name = @category_name WHERE category_id = @category_id;
+END;
+GO
+
+-- ============================================
+-- Procedimiento para eliminar una categoría
+-- ============================================
+CREATE PROCEDURE speliminar_categories
+    @category_id INT
+AS
+BEGIN
+    DELETE FROM categories WHERE category_id = @category_id;
+END;
+GO
+
+-- ============================================
+-- Procedimiento para mostrar todas las categorías
+-- ============================================
+CREATE PROCEDURE spmostrar_categories
+AS
+BEGIN
+    SELECT * FROM categories ORDER BY category_id DESC;
+END;
+GO
+
+-- ============================================
+-- Procedimiento para buscar categorías por nombre
+-- ============================================
+CREATE PROCEDURE spbuscar_category_name
+    @textbuscar VARCHAR(50)
+AS
+BEGIN
+    SELECT * FROM categories
+    WHERE category_name LIKE '%' + @textbuscar + '%'
+    ORDER BY category_id DESC;
+END;
+GO
+
+
+-- ============================================
+-- EJEMPLOS DE USO DE LOS PROCEDIMIENTOS
+-- Ejecutar después de crear los procedimientos
+-- ============================================
+
+-- Insertar un producto nuevo
+DECLARE @newProductId INT;
+EXEC spinsertar_products @product_id = @newProductId OUTPUT,
+                         @product_name = 'Bicicleta Montaña X',
+                         @model_year = 2023,
+                         @price = 1500.00,
+                         @imagen = NULL,
+                         @category_id = 1;
+SELECT 'Nuevo product_id:' AS Msg, @newProductId AS ProductID;
+
+-- Mostrar todos los productos
+EXEC spmostrar_products;
+
+-- Buscar productos con nombre que contenga 'Montaña'
+EXEC spbuscar_product_name @textbuscar = 'Montaña';
+
+-- Actualizar producto insertado
+DECLARE @newProductId INT;
+SET @newProductId = 3;  -- O el ID que quieres actualizar
+EXEC speditar_products
+    @product_id = @newProductId,
+    @product_name = 'Bicicleta Montaña X Pro',
+    @model_year = 2024,
+    @price = 1600.00,
+    @imagen = NULL,
+    @category_id = 1;
+
+
+-- Eliminar producto insertado
+DECLARE @newProductId INT;
+-- Asignar el ID del producto que quieres eliminar
+SET @newProductId = 3; -- Cambia este 3 por el product_id que quieres eliminar
+-- Ejecutar el procedimiento para eliminar el producto
+EXEC speliminar_products @product_id = @newProductId;
+
+
+
+DECLARE @newProductId INT;
+-- Obtener el product_id más alto (último insertado)
+SELECT TOP 1 @newProductId = product_id
+FROM products
+ORDER BY product_id DESC;
+-- Eliminar el producto con ese ID
+EXEC speliminar_products @product_id = @newProductId;
+
+
+
+
+
+-- Insertar categoría nueva
+DECLARE @newCategoryId INT;
+EXEC spinsertar_categories @category_id = @newCategoryId OUTPUT, @category_name = 'BMX';
+SELECT 'Nuevo category_id:' AS Msg, @newCategoryId AS CategoryID;
+
+-- Mostrar todas las categorías
+EXEC spmostrar_categories;
+
+-- Buscar categorías que contengan 'Bike'
+EXEC spbuscar_category_name @textbuscar = 'Bike';
+
+-- Actualizar categoría insertada
+
+DECLARE @newCategoryId INT;
+SET @newCategoryId = 1;  -- Cambia por el ID real de la categoría
+EXEC speditar_categories
+    @category_id = @newCategoryId,
+    @category_name = 'BMX Bikes';
+
+
+---Alternativa para obtener el último ID insertado (si quieres actualizar la última categoría creada):
+DECLARE @newCategoryId INT;
+SELECT TOP 1 @newCategoryId = category_id
+FROM categories
+ORDER BY category_id DESC;
+EXEC speditar_categories
+    @category_id = @newCategoryId,
+    @category_name = 'BMX Bikes';
+
+
+
+-- Eliminar categoría insertada
+DECLARE @newCategoryId INT;
+SET @newCategoryId = 1;  -- Cambia 1 por el ID real de la categoría que quieres eliminar
+EXEC speliminar_categories @category_id = @newCategoryId;
+
+
+
+DECLARE @newCategoryId INT;
+SET @newCategoryId = 1;  -- ID de la categoría que quieres eliminar
+-- Eliminar productos asociados a esa categoría
+DELETE FROM products WHERE category_id = @newCategoryId;
+-- Ahora eliminar la categoría
+EXEC speliminar_categories @category_id = @newCategoryId;
+
+
+
+
+DECLARE @newCategoryId INT;
+DECLARE @otherCategoryId INT;
+SET @newCategoryId = 1;  -- categoría que quieres eliminar
+SET @otherCategoryId = 2;  -- categoría válida para reasignar productos
+-- Actualizar productos para que apunten a otra categoría
+UPDATE products
+SET category_id = @otherCategoryId
+WHERE category_id = @newCategoryId;
+-- Ahora eliminar la categoría
+EXEC speliminar_categories @category_id = @newCategoryId;
+
+
+
+
+-------------FIN---------------------
+
+------------------------------------------------------------------------------------------------
+
+----INSERTAR-------
+SELECT category_id, category_name FROM categories;
+
+--------------------------------
+INSERT INTO categories (category_name) VALUES ('New Category Name');
+
+------------------------------
+SET IDENTITY_INSERT categories ON;
+INSERT INTO categories (category_id, category_name) VALUES (3, 'Bikes'); -- Si 2 ya existe, da error
+SET IDENTITY_INSERT categories OFF;
+
+
+---------insertar-------
+INSERT INTO categories (category_name) VALUES 
+('BMX Bikes'),
+('Mountain Bikes'),
+('Road Bikes'),
+('Touring Bikes');
+
+----verificar-------
+SELECT * FROM categories;
+
+
+INSERT INTO products (product_name, model_year, price, category_id) VALUES
+('Trek 820 - 2017', 2017, 379.99, 2),  -- BMX Bikes
+('Ritchey Timberwolf Frameset - 2017', 2018, 749.99, 2),  -- BMX Bikes
+('Surly Wednesday Frameset - 2017', 2019, 999.99, 3),  -- Bikes
+('Trek Fuel EX 8 29 - 2017', 2019, 2899.99, 6);  -- Mountain Bikes
+
+
+
+
+INSERT INTO customers (first_name, last_name, phone, email, street, city, state, zip_code) VALUES
+('Debra', 'Burks', NULL, 'debra.burks@yahoo.com', '9273 Thorne Ave.', 'Orchard Park', 'NY', '14127'),
+('Kasha', 'Todd', NULL, 'kasha.todd@yahoo.com', '910 Vine Street', 'Campbell', 'CA', '95008');
+
+
+INSERT INTO orders (customer_id, order_date) VALUES
+(1, '2017-01-01'),
+(2, '2017-01-02');
+
+
+
+SELECT order_id FROM orders;
+
+
+SELECT product_id, product_name FROM products;
+
+
+
+INSERT INTO order_items (order_id, product_id, quantity, price, discount) VALUES
+(3, 17, 2, 379.99, 0),
+(3, 18, 1, 749.99, 0.1),
+(4, 19, 1, 999.99, 0);
+
+------FIN-----------------
+-------------------------------------------------------------
+
+
+----ElIMINACION----------
+DELETE FROM order_items WHERE product_id = 13;
+DELETE FROM products WHERE product_id = 13;
+
+
+
+ALTER TABLE order_items
+DROP CONSTRAINT FK_order_items_products; -- elimina la FK antigua
+
+ALTER TABLE order_items
+ADD CONSTRAINT FK_order_items_products
+FOREIGN KEY (product_id) REFERENCES products(product_id)
+ON DELETE CASCADE;
+
+
+SELECT * FROM products
+
+-----------solucion al problema de spinsertar_productos----------
+EXEC sp_helptext 'spinsertar_products';
+
+
+DECLARE @newProductID INT;
+
+EXEC spinsertar_products 
+    @product_id = @newProductID OUTPUT,
+    @product_name = 'Corons',
+    @model_year = 2025,
+    @price = 60,
+    @imagen = NULL, -- o la imagen que quieras insertar
+    @category_id = 7;
+
+
+
+
+DECLARE @new_product_id INT;
+
+EXEC spinsertar_products
+    @product_id = @new_product_id OUTPUT,
+    @product_name = 'Corona',
+    @model_year = 2025,
+    @price = 70.00,
+    @imagen = NULL,          -- si no tienes imagen, envía NULL
+    @category_id = 8;        -- ID de categoría válida
+
+-- Mostrar el valor generado
+SELECT @new_product_id AS NuevoProductID;
+
+
+
+
+
+ALTER PROCEDURE spinsertar_products
+    @product_id INT OUTPUT,
+    @product_name VARCHAR(200),
+    @model_year SMALLINT,
+    @price MONEY,
+    @imagen IMAGE,
+    @category_id INT
+AS
+BEGIN
+    INSERT INTO products (product_name, model_year, price, imagen, category_id)
+    VALUES (@product_name, @model_year, @price, @imagen, @category_id)
+
+    SET @product_id = SCOPE_IDENTITY()
+END
+
+
+
+
+IF OBJECT_ID('spinsertar_products', 'P') IS NOT NULL
+    DROP PROCEDURE spinsertar_products;
+GO
+-- Luego tu CREATE PROCEDURE...
+
+
+USE Bike_Store;
+GO
+
+IF OBJECT_ID('spinsertar_products', 'P') IS NOT NULL
+    DROP PROCEDURE spinsertar_products;
+GO
+
+CREATE PROCEDURE spinsertar_products
+    @product_id INT OUTPUT,
+    @product_name VARCHAR(200),
+    @model_year SMALLINT,
+    @price MONEY,
+    @imagen IMAGE,
+    @category_id INT
+AS
+BEGIN
+    INSERT INTO products (product_name, model_year, price, imagen, category_id)
+    VALUES (@product_name, @model_year, @price, @imagen, @category_id)
+
+    SET @product_id = SCOPE_IDENTITY();
+END;
+GO
+
+
+
+
+--------------------------------
+ALTER TABLE products ADD create_date DATETIME DEFAULT GETDATE();
+
+ALTER PROCEDURE spinsertar_products
+    @product_id INT OUTPUT,
+    @product_name VARCHAR(200),
+    @model_year SMALLINT,
+    @price MONEY,
+    @imagen IMAGE,
+    @category_id INT,
+    @create_date DATETIME
+AS
+BEGIN
+    INSERT INTO products (product_name, model_year, price, imagen, category_id, create_date)
+    VALUES (@product_name, @model_year, @price, @imagen, @category_id, @create_date);
+
+    SET @product_id = SCOPE_IDENTITY();
+END;
+
+
+
+ALTER TABLE categories
+ADD CONSTRAINT UQ_category_name UNIQUE (category_name);
+
+
+
+------PARA CORREGIR DUPLICADOS----------
+-- 1. Actualizar productos para que usen la categoría correcta (mínima)
+WITH Duplicados AS (
+    SELECT category_name, MIN(category_id) AS id_valido
+    FROM categories
+    GROUP BY category_name
+    HAVING COUNT(*) > 1
+)
+UPDATE P
+SET P.category_id = D.id_valido
+FROM products P
+JOIN categories C ON P.category_id = C.category_id
+JOIN Duplicados D ON C.category_name = D.category_name
+WHERE P.category_id <> D.id_valido;
+
+-- 2. Eliminar las categorías duplicadas (que NO son la mínima)
+DELETE FROM categories
+WHERE category_id NOT IN (
+    SELECT MIN(category_id)
+    FROM categories
+    GROUP BY category_name
+);
+
+-- 3. Agregar restricción de unicidad (ya no habrá duplicados)
+ALTER TABLE categories
+ADD CONSTRAINT UQ_category_name UNIQUE (category_name);
+
+
+-- Eliminar primero los productos que usan la categoría
+DELETE FROM products
+WHERE category_id IN (
+    SELECT category_id
+    FROM categories
+    WHERE category_name = 'Touring Bikes'
+);
+
+-- Luego elimina la categoría
+DELETE FROM categories
+WHERE category_name = 'Touring Bikes';
+
+
+
+
+-- Elimina la restricción FK actual
+ALTER TABLE products
+DROP CONSTRAINT FK_products_categories;
+
+-- Agrega una nueva con CASCADE
+ALTER TABLE products
+ADD CONSTRAINT FK_products_categories
+FOREIGN KEY (category_id)
+REFERENCES categories(category_id)
+ON DELETE CASCADE;
+
+
+
+USE Bike_Store
+GO
+
+select * from categories
+
+
+
+-------------CUSTOMERS TABLA---------------
+USE Bike_Store
+GO
+
+select * from customers
+
+-- Mostrar todos los clientes
+CREATE PROCEDURE spmostrar_customers
+AS
+BEGIN
+    SELECT * FROM customers
+END
+GO
+
+
+-- Eliminar el procedimiento si ya existe
+IF OBJECT_ID('spmostrar_customers', 'P') IS NOT NULL
+    DROP PROCEDURE spmostrar_customers;
+GO
+
+-- Crear el procedimiento almacenado
+CREATE PROCEDURE spmostrar_customers
+AS
+BEGIN
+    SELECT 
+        customer_id,
+        first_name,
+        last_name,
+        gender,
+        birth_date,
+        document_type,
+        document_number,
+        street,
+        phone,
+        email
+    FROM customers;
+END
+GO
+
+
+
+
+IF OBJECT_ID('spmostrar_customers', 'P') IS NOT NULL
+    DROP PROCEDURE spmostrar_customers;
+GO
+
+
+
+CREATE PROCEDURE spmostrar_customers
+AS
+BEGIN
+    SELECT * FROM customers;
+END
+GO
+
+
+
+ALTER PROCEDURE spmostrar_customers
+AS
+BEGIN
+    SELECT * FROM customers
+END
+
+DROP PROCEDURE IF EXISTS spmostrar_customers;
+GO
+
+CREATE PROCEDURE spmostrar_customers
+AS
+BEGIN
+    SELECT * FROM customers
+END
+GO
+
+
+-- Buscar clientes por nombre
+CREATE PROCEDURE spbuscar_customers
+    @textobuscar VARCHAR(50)
+AS
+BEGIN
+    SELECT * FROM customers
+    WHERE first_name LIKE '%' + @textobuscar + '%'
+END
+GO
+
+
+
+ALTER PROCEDURE spmostrar_customers
+AS
+BEGIN
+    SELECT 
+        customer_id, 
+        first_name, 
+        last_name, 
+        phone, 
+        email, 
+        street, 
+        city, 
+        state, 
+        zip_code
+    FROM customers
+END
+
+
+
+CREATE PROCEDURE spinsertar_customers
+    @first_name VARCHAR(50),
+    @last_name VARCHAR(50),
+    @phone VARCHAR(20),
+    @email VARCHAR(100),
+    @street VARCHAR(100),
+    @city VARCHAR(50),
+    @state VARCHAR(50),
+    @zip_code VARCHAR(10)
+AS
+BEGIN
+    INSERT INTO customers (first_name, last_name, phone, email, street, city, state, zip_code)
+    VALUES (@first_name, @last_name, @phone, @email, @street, @city, @state, @zip_code)
+END
+
+
+ALTER PROCEDURE spmostrar_customers
+AS
+BEGIN
+    SELECT
+        customer_id,
+        first_name,
+        last_name,
+        phone,
+        email,
+        street,
+        city,
+        state,
+        zip_code
+    FROM customers;
+END;
+
+
+
+ALTER TABLE customers
+  ADD gender VARCHAR(20),
+      birth_date DATE,
+      document_type VARCHAR(50),
+      document_number VARCHAR(50);
+
+
+
+-- Mostrar clientes
+CREATE OR ALTER PROCEDURE spmostrar_customers AS
+BEGIN
+  SELECT customer_id, first_name, last_name, gender, birth_date,
+         document_type, document_number, street, phone, email
+  FROM customers;
+END;
+
+-- Insertar cliente
+CREATE OR ALTER PROCEDURE spinsertar_customers
+  @first_name      VARCHAR(100),
+  @last_name       VARCHAR(100),
+  @gender          VARCHAR(20),
+  @birth_date      DATE,
+  @document_type   VARCHAR(50),
+  @document_number VARCHAR(50),
+  @street          VARCHAR(200),
+  @phone           VARCHAR(50),
+  @email           VARCHAR(100)
+AS
+BEGIN
+  INSERT INTO customers (first_name,last_name,gender,birth_date,
+                         document_type,document_number,street,phone,email)
+  VALUES (@first_name,@last_name,@gender,@birth_date,
+          @document_type,@document_number,@street,@phone,@email);
+END;
+
+-- Editar cliente
+CREATE OR ALTER PROCEDURE speditar_customers
+  @customer_id INT,
+  @first_name 
+  -- mismos campos
+AS
+BEGIN
+  UPDATE customers
+  SET first_name = @first_name,
+      last_name = @last_name,
+      gender = @gender,
+      birth_date = @birth_date,
+      document_type = @document_type,
+      document_number = @document_number,
+      street = @street,
+      phone = @phone,
+      email = @email
+  WHERE customer_id = @customer_id;
+END;
+
+-- Eliminar cliente
+CREATE OR ALTER PROCEDURE speliminar_customers
+  @customer_id INT
+AS
+BEGIN
+  DELETE FROM customers WHERE customer_id = @customer_id;
+END;
+
+-- Buscar clientes por documento o nombre
+CREATE OR ALTER PROCEDURE spbuscar_customer_name
+  @textbuscar VARCHAR(100)
+AS
+BEGIN
+  SELECT customer_id, first_name, last_name, gender, birth_date,
+         document_type, document_number, street, phone, email
+  FROM customers
+  WHERE document_number LIKE '%' + @textbuscar + '%'
+     OR first_name       LIKE '%' + @textbuscar + '%';
+END;
+
+
+
+EXEC spmostrar_customers
+
+
+
+
+ALTER PROCEDURE spmostrar_customers
+AS
+BEGIN
+    SELECT
+        customer_id,
+        first_name,
+        last_name,
+        phone,
+        email,
+        street,
+        city,
+        state,
+        zip_code,
+        gender,
+        birth_date,
+        document_type,
+        document_number
+    FROM customers;
+END
+
+
+
+
+
+
+
+
+
+
+
+
+CREATE PROCEDURE spinsertar_customers
+    @customer_id INT OUTPUT,
+    @first_name VARCHAR(100),
+    @last_name VARCHAR(100),
+    @email VARCHAR(150),
+    @phone VARCHAR(20),
+    @address VARCHAR(250)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    INSERT INTO customers(first_name, last_name, email, phone, address)
+    VALUES (@first_name, @last_name, @email, @phone, @address);
+
+    SET @customer_id = SCOPE_IDENTITY();
+END
+GO
+
+CREATE PROCEDURE speditar_customers
+    @customer_id INT,
+    @first_name VARCHAR(100),
+    @last_name VARCHAR(100),
+    @email VARCHAR(150),
+    @phone VARCHAR(20),
+    @address VARCHAR(250)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE customers SET 
+        first_name = @first_name,
+        last_name = @last_name,
+        email = @email,
+        phone = @phone,
+        address = @address
+    WHERE customer_id = @customer_id;
+END
+GO
+
+CREATE PROCEDURE speliminar_customers
+    @customer_id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    DELETE FROM customers WHERE customer_id = @customer_id;
+END
+GO
+
+CREATE PROCEDURE spmostrar_customers
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SELECT customer_id, first_name, last_name, email, phone, address FROM customers;
+END
+GO
+
+CREATE PROCEDURE spbuscar_customer_name
+    @textbuscar VARCHAR(100)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SELECT customer_id, first_name, last_name, email, phone, address 
+    FROM customers
+    WHERE first_name LIKE '%' + @textbuscar + '%'
+       OR last_name LIKE '%' + @textbuscar + '%';
+END
+GO
+
+
+sp_help customers;
+-- o también
+SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'customers';
+
+
+
+ALTER PROCEDURE spinsertar_customers
+    @first_name NVARCHAR(50),
+    @last_name NVARCHAR(50),
+    @phone NVARCHAR(20),
+    @email NVARCHAR(50),
+    @street NVARCHAR(100),
+    @city NVARCHAR(50),
+    @state NVARCHAR(50),
+    @zip_code NVARCHAR(10),
+    @gender CHAR(1),
+    @birth_date DATE,
+    @document_type NVARCHAR(20),
+    @document_number NVARCHAR(20)
+AS
+BEGIN
+    INSERT INTO customers (
+        first_name, last_name, phone, email,
+        street, city, state, zip_code,
+        gender, birth_date, document_type, document_number
+    )
+    VALUES (
+        @first_name, @last_name, @phone, @email,
+        @street, @city, @state, @zip_code,
+        @gender, @birth_date, @document_type, @document_number
+    );
+END
+
+
+
+DROP PROCEDURE IF EXISTS spinsertar_customers;
+GO
+
+CREATE PROCEDURE spinsertar_customers
+    @first_name NVARCHAR(50),
+    @last_name NVARCHAR(50),
+    @phone NVARCHAR(20),
+    @email NVARCHAR(50),
+    @street NVARCHAR(100),
+    @city NVARCHAR(50),
+    @state NVARCHAR(50),
+    @zip_code NVARCHAR(10),
+    @gender CHAR(1),
+    @birth_date DATE,
+    @document_type NVARCHAR(20),
+    @document_number NVARCHAR(20)
+AS
+BEGIN
+    INSERT INTO customers (
+        first_name, last_name, phone, email,
+        street, city, state, zip_code,
+        gender, birth_date, document_type, document_number
+    )
+    VALUES (
+        @first_name, @last_name, @phone, @email,
+        @street, @city, @state, @zip_code,
+        @gender, @birth_date, @document_type, @document_number
+    );
+END
+
+
+-- Procedimiento para mostrar
+CREATE PROCEDURE spmostrar_customers
+AS
+BEGIN
+    SELECT * FROM customers
+END
+GO
+
+-- Procedimiento para buscar por nombre
+CREATE PROCEDURE spbuscar_customers
+    @textobuscar VARCHAR(50)
+AS
+BEGIN
+    SELECT * FROM customers
+    WHERE first_name LIKE '%' + @textobuscar + '%'
+END
+GO
+
+
+
+
+
+
+
+
+-- Mostrar todos los clientes
+CREATE PROCEDURE spmostrar_customers
+AS
+BEGIN
+    SELECT * FROM customers
+END
+GO
+
+-- Buscar clientes por nombre
+CREATE PROCEDURE spbuscar_customers
+    @textobuscar VARCHAR(50)
+AS
+BEGIN
+    SELECT * FROM customers
+    WHERE first_name LIKE '%' + @textobuscar + '%'
+END
+GO
+
+
+Msg 2714, Level 12, State 3, Procedure spmostrar_customers
+Ya hay un objeto con el nombre 'spmostrar_customers' en la base de datos.
+
+
+
+select * from customers
+
+
+SELECT DB_NAME() AS BaseDeDatosActual;--para saber con cual base de dtos estoy trabajando--
+
+
+CREATE TABLE users (
+    usuario_id INT IDENTITY(1,1) PRIMARY KEY,
+    usuario_name VARCHAR(50) NOT NULL UNIQUE,
+    usuario_clave VARCHAR(250) NOT NULL,
+    usuario_email VARCHAR(100)
+);
+
+INSERT INTO users (usuario_name, usuario_clave, usuario_email)
+VALUES ('admin', '12345', 'admin@doma.com'),
+       ('usuario1', 'clave123', 'user1@doma.com');
+
+
+select * from users
+
+CREATE PROCEDURE splogin
+    @usuario VARCHAR(50),
+    @clave VARCHAR(250)
+AS
+BEGIN
+    SELECT usuario_id, usuario_name AS nombre, usuario_email AS email
+    FROM users
+    WHERE usuario_name = @usuario AND usuario_clave = @clave;
+END
+
+
+INSERT INTO users (usuario_name, usuario_clave, usuario_email)
+VALUES ('admin', '1234', 'admin@email.com');
+
+SELECT * FROM users WHERE usuario_name = 'admin';
+DELETE FROM users WHERE usuario_name = 'admin';
+
+
+
+select * from products
+
+sp_help products
+
+SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'products'
+
+
+ALTER PROCEDURE spinsertar_products
+    @product_name NVARCHAR(200),
+    @model_year INT,
+    @price DECIMAL(10,2),
+    @imagen IMAGE,
+    @category_id INT
+AS
+BEGIN
+    INSERT INTO products(product_name, model_year, price, imagen, category_id)
+    VALUES(@product_name, @model_year, @price, @imagen, @category_id)
+END
+
+
+
+EXEC spmostrar_users;
+
+
+SELECT name 
+FROM sys.procedures 
+WHERE name LIKE '%users%' OR name LIKE '%mostrar%';
+
+
+CREATE PROCEDURE spmostrar_users
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SELECT usuario_id, usuario_name, usuario_clave, usuario_email
+    FROM users; -- Cambia "usuarios" por el nombre correcto de tu tabla de usuarios
+END;
+
+select *  from users
+
+
+SELECT SCHEMA_NAME(schema_id) AS SchemaName, name 
+FROM sys.procedures 
+WHERE name = 'spmostrar_users';
+
+
+SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'usuarios';
+SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME LIKE '%user%';
+
+
+CREATE OR ALTER PROCEDURE dbo.spmostrar_users
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SELECT * FROM dbo.users;
+END
+
+
+EXEC dbo.spmostrar_users;
+
+
+CREATE PROCEDURE speditar_users
+    @usuario_id INT,
+    @usuario_name NVARCHAR(50),
+    @usuario_clave NVARCHAR(50),
+    @usuario_email NVARCHAR(100)
+AS
+BEGIN
+    UPDATE users
+    SET 
+        usuario_name = @usuario_name,
+        usuario_clave = @usuario_clave,
+        usuario_email = @usuario_email
+    WHERE usuario_id = @usuario_id;
+END
+
+SELECT name FROM sys.objects WHERE type = 'P' AND name LIKE '%users%';
+
+
+DROP PROCEDURE IF EXISTS speditar_users;
+GO
+
+CREATE PROCEDURE speditar_users
+    @usuario_id INT,
+    @usuario_name NVARCHAR(100),
+    @usuario_clave NVARCHAR(100),
+    @usuario_email NVARCHAR(100)
+AS
+BEGIN
+    UPDATE users
+    SET usuario_name = @usuario_name,
+        usuario_clave = @usuario_clave,
+        usuario_email = @usuario_email
+    WHERE usuario_id = @usuario_id
+END
+
+
+DROP PROCEDURE IF EXISTS spinsertar_users;
+GO
+
+CREATE PROCEDURE spinsertar_users
+    @usuario_name NVARCHAR(100),
+    @usuario_clave NVARCHAR(100),
+    @usuario_email NVARCHAR(100)
+AS
+BEGIN
+    INSERT INTO users (usuario_name, usuario_clave, usuario_email)
+    VALUES (@usuario_name, @usuario_clave, @usuario_email);
+END
+GO
+
+
+EXEC sp_helptext 'spinsertar_users';
+
+
+
+
+
+
+
+CREATE PROCEDURE spinsertar_products
+    @product_id INT OUTPUT,
+    @product_name VARCHAR(200),
+    @model_year SMALLINT,
+    @price MONEY,
+    @imagen IMAGE,
+    @category_id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO products(product_name, model_year, price, imagen, category_id)
+    VALUES (@product_name, @model_year, @price, @imagen, @category_id);
+
+    -- Obtener el id generado por identity (si usas identity)
+    SET @product_id = SCOPE_IDENTITY();
+
+    -- Retorna OK si la inserción fue correcta
+END
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+IF OBJECT_ID('dbo.spinsertar_products', 'P') IS NOT NULL
+    DROP PROCEDURE dbo.spinsertar_products;
+GO
+
+
+CREATE PROCEDURE dbo.spinsertar_products
+    @product_id INT OUTPUT,
+    @product_name VARCHAR(200),
+    @model_year SMALLINT,
+    @price MONEY,
+    @imagen VARBINARY(MAX),  -- recomendado en lugar de IMAGE
+    @category_id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Insertar en la tabla products
+    INSERT INTO products (product_name, model_year, price, imagen, category_id)
+    VALUES (@product_name, @model_year, @price, @imagen, @category_id);
+
+    -- Obtener el ID generado automáticamente (suponiendo que product_id es identidad)
+    SET @product_id = SCOPE_IDENTITY();
+END
+GO
+
+
+
+
+---------------------------------------------------------
+IF OBJECT_ID('dbo.speditar_products', 'P') IS NOT NULL
+    DROP PROCEDURE dbo.speditar_products;
+GO
+
+CREATE PROCEDURE dbo.speditar_products
+    @product_id INT,
+    @product_name VARCHAR(200),
+    @model_year SMALLINT,
+    @price MONEY,
+    @imagen VARBINARY(MAX),
+    @category_id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE products
+    SET product_name = @product_name,
+        model_year = @model_year,
+        price = @price,
+        imagen = @imagen,
+        category_id = @category_id
+    WHERE product_id = @product_id;
+END
+GO
+-----------------------------------------------------
+
+IF OBJECT_ID('dbo.speliminar_products', 'P') IS NOT NULL
+    DROP PROCEDURE dbo.speliminar_products;
+GO
+
+CREATE PROCEDURE dbo.speliminar_products
+    @product_id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DELETE FROM products WHERE product_id = @product_id;
+END
+GO
+
+
+
+IF OBJECT_ID('dbo.spmostrar_products', 'P') IS NOT NULL
+    DROP PROCEDURE dbo.spmostrar_products;
+GO
+
+CREATE PROCEDURE dbo.spmostrar_products
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT product_id, product_name, model_year, price, imagen, category_id
+    FROM products;
+END
+GO
+
+
+
+IF OBJECT_ID('dbo.spbuscar_product_name', 'P') IS NOT NULL
+    DROP PROCEDURE dbo.spbuscar_product_name;
+GO
+
+CREATE PROCEDURE dbo.spbuscar_product_name
+    @textbuscar VARCHAR(200)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT product_id, product_name, model_year, price, imagen, category_id
+    FROM products
+    WHERE product_name LIKE '%' + @textbuscar + '%';
+END
+GO
+
+
+
+
+EXEC sp_helptext 'spinsertar_users';
+
+
+
+IF OBJECT_ID('dbo.spinsertar_users', 'P') IS NOT NULL
+    DROP PROCEDURE dbo.spinsertar_users;
+GO
+
+CREATE PROCEDURE dbo.spinsertar_users
+    @usuario_id INT OUTPUT, -- este parámetro es importante para que no dé error
+    @usuario_name NVARCHAR(100),
+    @usuario_clave NVARCHAR(100),
+    @usuario_email NVARCHAR(100)
+AS
+BEGIN
+    INSERT INTO users (usuario_name, usuario_clave, usuario_email)
+    VALUES (@usuario_name, @usuario_clave, @usuario_email);
+
+    SET @usuario_id = SCOPE_IDENTITY(); -- devolver el ID generado
+END
+GO
+
+
+
+
+
+
+
+
+
+IF OBJECT_ID('dbo.speliminar_users', 'P') IS NOT NULL
+    DROP PROCEDURE dbo.speliminar_users;
+GO
+
+CREATE PROCEDURE dbo.speliminar_users
+    @usuario_id INT
+AS
+BEGIN
+    DELETE FROM users
+    WHERE usuario_id = @usuario_id;
+END
+GO
+
+
+
+
+IF OBJECT_ID('dbo.spbuscar_user_name', 'P') IS NOT NULL
+    DROP PROCEDURE dbo.spbuscar_user_name;
+GO
+
+CREATE PROCEDURE dbo.spbuscar_user_name
+    @textbuscar NVARCHAR(50)
+AS
+BEGIN
+    SELECT * FROM users
+    WHERE usuario_name LIKE '%' + @textbuscar + '%'
+END
+GO
+
+
+select * from products
+
+
+IF OBJECT_ID('dbo.spinsertar_products', 'P') IS NOT NULL
+    DROP PROCEDURE dbo.spinsertar_products;
+GO
+
+CREATE PROCEDURE dbo.spinsertar_products
+    @product_id INT OUTPUT,
+    @product_name VARCHAR(200),
+    @model_year SMALLINT,
+    @price MONEY,
+    @imagen IMAGE,
+    @category_id INT
+AS
+BEGIN
+    INSERT INTO products(product_name, model_year, price, imagen, category_id)
+    VALUES (@product_name, @model_year, @price, @imagen, @category_id);
+
+    SET @product_id = SCOPE_IDENTITY();
+END
+GO
+
+
+
+
+
+ALTER PROCEDURE speliminar_products
+    @product_id INT
+AS
+BEGIN
+    DELETE FROM products WHERE product_id = @product_id;
+END
+
+
+
+DROP PROCEDURE IF EXISTS speliminar_products;
+GO
+
+CREATE PROCEDURE speliminar_products
+    @product_id INT
+AS
+BEGIN
+    DELETE FROM products WHERE product_id = @product_id;
+END
+GO
+
+EXEC speliminar_products @product_id = 5;
+
+
+SELECT product_id, product_name, model_year, price, imagen FROM products
+
+
+-- Usar la base de datos
+USE Bike_Store;
+GO
+
+select * from staffs
+INSERT INTO staffs (first_name, last_name, email, phone, active, store_id, manager_id)
+VALUES 
+('Carlos', 'Ramírez', 'carlos.ramirez@example.com', '987654321', 1, 1, NULL),
+('Lucía', 'Pérez', 'lucia.perez@example.com', '912345678', 1, 1, NULL),
+('José', 'Gómez', 'jose.gomez@example.com', '998877665', 0, 1, NULL);
+
+
+SELECT * FROM stores;
+INSERT INTO stores (store_name, phone, email, street, city, state, zip_code)
+VALUES ('Tienda Central', '999999999', 'tienda@bike.com', 'Calle Falsa 123', 'Lima', 'Lima', '15001');
+
+
+
+ALTER TABLE orders
+ADD usuario_id INT;
+
+
+ALTER TABLE orders
+DROP COLUMN usuario_id;
+
+
+ALTER TABLE orders
+ADD CONSTRAINT FK_orders_users
+FOREIGN KEY (usuario_id) REFERENCES users(usuario_id);
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------------
+---------staffs---------
+CREATE PROCEDURE spmostrar_staffs
+AS
+BEGIN
+    SELECT staff_id, first_name, last_name, email, phone, active
+    FROM staffs
+    ORDER BY staff_id DESC;
+END;
+
+
+---------------Insertar------------
+CREATE PROCEDURE spinsertar_staffs
+    @first_name VARCHAR(50),
+    @last_name VARCHAR(50),
+    @email VARCHAR(100),
+    @phone VARCHAR(20),
+    @active BIT
+AS
+BEGIN
+    INSERT INTO staffs (first_name, last_name, email, phone, active)
+    VALUES (@first_name, @last_name, @email, @phone, @active);
+END;
+
+
+
+
+----------editar-----------
+CREATE PROCEDURE speditar_staffs
+    @staff_id INT,
+    @first_name VARCHAR(50),
+    @last_name VARCHAR(50),
+    @email VARCHAR(100),
+    @phone VARCHAR(20),
+    @active BIT
+AS
+BEGIN
+    UPDATE staffs
+    SET first_name = @first_name,
+        last_name = @last_name,
+        email = @email,
+        phone = @phone,
+        active = @active
+    WHERE staff_id = @staff_id;
+END;
+
+
+
+
+
+---------------eliminar------------
+CREATE PROCEDURE speliminar_staffs
+    @staff_id INT
+AS
+BEGIN
+    DELETE FROM staffs
+    WHERE staff_id = @staff_id;
+END;
+
+
+
+------------------buscar--------------------
+CREATE PROCEDURE spbuscar_staffs_first_name
+    @textobuscar VARCHAR(50)
+AS
+BEGIN
+    SELECT staff_id, first_name, last_name, email, phone, active
+    FROM staffs
+    WHERE first_name LIKE '%' + @textobuscar + '%';
+END;
+
+
+
+
+select * from staffs
+
+
+select * from order_items
+select * from orders

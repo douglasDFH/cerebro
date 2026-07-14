@@ -1,0 +1,33 @@
+<!-- NAVBAR -->
+<nav class="navbar" *ngIf="authService.isAuthenticated()">
+  <div class="navbar-container">
+    <div class="navbar-logo">
+      <a>PedidosApp</a>
+    </div>
+
+    <ul class="navbar-links">
+      <li><a [routerLink]="'/trabajadores'" routerLinkActive="active">Trabajadores</a></li>
+      <li><a [routerLink]="'/clientes'" routerLinkActive="active">Clientes</a></li>
+      <li><a [routerLink]="'/proveedores'" routerLinkActive="active">Proveedores</a></li>
+      <li><a [routerLink]="'/articulos'" routerLinkActive="active">Artículos</a></li>
+      <li><a [routerLink]="'/categorias'" routerLinkActive="active">Categorías</a></li>
+      <li><a [routerLink]="'/presentaciones'" routerLinkActive="active">Presentaciones</a></li>
+      <li><a [routerLink]="'/ingresos'" routerLinkActive="active">Ingresos</a></li>
+      <li><a [routerLink]="'/detalle-ingresos'" routerLinkActive="active">Detalle Ingresos</a></li>
+      <li><a [routerLink]="'/ventas'" routerLinkActive="active">Ventas</a></li>
+    </ul>
+
+    <button class="logout-button" (click)="logout()">Cerrar sesión</button>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<router-outlet />
+
+<!-- FOOTER -->
+<footer *ngIf="authService.isAuthenticated()" class="footer">
+  <div class="footer-container">
+    <p>&copy; {{ currentYear }} PedidosApp. Todos los derechos reservados.</p>
+
+  </div>
+</footer>
