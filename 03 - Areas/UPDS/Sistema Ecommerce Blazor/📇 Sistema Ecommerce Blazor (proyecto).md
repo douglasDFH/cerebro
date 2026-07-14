@@ -10,6 +10,7 @@ tags:
 > Nivel principal (interior no listado).
 
 ## 📁 Carpetas del proyecto
+- Base de datos
 - BlazorEcommerce
 
 ## 📄 Archivos principales
