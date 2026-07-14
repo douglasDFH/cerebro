@@ -1,0 +1,231 @@
+<mxfile host="app.diagrams.net" modified="2026-04-02T00:00:00.000Z" agent="Claude" version="24.0.0" type="device">
+  <diagram id="org1" name="Organigrama NutriCiclo SCZ">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- ============ NIVEL DIRECTIVO ============ -->
+
+        <!-- Gerente General -->
+        <mxCell id="gg" value="&lt;b&gt;GERENTE GENERAL&lt;/b&gt;&lt;br&gt;Bs 12,000/mes&lt;br&gt;&lt;i&gt;1 persona&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2E7D32;fontColor=#FFFFFF;strokeColor=#1B5E20;fontSize=12;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="600" y="40" width="220" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- ============ NIVEL JEFATURAS ============ -->
+
+        <!-- Jefe de Planta -->
+        <mxCell id="jp" value="&lt;b&gt;JEFE DE PLANTA&lt;/b&gt;&lt;br&gt;Bs 8,500/mes&lt;br&gt;&lt;i&gt;1 persona&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#00897B;fontColor=#FFFFFF;strokeColor=#00695C;fontSize=11;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="280" y="180" width="200" height="65" as="geometry"/>
+        </mxCell>
+
+        <!-- Contador General -->
+        <mxCell id="cont" value="&lt;b&gt;CONTADOR GENERAL&lt;/b&gt;&lt;br&gt;Bs 6,500/mes&lt;br&gt;&lt;i&gt;1 persona&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#5E35B1;fontColor=#FFFFFF;strokeColor=#4527A0;fontSize=11;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="600" y="180" width="200" height="65" as="geometry"/>
+        </mxCell>
+
+        <!-- Jefe Comercial -->
+        <mxCell id="jc" value="&lt;b&gt;JEFE COMERCIAL / VENTAS&lt;/b&gt;&lt;br&gt;Bs 7,000/mes&lt;br&gt;&lt;i&gt;1 persona&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#5E35B1;fontColor=#FFFFFF;strokeColor=#4527A0;fontSize=11;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="920" y="180" width="220" height="65" as="geometry"/>
+        </mxCell>
+
+        <!-- Asistente Administrativo -->
+        <mxCell id="asist" value="&lt;b&gt;ASISTENTE ADMIN.&lt;/b&gt;&lt;br&gt;Bs 4,000/mes&lt;br&gt;&lt;i&gt;1 persona&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#CE93D8;fontColor=#4A148C;strokeColor=#AB47BC;fontSize=11;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="625" y="290" width="150" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- ============ CONEXIONES NIVEL 1 → 2 ============ -->
+        <mxCell id="e1" edge="1" source="gg" target="jp" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e2" edge="1" source="gg" target="cont" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e3" edge="1" source="gg" target="jc" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e4" edge="1" source="cont" target="asist" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ============ NIVEL TECNICO / ESPECIALIZADO (reporta a Jefe Planta) ============ -->
+
+        <!-- Responsable de Calidad -->
+        <mxCell id="cc" value="&lt;b&gt;RESP. CALIDAD&lt;/b&gt;&lt;br&gt;Bs 5,500/mes&lt;br&gt;&lt;i&gt;1 persona&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF7043;fontColor=#FFFFFF;strokeColor=#E64A19;fontSize=11;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="40" y="340" width="150" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Tecnico BSF -->
+        <mxCell id="tbsf" value="&lt;b&gt;TECNICO BSF&lt;/b&gt;&lt;br&gt;Bs 5,000/mes&lt;br&gt;&lt;i&gt;1 persona&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF7043;fontColor=#FFFFFF;strokeColor=#E64A19;fontSize=11;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="210" y="340" width="150" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Tecnico Mantenimiento -->
+        <mxCell id="mant" value="&lt;b&gt;TEC. MANTENIMIENTO&lt;/b&gt;&lt;br&gt;Bs 5,000/mes&lt;br&gt;&lt;i&gt;1 persona&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF7043;fontColor=#FFFFFF;strokeColor=#E64A19;fontSize=11;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="380" y="340" width="160" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Supervisores de Turno -->
+        <mxCell id="sup" value="&lt;b&gt;SUPERVISORES DE TURNO&lt;/b&gt;&lt;br&gt;Bs 5,500/mes c/u&lt;br&gt;&lt;i&gt;2 personas&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#00897B;fontColor=#FFFFFF;strokeColor=#00695C;fontSize=11;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="280" y="460" width="220" height="65" as="geometry"/>
+        </mxCell>
+
+        <!-- Conexiones Jefe Planta → Tecnicos y Supervisores -->
+        <mxCell id="e5" edge="1" source="jp" target="cc" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e6" edge="1" source="jp" target="tbsf" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e7" edge="1" source="jp" target="mant" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e8" edge="1" source="jp" target="sup" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ============ NIVEL OPERATIVO (reporta a Supervisores) ============ -->
+
+        <!-- Operarios Fase 1 -->
+        <mxCell id="opf1" value="&lt;b&gt;OPERARIOS FASE 1&lt;/b&gt;&lt;br&gt;Preparacion intensiva&lt;br&gt;Bs 3,800/mes c/u&lt;br&gt;&lt;i&gt;3 personas&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFB74D;fontColor=#4E342E;strokeColor=#F57C00;fontSize=11;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="40" y="600" width="180" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Operarios Fase 2 -->
+        <mxCell id="opf2" value="&lt;b&gt;OPERARIOS FASE 2&lt;/b&gt;&lt;br&gt;Mezcla humeda&lt;br&gt;Bs 3,800/mes c/u&lt;br&gt;&lt;i&gt;2 personas&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFB74D;fontColor=#4E342E;strokeColor=#F57C00;fontSize=11;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="240" y="600" width="180" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Operarios Fase 3 -->
+        <mxCell id="opf3" value="&lt;b&gt;OPERARIOS FASE 3&lt;/b&gt;&lt;br&gt;Moldeo y empaque&lt;br&gt;Bs 3,500/mes c/u&lt;br&gt;&lt;i&gt;3 personas&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFB74D;fontColor=#4E342E;strokeColor=#F57C00;fontSize=11;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="440" y="600" width="180" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Personal de Limpieza -->
+        <mxCell id="limp" value="&lt;b&gt;LIMPIEZA&lt;/b&gt;&lt;br&gt;Bs 3,300/mes&lt;br&gt;&lt;i&gt;1 persona&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0E0E0;fontColor=#424242;strokeColor=#9E9E9E;fontSize=11;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="640" y="600" width="140" height="65" as="geometry"/>
+        </mxCell>
+
+        <!-- Conexiones Supervisores → Operarios -->
+        <mxCell id="e9" edge="1" source="sup" target="opf1" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e10" edge="1" source="sup" target="opf2" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e11" edge="1" source="sup" target="opf3" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e12" edge="1" source="sup" target="limp" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ============ NIVEL APOYO ============ -->
+
+        <!-- Almacenero -->
+        <mxCell id="alma" value="&lt;b&gt;ALMACENERO&lt;/b&gt;&lt;br&gt;Bs 3,500/mes&lt;br&gt;&lt;i&gt;1 persona&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0E0E0;fontColor=#424242;strokeColor=#9E9E9E;fontSize=11;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="40" y="460" width="140" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Conexion Jefe Planta → Almacenero -->
+        <mxCell id="e13" edge="1" source="jp" target="alma" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Chofer / Despachador -->
+        <mxCell id="chof" value="&lt;b&gt;CHOFER / DESPACHADOR&lt;/b&gt;&lt;br&gt;Bs 3,800/mes&lt;br&gt;&lt;i&gt;1 persona&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#CE93D8;fontColor=#4A148C;strokeColor=#AB47BC;fontSize=11;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="940" y="290" width="180" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Conexion Jefe Comercial → Chofer -->
+        <mxCell id="e14" edge="1" source="jc" target="chof" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Conexion punteada Jefe Planta → Chofer (dependencia funcional) -->
+        <mxCell id="e14b" edge="1" source="jp" target="chof" style="dashed=1;strokeColor=#999999;" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Vigilantes -->
+        <mxCell id="vig" value="&lt;b&gt;VIGILANTES&lt;/b&gt;&lt;br&gt;Bs 3,300/mes c/u&lt;br&gt;&lt;i&gt;2 personas&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0E0E0;fontColor=#424242;strokeColor=#9E9E9E;fontSize=11;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="920" y="40" width="150" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Conexion Gerente → Vigilantes -->
+        <mxCell id="e15" edge="1" source="gg" target="vig" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ============ LEYENDA ============ -->
+
+        <mxCell id="leg_title" value="&lt;b&gt;LEYENDA&lt;/b&gt;" style="text;html=1;fontSize=12;fontColor=#333333;align=left;" vertex="1" parent="1">
+          <mxGeometry x="40" y="750" width="100" height="25" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="leg1" value="" style="rounded=1;fillColor=#2E7D32;strokeColor=#1B5E20;" vertex="1" parent="1">
+          <mxGeometry x="40" y="780" width="20" height="14" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg1t" value="Nivel directivo" style="text;html=1;fontSize=10;fontColor=#555;align=left;" vertex="1" parent="1">
+          <mxGeometry x="68" y="776" width="100" height="20" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="leg2" value="" style="rounded=1;fillColor=#00897B;strokeColor=#00695C;" vertex="1" parent="1">
+          <mxGeometry x="40" y="800" width="20" height="14" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg2t" value="Jefatura planta / supervision" style="text;html=1;fontSize=10;fontColor=#555;align=left;" vertex="1" parent="1">
+          <mxGeometry x="68" y="796" width="180" height="20" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="leg3" value="" style="rounded=1;fillColor=#5E35B1;strokeColor=#4527A0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="820" width="20" height="14" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg3t" value="Administrativo / comercial" style="text;html=1;fontSize=10;fontColor=#555;align=left;" vertex="1" parent="1">
+          <mxGeometry x="68" y="816" width="160" height="20" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="leg4" value="" style="rounded=1;fillColor=#FF7043;strokeColor=#E64A19;" vertex="1" parent="1">
+          <mxGeometry x="280" y="780" width="20" height="14" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg4t" value="Tecnico especializado" style="text;html=1;fontSize=10;fontColor=#555;align=left;" vertex="1" parent="1">
+          <mxGeometry x="308" y="776" width="140" height="20" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="leg5" value="" style="rounded=1;fillColor=#FFB74D;strokeColor=#F57C00;" vertex="1" parent="1">
+          <mxGeometry x="280" y="800" width="20" height="14" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg5t" value="Operarios de produccion" style="text;html=1;fontSize=10;fontColor=#555;align=left;" vertex="1" parent="1">
+          <mxGeometry x="308" y="796" width="150" height="20" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="leg6" value="" style="rounded=1;fillColor=#E0E0E0;strokeColor=#9E9E9E;" vertex="1" parent="1">
+          <mxGeometry x="280" y="820" width="20" height="14" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg6t" value="Personal de apoyo" style="text;html=1;fontSize=10;fontColor=#555;align=left;" vertex="1" parent="1">
+          <mxGeometry x="308" y="816" width="120" height="20" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="leg7" value="" style="endArrow=classic;html=1;dashed=1;strokeColor=#999;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="510" y="792" as="sourcePoint"/>
+            <mxPoint x="570" y="792" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="leg7t" value="Dependencia funcional" style="text;html=1;fontSize=10;fontColor=#555;align=left;" vertex="1" parent="1">
+          <mxGeometry x="578" y="784" width="140" height="20" as="geometry"/>
+        </mxCell>
+
+        <!-- Resumen -->
+        <mxCell id="resumen" value="&lt;b&gt;RESUMEN PLANILLA:&lt;/b&gt; 23 personas | Bs 117,600/mes | ~USD 12,290/mes | Salario minimo 2026: Bs 3,300" style="text;html=1;fontSize=11;fontColor=#2E7D32;align=center;" vertex="1" parent="1">
+          <mxGeometry x="200" y="860" width="600" height="25" as="geometry"/>
+        </mxCell>
+
+        <!-- Titulo -->
+        <mxCell id="titulo" value="&lt;b&gt;ORGANIGRAMA - NUTRICICLO SCZ&lt;/b&gt;&lt;br&gt;Biofabrica de Bloques Multinutricionales | Santa Cruz de la Sierra, Bolivia" style="text;html=1;fontSize=14;fontColor=#1B5E20;align=center;" vertex="1" parent="1">
+          <mxGeometry x="200" y="-30" width="600" height="50" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

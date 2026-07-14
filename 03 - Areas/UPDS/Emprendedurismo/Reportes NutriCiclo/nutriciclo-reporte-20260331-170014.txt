@@ -1,0 +1,36 @@
+====================================
+   REPORTE DE PRODUCCIÓN — NutriCiclo SCZ
+====================================
+Fecha: 31/03/2026 17:00:14
+Tick de simulación: 192
+
+--- PARÁMETROS ---
+Temp. Calcinación: 550 °C
+Velocidad Molienda: 2000 RPM
+Flujo Melaza: 40 L/min
+Cal Viva: 20 kg
+Tiempo Fraguado: 30 min
+
+--- SENSORES ---
+Temperatura Horno: 543.6 °C
+Presión Tanque: 24.5 PSI
+Flujo Melaza Real: 39.4 L/min
+Temp. Exotérmica: 91.0 °C
+Viscosidad Mezcla: 2071 cP
+Tasa de Producción: 353.0 kg/h
+Harina de Sangre: 76.6 kg/h
+Harina BSF: 37.9 kg/h
+
+--- PLAN DE PRODUCCIÓN ---
+Objetivo: 500 bloques × 25 kg
+Total kg objetivo: 12.500 kg
+Bloques producidos: 0 / 500
+Progreso: 0.1%
+Tasa producción actual: 353.0 kg/h
+
+--- EQUIPOS ACTIVOS ---
+Marmita Industrial, Secador Rotatorio, Transportador Sinfín, Horno Rotatorio, Molino de Martillos, Tanque Almacenamiento Melaza, Bomba Peristáltica Dosificadora, Batea de Disolución, Bomba Centrífuga Sanitaria, Mezcladora Horizontal de Cintas, Biorreactor de Cría BSF, Secador de Larvas BSF, Molino de Larvas Secas (BSF), Mezcladora Paletas Doble Eje, Dosificador de Cal Viva, Vibradora de Mesa + Moldes, Cinta Transportadora, Sistema de Ventilación
+
+--- ALERTAS ---
+Sin alertas
+====================================

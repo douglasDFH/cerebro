@@ -4,23 +4,26 @@ tags:
   - universidad
   - upds
 creado: 2026-07-13
+actualizado: 2026-07-13
 ---
 
-# 🎓 UPDS — Universidad
+# 🎓 UPDS — Ingeniería de Sistemas
 
 > [!info] Área
-> Todo lo de la **Universidad Privada Domingo Savio (UPDS)**. Crea una nota por cada materia usando la [[Plantilla - Materia]] y enlázala aquí abajo.
+> Universidad Privada Domingo Savio (Santa Cruz). Panel central de todas tus materias. Cada materia tiene su propia nota MOC.
 
 ## 📚 Materias
-- [[Materia - Ejemplo UPDS]]
+- [[📖 Emprendedurismo - MOC]] — proyecto **NutriCiclo SCZ** 🐄♻️
+- [[📐 Investigación Operativa - MOC]]
+- [[🤖 Inteligencia Artificial I - MOC]] — proyecto **Ojo-Camba**
+- [[📱 Móviles I - MOC]] — proyecto **App Atletismo**
 
-## 🗓️ Info del semestre
-- **Semestre / gestión:** 
-- **Carrera:** 
-- **Horarios:** 
+## 🗓️ Info general
+- **Carrera:** Ingeniería de Sistemas
+- **Correo:** sc.douglas.flor.h@upds.net.bo
 
 ## ✅ Pendientes UPDS
-- [ ] 
+- [ ] Revisar carpetas **_Duplicados (revisar)** de cada materia y borrar copias
 
 ---
 

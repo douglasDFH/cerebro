@@ -1,0 +1,27 @@
+====================================
+   REPORTE DE PRODUCCIÓN — NutriCiclo SCZ
+====================================
+Fecha: 31/03/2026 15:25:57
+Tick de simulación: 43
+
+--- PARÁMETROS ---
+Temp. Calcinación: 550 °C
+Velocidad Molienda: 2000 RPM
+Flujo Melaza: 40 L/min
+Cal Viva: 20 kg
+Tiempo Fraguado: 30 min
+
+--- SENSORES ---
+Temperatura Horno: 493.3 °C
+Presión Tanque: 5.0 PSI
+Flujo Melaza Real: 0.0 L/min
+Temp. Exotérmica: 26.3 °C
+Viscosidad Mezcla: 100 cP
+Tasa de Producción: 170.6 kg/h
+
+--- EQUIPOS ACTIVOS ---
+Marmita Industrial, Secador Rotatorio, Transportador Sinfín, Horno Rotatorio
+
+--- ALERTAS ---
+Sin alertas
+====================================
