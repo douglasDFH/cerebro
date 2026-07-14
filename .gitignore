@@ -14,3 +14,6 @@ desktop.ini
 # Temporales de Office (archivos ~$ que se crean al abrir Word/Excel)
 ~$*
 *.tmp
+
+# Media pesada de tienda: solo local, NO se sincroniza
+03 - Areas/Dismac (Trabajo)/Multimedia/
