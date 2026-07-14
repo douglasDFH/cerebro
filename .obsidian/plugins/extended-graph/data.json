@@ -1,7 +1,7 @@
 {
   "enableFeatures": {
     "graph": {
-      "auto-enabled": false,
+      "auto-enabled": true,
       "tags": false,
       "properties": false,
       "property-key": false,
@@ -12,11 +12,11 @@
       "imagesFromEmbeds": false,
       "imagesForAttachments": false,
       "focus": false,
-      "shapes": false,
-      "elements-stats": false,
-      "names": false,
+      "shapes": true,
+      "elements-stats": true,
+      "names": true,
       "icons": false,
-      "arrows": false,
+      "arrows": true,
       "layers": false
     },
     "localgraph": {
@@ -107,20 +107,63 @@
       "id": "default-vault",
       "name": "Default state",
       "engineOptions": {
-        "colorGroups": [],
+        "colorGroups": [
+          {
+            "query": "path:\"03 - Areas/UPDS\"",
+            "color": {
+              "a": 1,
+              "rgb": 5011696
+            }
+          },
+          {
+            "query": "path:\"03 - Areas/Dismac\"",
+            "color": {
+              "a": 1,
+              "rgb": 15763518
+            }
+          },
+          {
+            "query": "path:\"03 - Areas/UDABOL\"",
+            "color": {
+              "a": 1,
+              "rgb": 4108131
+            }
+          },
+          {
+            "query": "file:\"📇\"",
+            "color": {
+              "a": 1,
+              "rgb": 10133670
+            }
+          },
+          {
+            "query": "file:\"MOC\"",
+            "color": {
+              "a": 1,
+              "rgb": 15778380
+            }
+          },
+          {
+            "query": "file:\"Inicio\"",
+            "color": {
+              "a": 1,
+              "rgb": 10636528
+            }
+          }
+        ],
         "search": "",
-        "hideUnresolved": false,
-        "showAttachments": false,
+        "hideUnresolved": true,
+        "showAttachments": true,
         "showOrphans": true,
         "showTags": false,
         "localBacklinks": true,
         "localForelinks": true,
         "localInterlinks": false,
         "localJumps": 1,
-        "lineSizeMultiplier": 1,
-        "nodeSizeMultiplier": 1,
-        "showArrow": false,
-        "textFadeMultiplier": 0,
+        "lineSizeMultiplier": 1.4,
+        "nodeSizeMultiplier": 1.1,
+        "showArrow": true,
+        "textFadeMultiplier": 1,
         "centerStrength": 0.5187132489703118,
         "linkDistance": 250,
         "linkStrength": 1,
@@ -145,7 +188,7 @@
   "nodesSizeProperties": [
     ""
   ],
-  "nodesSizeFunction": "default",
+  "nodesSizeFunction": "degree",
   "nodesSizeRange": {
     "min": 0.5,
     "max": 1.5
@@ -274,8 +317,8 @@
   "invertArrows": false,
   "flatArrows": false,
   "opaqueArrowsButKeepFading": false,
-  "alwaysOpaqueArrows": false,
-  "arrowScale": 1,
+  "alwaysOpaqueArrows": true,
+  "arrowScale": 2,
   "arrowFixedSize": false,
   "arrowColorBool": false,
   "arrowColor": "",
