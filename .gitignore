@@ -18,3 +18,27 @@ desktop.ini
 # Media pesada de tienda: solo local, NO se sincroniza
 03 - Areas/Dismac (Trabajo)/Multimedia/
 .obsidian/graph.json
+
+# Binarios y media: quedan local, NO se sincronizan a GitHub
+*.iso
+*.deb
+*.asar
+*.exe
+*.mp3
+*.mp4
+*.m4a
+*.avi
+*.mkv
+*.mov
+*.7z
+*.rar
+*.zip
+*.bacpac
+*.bak
+*.vmdk
+*.vmx
+*.vmsd
+*.vmxf
+*.nvram
+*.dll
+*.a

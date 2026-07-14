@@ -1,0 +1,89 @@
+========================================
+ESTRUCTURA DEL PROYECTO
+Generador de Reportes - DISMAC
+========================================
+
+generador_reportes/
+│
+├── 📄 EJECUTAR.bat              ← EJECUTAR AQUÍ (después de instalar)
+├── 📄 INSTALAR.bat              ← EJECUTAR PRIMERO (solo una vez)
+├── 📄 INICIO_RAPIDO.txt         ← Guía rápida
+├── 📄 README.md                 ← Documentación completa
+│
+├── 📄 main.py                   ← Archivo principal
+├── 📄 interfaz_gui.py           ← Interfaz gráfica
+├── 📄 generador_principal.py    ← Lógica de generación
+├── 📄 graficos.py               ← Generación de gráficos
+├── 📄 exportar_pptx.py          ← Exportación a PowerPoint
+├── 📄 requirements.txt          ← Dependencias del proyecto
+│
+├── 📁 assets/                   ← Gráficos temporales (se crean automáticamente)
+└── 📁 output/                   ← Guardar reportes aquí (sugerido)
+
+
+========================================
+ARCHIVOS IMPORTANTES
+========================================
+
+🔴 EJECUTAR PRIMERO:
+   INSTALAR.bat - Instala las librerías necesarias
+
+🟢 EJECUTAR DESPUÉS:
+   EJECUTAR.bat - Inicia la aplicación
+
+📖 DOCUMENTACIÓN:
+   INICIO_RAPIDO.txt - Guía de inicio rápido
+   README.md - Documentación completa
+
+
+========================================
+FLUJO DE TRABAJO
+========================================
+
+1. INSTALAR (primera vez)
+   └─> Doble clic en INSTALAR.bat
+   └─> Esperar instalación
+   └─> Cerrar ventana
+
+2. EJECUTAR
+   └─> Doble clic en EJECUTAR.bat
+   └─> Se abre la interfaz gráfica
+
+3. INGRESAR DATOS
+   └─> Pestaña "Datos Generales"
+   └─> Pestaña "Categorías"
+   └─> Pestaña "Top 10 SKUs"
+   └─> Pestaña "Mystery Shopper"
+
+4. GENERAR REPORTE
+   └─> Clic en "GENERAR REPORTE"
+   └─> Elegir ubicación para guardar
+   └─> ¡Listo!
+
+
+========================================
+NOTAS
+========================================
+
+✓ Los datos vienen precargados como ejemplo del PDF original
+✓ Puede modificar cualquier dato antes de generar
+✓ Puede agregar/eliminar categorías y SKUs
+✓ El PowerPoint generado es editable
+✓ Los gráficos se generan automáticamente
+✓ No necesita Excel ni otros programas
+
+
+========================================
+AYUDA
+========================================
+
+Si tiene problemas:
+1. Consulte README.md (sección "Solución de Problemas")
+2. Verifique que Python esté instalado
+3. Ejecute INSTALAR.bat nuevamente
+4. Verifique que no haya errores en la consola
+
+
+Generado con Claude Code
+Versión 1.0 - Enero 2026
+========================================

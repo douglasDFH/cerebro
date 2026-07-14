@@ -1,0 +1,41 @@
+========================================
+GENERADOR DE REPORTES - DISMAC
+GUÍA DE INICIO RÁPIDO
+========================================
+
+PRIMERA VEZ (Solo una vez):
+---------------------------
+1. Haga doble clic en: INSTALAR.bat
+2. Espere a que termine la instalación
+3. Cierre la ventana
+
+
+USAR LA APLICACIÓN:
+-------------------
+1. Haga doble clic en: EJECUTAR.bat
+2. Se abrirá la interfaz gráfica
+3. Complete o modifique los datos en las 4 pestañas:
+   - Datos Generales
+   - Categorías
+   - Top 10 SKUs
+   - Mystery Shopper
+4. Haga clic en "GENERAR REPORTE"
+5. Elija dónde guardar el archivo PowerPoint
+6. ¡Listo! Su reporte estará generado
+
+
+NOTAS:
+------
+- Los datos vienen precargados como ejemplo
+- Puede modificar cualquier dato antes de generar
+- Puede agregar o eliminar categorías y SKUs
+- El archivo PowerPoint se puede editar después
+
+
+SOPORTE:
+--------
+Para más información, consulte el archivo README.md
+
+
+Generado con Claude Code
+========================================
