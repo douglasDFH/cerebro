@@ -4,26 +4,25 @@ tags:
   - universidad
   - udabol
 creado: 2026-07-13
+actualizado: 2026-07-14
 ---
 
-# 🎓 UDABOL — Universidad
+# 🎓 UDABOL — Universidad de Aquino Bolivia
 
 > [!info] Área
-> Todo lo de la **Universidad de Aquino Bolivia (UDABOL)**. Crea una nota por cada materia usando la [[Plantilla - Materia]] y enlázala aquí abajo.
+> Tus datos de UDABOL (llegaron desde la otra compu). Cada materia con su índice y archivos conectados.
 
-> [!note] Pendiente de llenar
-> Los datos de UDABOL están en tu otra computadora. Cuando los tengas aquí (o vía sincronización), llenamos esta área igual que UPDS.
+## 📚 Materias / Carpetas (4)
+- [[03 - Areas/UDABOL/calculo II/📇 calculo II|calculo II]]
+- [[03 - Areas/UDABOL/fisicaII/📇 fisicaII|fisicaII]]
+- [[03 - Areas/UDABOL/introduccion a la telecomunicaciones/📇 introduccion a la telecomunicaciones|introduccion a la telecomunicaciones]]
+- [[03 - Areas/UDABOL/programacion I UDABOL/📇 programacion I UDABOL|programacion I UDABOL]]
 
-## 📚 Materias
-- _(vacío por ahora)_
+## 📄 Documentos generales
+- Los documentos sueltos (becas, formatos, etc.) están en el índice de esta área: [[03 - Areas/UDABOL/📇 UDABOL|📇 Índice UDABOL]]
 
-## 🗓️ Info del semestre
-- **Semestre / gestión:** 
-- **Carrera:** 
-- **Horarios:** 
-
-## ✅ Pendientes UDABOL
-- [ ] 
+## ✅ Pendientes
+- [ ] Organizar los archivos sueltos en sus materias
 
 ---
 
