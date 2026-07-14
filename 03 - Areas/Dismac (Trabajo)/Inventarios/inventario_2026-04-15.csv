@@ -1,0 +1,8 @@
+﻿SKU,Producto,Categoría,"Precio (Bs.)","Precio Oferta",Stock,"Stock Mínimo","Controla Stock",Estado
+HNR-X8-5G,"Celular Honor X8 5G",Celulares,"2,200.00","1,999.00",20,5,Sí,Activo
+OST-COC-4H,"Cocina Oster 4 Hornillas",Cocinas,"2,800.00",,7,2,Sí,Activo
+LNV-LPT-IP15,"Laptop Lenovo IdeaPad 15",Computadoras,"6,500.00",,10,3,Sí,Activo
+SAM-LAV-10K,"Lavadora Samsung 10Kg",Lavadoras,"3,800.00","3,500.00",4,2,Sí,Activo
+WHR-REF-300,"Refrigerador Whirlpool 300L",Refrigeradores,"4,500.00",,7,3,Sí,Activo
+LG-TV-55-4K,"Smart TV LG 55"" 4K",Televisores,"5,200.00","4,800.00",5,2,Sí,Activo
+SNY-TV-43FHD,"TV Sony Bravia 43"" Full HD",Televisores,"3,200.00","2,900.00",6,2,Sí,Activo
