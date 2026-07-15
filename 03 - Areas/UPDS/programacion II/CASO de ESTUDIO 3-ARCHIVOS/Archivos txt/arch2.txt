@@ -1,4 +1,0 @@
-Para el empleo de un archivo de texto
-Las lineas que contengan la palabra archivo se pasan a otro archivo
-Para el empleo de un archivo de texto
-Las lineas que contengan la palabra archivo se pasan a otro archivo
