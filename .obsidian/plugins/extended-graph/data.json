@@ -175,7 +175,14 @@
     "square": {
       "combinationLogic": "AND",
       "index": 1,
-      "rules": []
+      "rules": [
+        {
+          "source": "tag",
+          "logic": "contains",
+          "property": "",
+          "value": "proyecto-codigo"
+        }
+      ]
     },
     "triangle": {
       "combinationLogic": "AND",
@@ -185,7 +192,14 @@
     "diamond": {
       "combinationLogic": "AND",
       "index": 3,
-      "rules": []
+      "rules": [
+        {
+          "source": "tag",
+          "logic": "contains",
+          "property": "",
+          "value": "moc"
+        }
+      ]
     },
     "pentagon": {
       "combinationLogic": "AND",
@@ -195,7 +209,14 @@
     "hexagon": {
       "combinationLogic": "AND",
       "index": 5,
-      "rules": []
+      "rules": [
+        {
+          "source": "tag",
+          "logic": "contains",
+          "property": "",
+          "value": "indice"
+        }
+      ]
     },
     "octagon": {
       "combinationLogic": "AND",
