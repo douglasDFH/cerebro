@@ -2,22 +2,22 @@
   "enableFeatures": {
     "graph": {
       "auto-enabled": false,
-      "tags": false,
-      "properties": false,
+      "tags": true,
+      "properties": true,
       "property-key": false,
-      "links": false,
+      "links": true,
       "linksSameColorAsNode": false,
-      "folders": false,
+      "folders": true,
       "imagesFromProperty": false,
       "imagesFromEmbeds": false,
       "imagesForAttachments": false,
-      "focus": false,
-      "shapes": false,
-      "elements-stats": false,
-      "names": false,
-      "icons": false,
-      "arrows": false,
-      "layers": false
+      "focus": true,
+      "shapes": true,
+      "elements-stats": true,
+      "names": true,
+      "icons": true,
+      "arrows": true,
+      "layers": true
     },
     "localgraph": {
       "auto-enabled": false,
@@ -233,10 +233,10 @@
       "rules": []
     }
   },
-  "colorBasedOnDepth": false,
+  "colorBasedOnDepth": true,
   "depthColormap": "rainbow",
   "currentNode": {
-    "useColor": false,
+    "useColor": true,
     "color": "#000000",
     "size": 100,
     "shape": "circle"
