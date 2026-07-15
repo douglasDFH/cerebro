@@ -107,67 +107,20 @@
       "id": "default-vault",
       "name": "Default state",
       "engineOptions": {
-        "colorGroups": [
-          {
-            "query": "path:\"UPDS\"",
-            "color": {
-              "a": 1,
-              "rgb": 5011696
-            }
-          },
-          {
-            "query": "path:\"Dismac\"",
-            "color": {
-              "a": 1,
-              "rgb": 14692657
-            }
-          },
-          {
-            "query": "path:\"UDABOL\"",
-            "color": {
-              "a": 1,
-              "rgb": 4108131
-            }
-          },
-          {
-            "query": "path:\"Proyectos\"",
-            "color": {
-              "a": 1,
-              "rgb": 1357990
-            }
-          },
-          {
-            "query": "file:\"MOC\"",
-            "color": {
-              "a": 1,
-              "rgb": 15778380
-            }
-          },
-          {
-            "query": "file:\"Inicio\"",
-            "color": {
-              "a": 1,
-              "rgb": 10636528
-            }
-          }
-        ],
+        "colorGroups": [],
         "search": "",
-        "hideUnresolved": false,
-        "showAttachments": false,
+        "hideUnresolved": true,
+        "showAttachments": true,
         "showOrphans": true,
-        "showTags": false,
-        "localBacklinks": true,
-        "localForelinks": true,
-        "localInterlinks": false,
-        "localJumps": 1,
-        "lineSizeMultiplier": 1,
-        "nodeSizeMultiplier": 1,
+        "showTags": true,
+        "lineSizeMultiplier": 1.71465696465696,
+        "nodeSizeMultiplier": 0.736694386694387,
         "showArrow": true,
-        "textFadeMultiplier": 0,
-        "centerStrength": 0.5187132489703118,
-        "linkDistance": 250,
+        "textFadeMultiplier": 1.9,
+        "centerStrength": 1,
+        "linkDistance": 378,
         "linkStrength": 1,
-        "repelStrength": 10
+        "repelStrength": 15.987525987526
       },
       "toggleTypes": {
         "tag": [],
