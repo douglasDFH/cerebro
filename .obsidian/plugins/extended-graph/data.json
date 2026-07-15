@@ -107,7 +107,43 @@
       "id": "default-vault",
       "name": "Default state",
       "engineOptions": {
-        "colorGroups": [],
+        "colorGroups": [
+          {
+            "query": "path:\"03 - Areas/UPDS\"",
+            "color": {
+              "a": 1,
+              "rgb": 5011696
+            }
+          },
+          {
+            "query": "path:\"03 - Areas/Dismac\"",
+            "color": {
+              "a": 1,
+              "rgb": 14692657
+            }
+          },
+          {
+            "query": "path:\"03 - Areas/UDABOL\"",
+            "color": {
+              "a": 1,
+              "rgb": 4108131
+            }
+          },
+          {
+            "query": "file:\"MOC\"",
+            "color": {
+              "a": 1,
+              "rgb": 15778380
+            }
+          },
+          {
+            "query": "file:\"Inicio\"",
+            "color": {
+              "a": 1,
+              "rgb": 10636528
+            }
+          }
+        ],
         "search": "",
         "hideUnresolved": false,
         "showAttachments": false,
@@ -119,7 +155,7 @@
         "localJumps": 1,
         "lineSizeMultiplier": 1,
         "nodeSizeMultiplier": 1,
-        "showArrow": false,
+        "showArrow": true,
         "textFadeMultiplier": 0,
         "centerStrength": 0.5187132489703118,
         "linkDistance": 250,
@@ -295,8 +331,8 @@
   "invertArrows": false,
   "flatArrows": false,
   "opaqueArrowsButKeepFading": false,
-  "alwaysOpaqueArrows": false,
-  "arrowScale": 1,
+  "alwaysOpaqueArrows": true,
+  "arrowScale": 2,
   "arrowFixedSize": false,
   "arrowColorBool": false,
   "arrowColor": "",
