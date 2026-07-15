@@ -2,39 +2,26 @@
 tags:
   - dashboard
   - moc
-creado: 2026-07-13
+actualizado: 2026-07-15
 ---
 
-# 🏠 Inicio — Mi Segundo Cerebro
+# 🏠 Inicio — Mi Cerebro
 
-> [!tip] Empieza siempre por aquí
-> Esta es la nota central. Desde aquí llegas a cualquier parte de tu cerebro digital. Ánclala en Obsidian (icono de estrella) para tenerla siempre a mano.
+> [!tip] Tu punto de partida
+> Desde aquí llegas a todo. Ánclala en Obsidian (icono de estrella) para tenerla siempre a mano.
 
-## 🗺️ Mapa general
+## 🗂️ Tus espacios
+- 🎓 [[🎓 UPDS - MOC|UPDS]] — universidad (Ingeniería de Sistemas)
+- 🎓 [[🎓 UDABOL - MOC|UDABOL]] — universidad
+- 💼 [[💼 Dismac - MOC|Dismac]] — tu trabajo
+- 💻 [[💻 Proyectos|Proyectos]] — tus programas
+- 📅 [[Diario/📇 Diario|Diario]] — lo del día a día
 
-### 💼 Trabajo
-- [[💼 Dismac - MOC]]
+## 🔎 Cómo funciona tu cerebro
+- **Todo se conecta solo:** cada carpeta tiene su índice 📇, y en cada guardado (commit/pull) se reconecta automáticamente. Nada queda suelto.
+- **Grafo:** color = espacio (UPDS azul, Dismac rojo, UDABOL verde), forma = tipo (diamante = MOC, hexágono = índice), tamaño = conexiones.
+- **Archivo nuevo sin ubicar:** ponlo en 📅 **Diario** y dime *"organiza"* → yo lo clasifico y conecto.
+- **Programas:** el código pesado vive en `C:\Users\SAMSUNG\Proyectos-Codigo` (afuera, para no inflar); en [[💻 Proyectos]] tienes una ficha de cada uno.
 
-### 🎓 Universidad
-- [[🎓 UPDS - MOC]]
-- [[🎓 UDABOL - MOC]]
-
-### 🧭 Organización (método PARA)
-- [[📥 Inbox]] — captura rápida, todavía sin ordenar
-- [[📋 Proyectos]] — lo que tiene un objetivo y fecha concreta
-- [[📚 Recursos]] — temas de interés, apuntes y referencias
-- [[🗄️ Archivo]] — lo ya terminado o inactivo
-
-## 📅 Hoy
-- Nota del día → [[2026-07-13]]
-
-## 🔎 Cómo se organiza esto (PARA)
-| Carpeta | Qué guardas aquí |
-|---|---|
-| **Proyectos** | Algo con meta y fecha: un parcial, un informe, una campaña de Dismac |
-| **Áreas** | Responsabilidades continuas sin fecha final: tu trabajo, cada universidad |
-| **Recursos** | Temas que te interesan: apuntes, PDFs, ideas, referencias |
-| **Archivo** | Lo que ya cerraste o dejó de estar activo |
-
-> [!note] Regla de oro
-> Cuando no sepas dónde poner algo, mándalo al [[📥 Inbox]] y ya lo ordenas después. Nunca dejes de capturar por no saber dónde va.
+---
+_Cerebro sincronizado en GitHub + 2 computadoras. Chat disponible desde Claude Code y la app de escritorio._

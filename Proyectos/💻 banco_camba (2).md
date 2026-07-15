@@ -4,18 +4,17 @@ tags:
 tecnologia: "PHP"
 ---
 
-# 💻 banco_camba
+# 💻 banco_camba (2)
 
 - **Tecnología:** PHP
-- **Materia:** [[desarrollo de sistemas y bases de datos II]]
 - **Código:** `C:\Users\SAMSUNG\Proyectos-Codigo\banco_camba (2)`
 - **Estado:** _(rellenar)_
 
 ## ¿Qué hace?
-_(describe brevemente el programa)_
+_(describe brevemente)_
 
 ## Notas
 -
 
 ---
-Volver a [[🏠 Inicio]]
+Volver a [[💻 Proyectos]] · [[🏠 Inicio]]

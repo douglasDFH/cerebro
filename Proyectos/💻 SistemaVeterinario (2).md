@@ -4,18 +4,17 @@ tags:
 tecnologia: "C# / .NET"
 ---
 
-# 💻 SistemaVeterinario
+# 💻 SistemaVeterinario (2)
 
 - **Tecnología:** C# / .NET
-- **Materia:** [[desarrollo sistemas II ING MOSCOSO]]
 - **Código:** `C:\Users\SAMSUNG\Proyectos-Codigo\SistemaVeterinario (2)`
 - **Estado:** _(rellenar)_
 
 ## ¿Qué hace?
-_(describe brevemente el programa)_
+_(describe brevemente)_
 
 ## Notas
 -
 
 ---
-Volver a [[🏠 Inicio]]
+Volver a [[💻 Proyectos]] · [[🏠 Inicio]]

@@ -63,19 +63,19 @@ for pr in top_projects:
     write(os.path.join(pr, f"\U0001F4C7 {os.path.basename(pr)} (proyecto).md"), "\n".join(L))
 
 sections = []
-for area in ["03 - Areas/UPDS", "03 - Areas/UDABOL", "03 - Areas/Dismac (Trabajo)"]:
+for area in ["UPDS", "UDABOL", "Dismac"]:
     ap = os.path.abspath(os.path.join(VAULT, area))
     if os.path.isdir(ap):
         for c in sorted(children.get(ap, [])):
             sections.append((c, area))
-for name in ["00 - Inbox", "01 - Diario", "02 - Proyectos", "04 - Recursos", "05 - Archivo", "99 - Plantillas"]:
+for name in ["Diario", "Proyectos"]:
     p = os.path.abspath(os.path.join(VAULT, name))
     if os.path.isdir(p):
         sections.append((p, None))
 
-MOC_UP = {"03 - Areas/UPDS": "[[\U0001F393 UPDS - MOC]]",
-          "03 - Areas/UDABOL": "[[\U0001F393 UDABOL - MOC]]",
-          "03 - Areas/Dismac (Trabajo)": "[[\U0001F4BC Dismac - MOC]]"}
+MOC_UP = {"UPDS": "[[\U0001F393 UPDS - MOC]]",
+          "UDABOL": "[[\U0001F393 UDABOL - MOC]]",
+          "Dismac": "[[\U0001F4BC Dismac - MOC]]"}
 
 for sec, area in sections:
     up = MOC_UP.get(area, "[[\U0001F3E0 Inicio]]")

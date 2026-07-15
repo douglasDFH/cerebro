@@ -4,18 +4,17 @@ tags:
 tecnologia: "Angular"
 ---
 
-# 💻 frontend-dbpedidos
+# 💻 frontend-dbpedidos (2)
 
 - **Tecnología:** Angular
-- **Materia:** [[diseño webII Api]]
 - **Código:** `C:\Users\SAMSUNG\Proyectos-Codigo\frontend-dbpedidos (2)`
 - **Estado:** _(rellenar)_
 
 ## ¿Qué hace?
-_(describe brevemente el programa)_
+_(describe brevemente)_
 
 ## Notas
 -
 
 ---
-Volver a [[🏠 Inicio]]
+Volver a [[💻 Proyectos]] · [[🏠 Inicio]]

@@ -109,24 +109,31 @@
       "engineOptions": {
         "colorGroups": [
           {
-            "query": "path:\"03 - Areas/UPDS\"",
+            "query": "path:\"UPDS\"",
             "color": {
               "a": 1,
               "rgb": 5011696
             }
           },
           {
-            "query": "path:\"03 - Areas/Dismac\"",
+            "query": "path:\"Dismac\"",
             "color": {
               "a": 1,
               "rgb": 14692657
             }
           },
           {
-            "query": "path:\"03 - Areas/UDABOL\"",
+            "query": "path:\"UDABOL\"",
             "color": {
               "a": 1,
               "rgb": 4108131
+            }
+          },
+          {
+            "query": "path:\"Proyectos\"",
+            "color": {
+              "a": 1,
+              "rgb": 1357990
             }
           },
           {

@@ -4,18 +4,17 @@ tags:
 tecnologia: "PHP"
 ---
 
-# 💻 appBike_store
+# 💻 appBike_store (2)
 
 - **Tecnología:** PHP
-- **Materia:** [[tecnologia web]]
 - **Código:** `C:\Users\SAMSUNG\Proyectos-Codigo\appBike_store (2)`
 - **Estado:** _(rellenar)_
 
 ## ¿Qué hace?
-_(describe brevemente el programa)_
+_(describe brevemente)_
 
 ## Notas
 -
 
 ---
-Volver a [[🏠 Inicio]]
+Volver a [[💻 Proyectos]] · [[🏠 Inicio]]

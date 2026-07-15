@@ -7,12 +7,12 @@ tags:
 
 > 🧭 [[💼 Dismac - MOC]] · [[🏠 Inicio]]
 
-- [[03 - Areas/Dismac (Trabajo)/Multimedia/DISMAC - CUMBIA -.mp3|DISMAC - CUMBIA -]]
-- [[03 - Areas/Dismac (Trabajo)/Multimedia/DISMAC - LATINO - .mp3|DISMAC - LATINO - ]]
-- [[03 - Areas/Dismac (Trabajo)/Multimedia/DISMAC - MAMBO -.mp3|DISMAC - MAMBO -]]
-- [[03 - Areas/Dismac (Trabajo)/Multimedia/DISMAC - SALSA -.mp3|DISMAC - SALSA -]]
-- [[03 - Areas/Dismac (Trabajo)/Multimedia/DISMAC - VARIADO -.mp3|DISMAC - VARIADO -]]
-- [[03 - Areas/Dismac (Trabajo)/Multimedia/festitvDismac.mpeg|festitvDismac]]
+- [[Dismac/Multimedia/DISMAC - CUMBIA -.mp3|DISMAC - CUMBIA -]]
+- [[Dismac/Multimedia/DISMAC - LATINO - .mp3|DISMAC - LATINO - ]]
+- [[Dismac/Multimedia/DISMAC - MAMBO -.mp3|DISMAC - MAMBO -]]
+- [[Dismac/Multimedia/DISMAC - SALSA -.mp3|DISMAC - SALSA -]]
+- [[Dismac/Multimedia/DISMAC - VARIADO -.mp3|DISMAC - VARIADO -]]
+- [[Dismac/Multimedia/festitvDismac.mpeg|festitvDismac]]
 
 ---
 Volver a [[💼 Dismac - MOC]] · [[🏠 Inicio]]

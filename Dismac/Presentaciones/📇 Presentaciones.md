@@ -7,8 +7,8 @@ tags:
 
 > 🧭 [[💼 Dismac - MOC]] · [[🏠 Inicio]]
 
-- [[03 - Areas/Dismac (Trabajo)/Presentaciones/Campanas_Promocionales_Dismac_2026.pptx|Campanas_Promocionales_Dismac_2026]]
-- [[03 - Areas/Dismac (Trabajo)/Presentaciones/Mejor_Tienda_Dismac_KPIs.pptx|Mejor_Tienda_Dismac_KPIs]]
+- [[Dismac/Presentaciones/Campanas_Promocionales_Dismac_2026.pptx|Campanas_Promocionales_Dismac_2026]]
+- [[Dismac/Presentaciones/Mejor_Tienda_Dismac_KPIs.pptx|Mejor_Tienda_Dismac_KPIs]]
 
 ---
 Volver a [[💼 Dismac - MOC]] · [[🏠 Inicio]]

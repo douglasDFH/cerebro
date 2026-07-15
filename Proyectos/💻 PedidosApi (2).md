@@ -4,18 +4,17 @@ tags:
 tecnologia: "C# / .NET"
 ---
 
-# 💻 PedidosApi
+# 💻 PedidosApi (2)
 
 - **Tecnología:** C# / .NET
-- **Materia:** [[diseño webII Api]]
 - **Código:** `C:\Users\SAMSUNG\Proyectos-Codigo\PedidosApi (2)`
 - **Estado:** _(rellenar)_
 
 ## ¿Qué hace?
-_(describe brevemente el programa)_
+_(describe brevemente)_
 
 ## Notas
 -
 
 ---
-Volver a [[🏠 Inicio]]
+Volver a [[💻 Proyectos]] · [[🏠 Inicio]]
