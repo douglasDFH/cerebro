@@ -42,3 +42,6 @@ desktop.ini
 *.nvram
 *.dll
 *.a
+
+# Claves/tokens de plugins (NO subir a GitHub)
+.obsidian/plugins/obsidian-local-rest-api/data.json

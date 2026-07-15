@@ -335,7 +335,7 @@
     "names": true,
     "zoom": true,
     "local-graph": false,
-    "display": true,
+    "display": false,
     "filter": true,
     "inputs": true,
     "performances": true,
