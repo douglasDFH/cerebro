@@ -10,7 +10,7 @@ actualizado: 2026-07-15
 > [!info] Catálogo de tus programas
 > Una ficha por cada programa que has hecho. El **código pesado vive afuera** (`C:\Users\SAMSUNG\Proyectos-Codigo`) para no inflar el cerebro; aquí tienes qué es cada uno y dónde encontrarlo.
 
-## 🗂️ Programas (31)
+## 🗂️ Programas (38)
 - [[💻 App_Hola_Mundo|App_Hola_Mundo]]  · _Node / JS_
 - [[💻 appBike_store|appBike_store]]  · _PHP_
 - [[💻 appBike_store (2)|appBike_store (2)]]  · _PHP_
@@ -21,8 +21,11 @@ actualizado: 2026-07-15
 - [[💻 CapaNegocio|CapaNegocio]]  · _C# / .NET_
 - [[💻 CapaPresentacion|CapaPresentacion]]  · _C# / .NET_
 - [[💻 CASO de ESTUDIO 3-ARCHIVOS|CASO de ESTUDIO 3-ARCHIVOS]]  · _C# / .NET_
+- [[💻 diseño webI - pagina_web_Pizza_Palace|diseño webI - pagina_web_Pizza_Palace]]  · _—_
 - [[💻 ecoplast-srl|ecoplast-srl]]  · _Node / JS, PHP_
 - [[💻 ejercicio 01|ejercicio 01]]  · _C# / .NET_
+- [[💻 estructuras de datos _ing tantani - ESTRUCTURA DE DATOS|estructuras de datos _ing tantani - ESTRUCTURA DE DATOS]]  · _Java_
+- [[💻 estructuras de datos _ing tantani - TDAPila|estructuras de datos _ing tantani - TDAPila]]  · _Java_
 - [[💻 fabrica-biodegradable|fabrica-biodegradable]]  · _Node / JS, PHP_
 - [[💻 frontend-dbpedidos|frontend-dbpedidos]]  · _Angular_
 - [[💻 frontend-dbpedidos (2)|frontend-dbpedidos (2)]]  · _Angular_
@@ -35,7 +38,11 @@ actualizado: 2026-07-15
 - [[💻 PedidosApp (2)|PedidosApp (2)]]  · _C# / .NET_
 - [[💻 PedidosApp (3)|PedidosApp (3)]]  · _C# / .NET_
 - [[💻 PROGRAMA1|PROGRAMA1]]  · _Librería descargada (Python/C++) — relleno_
+- [[💻 PROGRAMACION I - Ejercicios Propuestos y Resueltos en C++|PROGRAMACION I - Ejercicios Propuestos y Resueltos en C++]]  · _—_
+- [[💻 PROGRAMACION I - practico 1|PROGRAMACION I - practico 1]]  · _—_
+- [[💻 programacion webI - ZoofiPetss|programacion webI - ZoofiPetss]]  · _—_
 - [[💻 Sistema Ecommerce Blazor|Sistema Ecommerce Blazor]]  · _C# / .NET_
+- [[💻 sistema operativo - prueba|sistema operativo - prueba]]  · _—_
 - [[💻 SistemaVeterinario|SistemaVeterinario]]  · _C# / .NET_
 - [[💻 SistemaVeterinario (2)|SistemaVeterinario (2)]]  · _C# / .NET_
 - [[💻 SistemaVeterinario-fusion-de-la-rama|SistemaVeterinario-fusion-de-la-rama]]  · _C# / .NET_
