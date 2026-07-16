@@ -134,7 +134,7 @@
     "linkStrength": 1,
     "linkDistance": 378,
     "scale": 0.17558486599951872,
-    "close": false
+    "close": true
   },
   "openInNewTab": false,
   "canonicalizePropertiesWithDataview": true,
