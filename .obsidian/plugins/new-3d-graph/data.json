@@ -1,17 +1,38 @@
 {
-  "searchQuery": "",
+  "searchQuery": "-file:Inicio",
   "showNeighboringNodes": true,
   "performanceMode": false,
   "filters": [],
   "showAttachments": true,
   "hideOrphans": true,
   "showTags": true,
-  "groups": [],
-  "useThemeColors": true,
+  "groups": [
+    {
+      "query": "path:UPDS",
+      "color": "#4C78F0"
+    },
+    {
+      "query": "path:Dismac",
+      "color": "#E03131"
+    },
+    {
+      "query": "path:UDABOL",
+      "color": "#3EAF63"
+    },
+    {
+      "query": "path:Proyectos",
+      "color": "#14B8A6"
+    },
+    {
+      "query": "file:MOC",
+      "color": "#F0C24C"
+    }
+  ],
+  "useThemeColors": false,
   "colorNode": "#2080F0",
   "colorTag": "#9A49E8",
   "colorAttachment": "#75B63A",
-  "colorLink": "#666666",
+  "colorLink": "#A5D8FF",
   "colorHighlight": "#FFB800",
   "backgroundColor": "#0E0E10",
   "nodeSize": 1.5,
