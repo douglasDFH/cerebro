@@ -134,7 +134,7 @@
     "linkStrength": 1,
     "linkDistance": 378,
     "scale": 0.17558486599951872,
-    "close": true
+    "close": false
   },
   "openInNewTab": false,
   "canonicalizePropertiesWithDataview": true,
@@ -240,7 +240,7 @@
   "focusScaleFactor": 1.8,
   "highlightOpenNodes": false,
   "highlightSearchResults": false,
-  "maxNodes": 20,
+  "maxNodes": 10000,
   "delay": 500,
   "revertAction": false,
   "enableCSS": false,
