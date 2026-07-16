@@ -1,7 +1,7 @@
 {
   "searchQuery": "-file:Inicio",
   "showNeighboringNodes": true,
-  "performanceMode": false,
+  "performanceMode": true,
   "filters": [],
   "showAttachments": true,
   "hideOrphans": true,
