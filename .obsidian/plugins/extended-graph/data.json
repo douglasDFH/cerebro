@@ -80,7 +80,7 @@
   "additionalProperties": {},
   "backupGraphOptions": {
     "collapse-filter": false,
-    "search": "",
+    "search": "-file:\"Inicio\"",
     "showTags": false,
     "showAttachments": false,
     "hideUnresolved": false,
@@ -97,7 +97,7 @@
     "repelStrength": 15.987525987526,
     "linkStrength": 1,
     "linkDistance": 378,
-    "scale": 0.9481582568247329,
+    "scale": 0.5252934355536217,
     "close": true
   },
   "openInNewTab": false,
@@ -108,7 +108,7 @@
       "name": "Default state",
       "engineOptions": {
         "colorGroups": [],
-        "search": "",
+        "search": "-file:\"Inicio\"",
         "hideUnresolved": true,
         "showAttachments": true,
         "showOrphans": true,
