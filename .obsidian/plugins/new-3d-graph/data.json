@@ -44,7 +44,7 @@
   "attachmentShape": "Cube",
   "showNodeLabels": true,
   "showLabelsOnHoverOnly": false,
-  "labelDistance": 150,
+  "labelDistance": 370,
   "labelFadeThreshold": 0.8,
   "labelTextSize": 2.5,
   "labelTextColorLight": "#000000",
@@ -55,10 +55,10 @@
   "useKeyboardControls": true,
   "keyboardMoveSpeed": 2,
   "zoomOnClick": true,
-  "rotateSpeed": 1,
-  "panSpeed": 1,
-  "zoomSpeed": 1,
-  "centerForce": 0.68,
+  "rotateSpeed": 4.5,
+  "panSpeed": 5,
+  "zoomSpeed": 5,
+  "centerForce": 1,
   "repelForce": 20,
   "linkForce": 0.1
 }
