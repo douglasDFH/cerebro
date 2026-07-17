@@ -35,9 +35,9 @@
   "colorLink": "#A5D8FF",
   "colorHighlight": "#FFB800",
   "backgroundColor": "#0E0E10",
-  "nodeSize": 1.5,
-  "tagNodeSize": 1,
-  "attachmentNodeSize": 1.2,
+  "nodeSize": 5,
+  "tagNodeSize": 3.6,
+  "attachmentNodeSize": 4.1,
   "linkThickness": 1,
   "nodeShape": "Sphere",
   "tagShape": "Tetrahedron",
@@ -58,7 +58,7 @@
   "rotateSpeed": 1,
   "panSpeed": 1,
   "zoomSpeed": 1,
-  "centerForce": 0.1,
-  "repelForce": 10,
-  "linkForce": 0.01
+  "centerForce": 0.68,
+  "repelForce": 20,
+  "linkForce": 0.1
 }
